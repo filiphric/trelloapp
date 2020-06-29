@@ -110,10 +110,10 @@
 			<div class="Board_info">
 				<input class="Board_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
 			</div>
-			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @sort="sortList($event)">
-        <div class="List" v-for="(list, index) in currentBoard.lists">
+			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @end="sortList">
+        <div class="List" v-for="(list, index) in currentBoard.lists" :data-id="list.id">
 					<input class="Input" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
-					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @change="sortTask(list, $event)" >
+					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
             <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
               v-on:click="editTask(list, task)">
               <h3 class="Task_title" >{{task.title}}</h3>
