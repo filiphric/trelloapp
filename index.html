@@ -1,0 +1,247 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <base href="http://localhost:3000" />
+	<link rel="apple-touch-icon" sizes="72x72" href="public/images/logo.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="public/images/logo.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="public/images/logo.png">
+	<link rel="shortcut icon" type="image/png" href="public/images/logo.png">
+
+	<title>Trello</title>
+	<meta name="author" content="Zack Thoutt">
+	<meta charset="UTF-8">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="public/css/trello.css">
+
+</head>
+
+<template id="trello-board">
+	<div class="Background Background-blue">
+    <div class="loading" v-show="loading">
+      <svg width="16" height="16" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#fff" style="margin-bottom: -2px;">
+        <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)" stroke-width="2">
+                <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                <path d="M36 18c0-9.94-8.06-18-18-18">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 18 18"
+                        to="360 18 18"
+                        dur="1s"
+                        repeatCount="indefinite"/>
+                </path>
+            </g>
+        </g>
+    </svg>&nbsp;&nbsp;Loading data ...</div>
+		<div class="Background_spacer"></div>
+		<div class="Board">
+			<div
+				class="Overlay"
+				v-on:click.self="showTaskModule = !showTaskModule"
+				v-show="showTaskModule"
+			>
+				<div class="TaskModule">
+					<div class="TaskModule_exit">
+						<svg
+							class="Cancel"
+							v-on:click="showTaskModule = !showTaskModule; editTaskDescription = false"
+						>
+							<line x1="0" y1="0" x2="15" y2="15"/>
+							<line x1="0" y1="15" x2="15" y2="0"/>
+						</svg>
+					</div>
+					<input
+						class="Input TaskModule_title"
+            v-model.lazy="currentTask.title"
+            @change="updateTaskName(currentTask)" 
+            v-on:keyup.enter="$event.target.blur()"
+						type="text"
+					></input>
+					<h5 class="TaskModule_list">in list <strong>{{ currentList.title }}</strong></h5>
+					<h6 class="TaskModule_descriptionTitle">Description</h6>
+					<p
+						class="TaskModule_description"
+						v-if="currentTask.description"
+						v-show="!editTaskDescription"
+						v-on:click="editTaskDescription = !editTaskDescription"
+					>
+						{{ currentTask.description }}
+					</p>
+					<p
+						class="TaskModule_description"
+						v-else
+						v-on:click="editTaskDescription = !editTaskDescription"
+						v-show="!editTaskDescription"
+					>
+						Add a description...
+					</p>
+					<textarea
+						class="TextArea"
+						v-model="currentTask.description"
+						v-show="editTaskDescription"
+						type="text"
+						v-focus="editTaskDescription"
+						v-on:keyup.enter.prevent="saveNewTaskDescription"
+					></textarea>
+					<div
+						class="TaskModule_options"
+						v-show="editTaskDescription"
+					>
+						<button
+							class="Button"
+							v-on:click="saveNewTaskDescription(currentTask)"
+						>
+							Save
+						</button>
+						<svg
+							class="Cancel"
+							v-on:click="editTaskDescription = !editTaskDescription"
+						>
+							<line x1="0" y1="0" x2="15" y2="15"/>
+							<line x1="0" y1="15" x2="15" y2="0"/>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<div class="Board_info">
+				<input class="Board_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
+			</div>
+			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @sort="sortList($event)">
+        <div class="List" v-for="(list, index) in currentBoard.lists">
+					<input class="Input" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
+					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @change="sortTask(list, $event)" >
+            <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
+              v-on:click="editTask(list, task)">
+              <h3 class="Task_title" >{{task.title}}</h3>
+            </div>
+					</draggable>
+					<h5
+						class="List_addTask"
+						v-show="newTaskInputActive !== list.id"
+						v-on:click.stop.prevent="newTaskInputActive = list.id"
+					>
+						Add a card...
+					</h5>
+					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keyup.enter.prevent="addTask(list)" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
+					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
+						<button class="Button" v-on:click="addTask(list)">Add</button>
+						<svg class="Cancel" v-on:click="newTaskInputActive = null">
+							<line x1="0" y1="0" x2="15" y2="15"/>
+							<line x1="0" y1="15" x2="15" y2="0"/>
+						</svg>
+					</div>
+        </div>
+
+				<div class="CreateList" v-bind:class="{ 'CreateList-active': newListInputActive }">
+					<h3 class="CreateList_title" v-show="!newListInputActive" v-on:click="newListInputActive = !newListInputActive">Add a list...</h3>
+					<input class="CreateList_input" v-model="newListTitle" type="text" placeholder="Add a list..." v-on:keyup.enter="addList" v-focus="newListInputActive" v-show="newListInputActive"></input>
+					<div class="CreateList_options" v-show="newListInputActive">
+						<button class="Button" v-on:click="addList">Save</button>
+						<svg class="Cancel" v-on:click="cancelNewList">
+							<line x1="0" y1="0" x2="15" y2="15"/>
+							<line x1="0" y1="15" x2="15" y2="0"/>
+						</svg>
+					</div>
+				</div>
+			</draggable>
+		</div>
+	</div>
+
+</template>
+
+<template id="trello-board-collection">
+  <div class="Background Background-white">
+    <div class="loading" v-show="loading">
+      <svg width="16" height="16" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#000" style="margin-bottom: -2px;">
+        <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)" stroke-width="2">
+                <circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+                <path d="M36 18c0-9.94-8.06-18-18-18">
+                    <animateTransform
+                        attributeName="transform"
+                        type="rotate"
+                        from="0 18 18"
+                        to="360 18 18"
+                        dur="1s"
+                        repeatCount="indefinite"/>
+                </path>
+            </g>
+        </g>
+    </svg>&nbsp;&nbsp;Loading data ...</div>
+    <div class="Background_spacer"></div>
+		<hr class="pad20">
+    
+		<div class="Background_container" v-show="boards.length" v-cloak>
+			<h1 class="Background_title">My Starred</h1>
+			<div class="Collection">
+				<router-link tag="div" class="Collection_item" v-for="board in starred(boards)" :to="{ path: '/board/' + board.id }">
+          <h1 class="Collection_title">{{ board.name }}</h1>
+					<svg version="1.1" class="Star"   x="0px" y="0px"
+						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
+						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
+							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
+							c-1.141,3.51-0.22,7.363,2.385,9.979l64.272,64.55l-14.056,90.001c-0.569,3.648,0.95,7.306,3.937,9.476
+							c2.986,2.17,6.937,2.485,10.229,0.816l81.252-41.18l81.252,41.18c1.405,0.713,2.929,1.063,4.446,1.063
+							c2.04,0,4.069-0.635,5.782-1.879c2.986-2.17,4.506-5.827,3.937-9.476l-14.056-89.999l64.273-64.552
+							C296.739,121.692,297.659,117.839,296.519,114.329z M212.404,178.509c-2.211,2.221-3.232,5.362-2.748,8.459l11.862,75.954
+							l-68.571-34.753c-2.795-1.416-6.098-1.416-8.893,0l-68.571,34.753l11.862-75.956c0.484-3.097-0.537-6.238-2.748-8.459l-54.24-54.474
+							l75.902-12.188c3.095-0.497,5.767-2.438,7.195-5.228L148.5,38.198l35.046,68.421c1.429,2.79,4.101,4.731,7.195,5.228l75.902,12.188
+							L212.404,178.509z"/>
+					</svg>
+				</router-link>
+			</div>
+			<h1 class="Background_title">My Boards</h1>
+			<div class="Collection">
+				<router-link tag="div" class="Collection_item" v-for="board in boards" :to="{ path: '/board/' + board.id }">
+					<h1 class="Collection_title">{{ board.name }}</h1>
+					<svg version="1.1" class="Star"   x="0px" y="0px"
+						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
+						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
+							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
+							c-1.141,3.51-0.22,7.363,2.385,9.979l64.272,64.55l-14.056,90.001c-0.569,3.648,0.95,7.306,3.937,9.476
+							c2.986,2.17,6.937,2.485,10.229,0.816l81.252-41.18l81.252,41.18c1.405,0.713,2.929,1.063,4.446,1.063
+							c2.04,0,4.069-0.635,5.782-1.879c2.986-2.17,4.506-5.827,3.937-9.476l-14.056-89.999l64.273-64.552
+							C296.739,121.692,297.659,117.839,296.519,114.329z M212.404,178.509c-2.211,2.221-3.232,5.362-2.748,8.459l11.862,75.954
+							l-68.571-34.753c-2.795-1.416-6.098-1.416-8.893,0l-68.571,34.753l11.862-75.956c0.484-3.097-0.537-6.238-2.748-8.459l-54.24-54.474
+							l75.902-12.188c3.095-0.497,5.767-2.438,7.195-5.228L148.5,38.198l35.046,68.421c1.429,2.79,4.101,4.731,7.195,5.228l75.902,12.188
+							L212.404,178.509z"/>
+					</svg>
+				</router-link>
+				<div class="Collection_newItem" v-bind:class="{ 'Collection_newItem-active': newBoardInputActive }" v-on:click="toggleNewBoardInput(true)" >
+					<h1 class="Collection_title" v-show="!newBoardInputActive">Create a board...</h1>
+					<input class="Collection_addBoard" v-model="newBoardTitle" v-on:keyup.enter.prevent="createNewBoard()" placeholder="Create a board..." v-show="newBoardInputActive" v-focus="newBoardInputActive" ></input>
+					<div class="Collection_options" v-show="newBoardInputActive">
+						<button class="Button" v-on:click.stop="createNewBoard()">Save</button>
+						<svg class="Cancel" v-on:click.stop="toggleNewBoardInput(false)">
+							<line x1="0" y1="0" x2="15" y2="15"/>
+							<line x1="0" y1="15" x2="15" y2="0"/>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</template>
+
+<body>
+	<div id="trello-app">
+		<nav class="Nav">
+      <router-link tag="div" class="Nav_boards Nav_button" to="/">
+        Boards
+      </router-link>
+			<img class="Nav_logo" src="./public/images/logo-title-inverse.svg">
+			<div class="Nav_user Nav_button">Login</div>
+		</nav>
+		<router-view :key="$route.fullPath"></router-view>
+	</div>
+
+	<script type="text/javascript" src="public/js/trello.js"></script>
+
+</body>
+
+</html>

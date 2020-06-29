@@ -1,0 +1,40 @@
+.Background {
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	.Background_spacer {
+		width: 100vw;
+		height: $nav-height;
+	}
+	.Background_container {
+		margin: 10px auto;
+		width: 90%;
+		max-width: 1300px;
+	}
+	.Background_title {
+		@include openSans($large, $black);
+		margin: 10px 0;
+	}
+}
+.Background-white {
+	background-color: $white;
+}
+.Background-blue {
+	background-color: $blue-6;
+}
+
+.loading {
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.Background-white .loading {
+  color: #000;
+}
+.Background-blue .loading {
+  color: #fff;
+}

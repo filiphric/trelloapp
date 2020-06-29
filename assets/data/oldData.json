@@ -1,0 +1,29 @@
+{
+  "boards": {
+    "b2": {
+      "name": "New Zealand trip",
+      "starred": false,
+      "lists": []
+    },
+    "b3": {
+      "name": "Work",
+      "starred": false,
+      "lists": []
+    },
+    "b4": {
+      "name": "Invention ideas",
+      "starred": false,
+      "lists": []
+    },
+    "b5": {
+      "name": "2016 goals",
+      "starred": false,
+      "lists": []
+    },
+    "b6": {
+      "name": "Home improvements",
+      "starred": false,
+      "lists": []
+    }
+  }
+}
