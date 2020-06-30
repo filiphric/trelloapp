@@ -1,7 +1,11 @@
 const axios = require('axios');
+// const vueDropzone = require('vue2-dropzone');
 
 Vue.component('board', {
-	template: '#trello-board',
+  template: '#trello-board',
+  // components: {
+  //   vueDropzone
+  //   },
 	data: function() {
 		return {
 			editTaskDescription: false,
@@ -10,12 +14,17 @@ Vue.component('board', {
 			currentList: {},
       currentTask: {},
       currentLists: {},
-      activeList: null,
       showTaskModule: false,
       currentBoard: {},
       loading: true,
       newListInputActive: false,
-      newTaskInputActive: null
+      // newTaskInputActive: null,
+      // dropzoneOptions: {
+      //   url: 'http://localhost:3000/api/tasks/upload',
+      //   thumbnailWidth: 150,
+      //   maxFilesize: 10.5,
+      //   headers: { "My-Awesome-Header": "header value" }
+      // }
 		}
   },
   created () {
@@ -48,8 +57,15 @@ Vue.component('board', {
       let from = parseInt(evt.from.parentElement.getAttribute('data-id'))
       let to = parseInt(evt.to.parentElement.getAttribute('data-id'))
 
+      // get old position + new position and use it with slice
+      // changing 0 and 1 - just change slice (0, 1)
+      // changing 2 and 4 - just change slice (2, 4)
+      // ordering backwards - revert slice order
+      // how to get indexes numbers?
+
       this.currentLists[from].forEach((task, index) => {
 
+        // change index in data store
         task.order = index
 
         axios
@@ -57,12 +73,17 @@ Vue.component('board', {
         
       });
 
+      // get old list and do a full reorder
+      // get new list and new position, order everything from slice start to slice down
+
       if (from !== to) {
   
         this.currentLists[to].forEach((task, index) => {
   
+          // change index in data store - keep this for full reorder of old list, but use currentLists[from]
           task.order = index
   
+          // send request to api
           axios
             .patch(`/api/tasks/${task.id}`, { order: index, listId: to })
           

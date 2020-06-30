@@ -6,7 +6,6 @@ const server = jsonServer.create()
 const history = require('connect-history-api-fallback')
 const middlewares = jsonServer.defaults({static: '.'})
 const router = jsonServer.router('./assets/data/data.json')
-const path = require('path')
 
 server.use(history())
 server.use(middlewares)

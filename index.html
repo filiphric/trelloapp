@@ -103,7 +103,8 @@
 							<line x1="0" y1="0" x2="15" y2="15"/>
 							<line x1="0" y1="15" x2="15" y2="0"/>
 						</svg>
-					</div>
+          </div>
+          <!-- <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone> -->
 				</div>
 			</div>
 
@@ -175,8 +176,8 @@
     <div class="Background_spacer"></div>
 		<hr class="pad20">
     
-		<div class="Background_container" v-show="boards.length" v-cloak>
-			<h1 class="Background_title">My Starred</h1>
+		<div class="Background_container" v-cloak>
+			<h1 class="Background_title" v-show="starred(boards).length" >My Starred</h1>
 			<div class="Collection">
 				<router-link tag="div" class="Collection_item" v-for="board in starred(boards)" :to="{ path: '/board/' + board.id }">
           <h1 class="Collection_title">{{ board.name }}</h1>
@@ -231,10 +232,10 @@
 <body>
 	<div id="trello-app">
 		<nav class="Nav">
-      <router-link tag="div" class="Nav_boards Nav_button" to="/">
-        Boards
+      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'">
+        My Boards
       </router-link>
-			<img class="Nav_logo" src="./public/images/logo-title-inverse.svg">
+			<img class="Nav_logo" src="./public/images/trello-logo.png">
 			<div class="Nav_user Nav_button">Login</div>
 		</nav>
 		<router-view :key="$route.fullPath"></router-view>

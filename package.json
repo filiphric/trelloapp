@@ -1,10 +1,10 @@
 {
-  "name": "vue-trello",
+  "name": "trelloapp",
   "version": "1.0.0",
-  "author": "Zack Thoutt",
+  "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node start.js"
+    "start": "node index.js"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
