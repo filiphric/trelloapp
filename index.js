@@ -5,10 +5,14 @@ const jsonServer = require('json-server')
 const server = jsonServer.create()
 const history = require('connect-history-api-fallback')
 const middlewares = jsonServer.defaults({static: '.'})
-const router = jsonServer.router('./assets/data/data.json')
+const router = jsonServer.router('./public/data/data.json')
+const busboy = require('connect-busboy')
+const path = require('path');     //used for file path
+const fs = require('fs-extra'); 
 
 server.use(history())
 server.use(middlewares)
+server.use(busboy())
 server.use(jsonServer.rewriter({
   '/api/*': '/$1'
 }))
@@ -42,7 +46,37 @@ server.use((req, res, next) => {
 
   }
 
+  if (req.method === 'POST' && req.path === '/tasks') {
+    
+    req.body.id = randomId()
+
+  }
+
+  if (req.method === 'POST' && req.path === '/upload') {
+
+
+    let name = req.headers.taskid;
+    
+
+        var fstream;
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            fstream = fs.createWriteStream(__dirname + '/public/uploaded/' + name + '_' + filename);
+            file.pipe(fstream);
+            fstream.on('close', function () {
+              
+              res.status(201).jsonp({path: '/public/uploaded/' + name + '_' + filename})
+
+            });
+        });
+
+        return 
+
+       
+    };
+
   next()
+
 })
 
 server.use(router)

@@ -1,11 +1,11 @@
 const axios = require('axios');
-// const vueDropzone = require('vue2-dropzone');
+const vueDropzone = require('vue2-dropzone');
 
 Vue.component('board', {
   template: '#trello-board',
-  // components: {
-  //   vueDropzone
-  //   },
+  components: {
+    vueDropzone
+    },
 	data: function() {
 		return {
 			editTaskDescription: false,
@@ -18,13 +18,12 @@ Vue.component('board', {
       currentBoard: {},
       loading: true,
       newListInputActive: false,
-      // newTaskInputActive: null,
-      // dropzoneOptions: {
-      //   url: 'http://localhost:3000/api/tasks/upload',
-      //   thumbnailWidth: 150,
-      //   maxFilesize: 10.5,
-      //   headers: { "My-Awesome-Header": "header value" }
-      // }
+      newTaskInputActive: null,
+      dropzoneOptions: {
+        url: `http://localhost:3000/api/upload`,
+        thumbnailWidth: 150,
+        maxFilesize: 12
+      }
 		}
   },
   created () {
@@ -41,6 +40,19 @@ Vue.component('board', {
       })
   },
 	methods: {
+    fileUploaded(res) {
+
+      let path = JSON.parse(res.xhr.response).path
+      
+      axios
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: path })
+
+      this.currentTask.image = path
+
+    },
+    addImageId(file, xhr, formData){
+      xhr.setRequestHeader('taskId', this.currentTask.id)
+    },
     sortList() {
 
       this.currentBoard.lists.forEach((list, index) => {
@@ -154,7 +166,8 @@ Vue.component('board', {
 		editTask: function(list, task) {
 			this.showTaskModule = true;
 			this.currentList = list;
-			this.currentTask = task;
+      this.currentTask = task;
+      // this.$set(this.currentTask, 'id', task.id)
 		},
 		saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;
@@ -162,5 +175,5 @@ Vue.component('board', {
       axios
         .patch(`/api/tasks/${task.id}`, {description: task.description})
 		}
-  }
+}
 });

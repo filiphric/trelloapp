@@ -2,7 +2,6 @@ Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
 
-
 require('vuedraggable');
 require('./../directives/vue-focus.js');
 require('./../components/collection.js');
