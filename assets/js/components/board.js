@@ -53,6 +53,14 @@ Vue.component('board', {
     addImageId(file, xhr, formData){
       xhr.setRequestHeader('taskId', this.currentTask.id)
     },
+    removeImage() {
+
+      axios
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: null })
+
+      this.currentTask.image = null
+
+    },
     sortList() {
 
       this.currentBoard.lists.forEach((list, index) => {
