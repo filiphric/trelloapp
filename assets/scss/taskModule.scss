@@ -74,6 +74,7 @@
         display: block;
         margin: auto;
         padding-top: 8px;
+        fill: #B6BBBF
       }
   }
   .dz-message p{
@@ -83,6 +84,21 @@
   .vue-dropzone {
     padding-bottom: 30px;
     padding-top: 8px;
+    
+  }
+  .dz-drag-hover {
+    svg {
+      @extend .transition;
+      fill: $gray-10
+    }
+    .dz-message{
+      @extend .transition;
+      border-color: $gray-10;
+    }
+    .dz-message p{ 
+      @extend .transition;
+      color: $gray-10;
+    }
   }
   .imagePreview {
     img {

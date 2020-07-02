@@ -35,12 +35,14 @@
     {
       "boardId": 81943,
       "title": "new",
-      "id": 10663
+      "id": 10663,
+      "order": 0
     },
     {
       "boardId": 81943,
       "title": "dasfg",
-      "id": 99569
+      "id": 99569,
+      "order": 1
     }
   ],
   "tasks": [

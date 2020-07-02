@@ -1,5 +1,5 @@
 @import '../../assets/css/normalize.css';
-.transition, .Star:hover path, .Star, .Collection .Collection_item:hover .Star, .CreateList-active, .CreateList {
+.transition, .Star:hover path, .Star, .Collection .Collection_item:hover .Star, .TaskModule .dz-drag-hover .dz-message p, .TaskModule .dz-drag-hover .dz-message, .TaskModule .dz-drag-hover svg, .CreateList-active, .CreateList {
   transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
   -webkit-transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
   -moz-transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
@@ -436,6 +436,7 @@ nav.Nav .Nav_button:hover {
   display: block;
   margin: auto;
   padding-top: 8px;
+  fill: #B6BBBF;
 }
 .TaskModule .dz-message p {
   font-family: "Open Sans", sans-serif;
@@ -447,6 +448,15 @@ nav.Nav .Nav_button:hover {
 .TaskModule .vue-dropzone {
   padding-bottom: 30px;
   padding-top: 8px;
+}
+.TaskModule .dz-drag-hover svg {
+  fill: #838C91;
+}
+.TaskModule .dz-drag-hover .dz-message {
+  border-color: #838C91;
+}
+.TaskModule .dz-drag-hover .dz-message p {
+  color: #838C91;
 }
 .TaskModule .imagePreview {
   width: 100%;
