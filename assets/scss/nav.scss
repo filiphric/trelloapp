@@ -34,6 +34,13 @@ nav.Nav {
 		cursor: pointer;
 		&:hover {
 			background-color: $blue-4;
-		}
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #FFF;
+      vertical-align: bottom;
+      margin-bottom: -2px;
+    }
 	}
 }

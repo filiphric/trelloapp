@@ -1,0 +1,96 @@
+.Overlay {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1000;
+}
+.LoginModule {
+	background-color: $gray-3;
+	border-radius: $border-radius;
+  min-height: 310px;
+  width: 350px;
+	z-index: 2000;
+	margin: 4% 0;
+  padding: 0;
+  overflow: hidden;
+	.LoginModule_exit {
+		width: 100%;
+		display: block;
+		position: relative;
+		height: 35px;
+		.Cancel {
+			position: absolute;
+			right: 14.7px;
+			top: 15px;
+			margin: 0;
+		}
+	}
+	.LoginModule_title {
+		@include openSans($large, $black);
+    margin: 0 auto 1px auto;
+    text-align: center;
+  }
+  .LoginModule_description {
+		@include openSans($small, $gray-9);
+		width: $list-item-width;
+		margin: 0 auto;
+    padding: 0 0 20px 0;
+    text-align: center;
+  }
+  .LoginModule_logSignSwitch {
+		@include openSans($medium, $gray-10);
+		width: $list-item-width;
+		margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 20px 0;
+    text-align: center;
+    a {
+      @include openSans($medium, $gray-10);
+      text-decoration: underline;
+    }
+  }
+  .LoginModule_buttons{
+    button {
+      display: block;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .credentials {
+    input {
+      margin-top: 4px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px;
+      width: 250px;
+      display: block;
+    }
+    .welcomeEmail {
+      display: block;
+      text-align: center;
+      .checkbox {
+        @include openSans($small, $gray-9);
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 25px;
+        position: relative;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .checkbox input {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+}

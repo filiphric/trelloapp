@@ -128,6 +128,13 @@ nav.Nav .Nav_button {
 nav.Nav .Nav_button:hover {
   background-color: #5BA4CF;
 }
+nav.Nav .Nav_button svg {
+  width: 20px;
+  height: 20px;
+  fill: #FFF;
+  vertical-align: bottom;
+  margin-bottom: -2px;
+}
 
 .Background {
   width: 100vw;
@@ -479,6 +486,115 @@ nav.Nav .Nav_button:hover {
 }
 .TaskModule .dz-preview {
   display: none;
+}
+
+.Overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.LoginModule {
+  background-color: #E2E4E6;
+  border-radius: 3px;
+  min-height: 310px;
+  width: 350px;
+  z-index: 2000;
+  margin: 4% 0;
+  padding: 0;
+  overflow: hidden;
+}
+.LoginModule .LoginModule_exit {
+  width: 100%;
+  display: block;
+  position: relative;
+  height: 35px;
+}
+.LoginModule .LoginModule_exit .Cancel {
+  position: absolute;
+  right: 14.7px;
+  top: 15px;
+  margin: 0;
+}
+.LoginModule .LoginModule_title {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #4d4d4d;
+  margin: 0 auto 1px auto;
+  text-align: center;
+}
+.LoginModule .LoginModule_description {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #959DA1;
+  width: 88%;
+  margin: 0 auto;
+  padding: 0 0 20px 0;
+  text-align: center;
+}
+.LoginModule .LoginModule_logSignSwitch {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #838C91;
+  width: 88%;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0 20px 0;
+  text-align: center;
+}
+.LoginModule .LoginModule_logSignSwitch a {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #838C91;
+  text-decoration: underline;
+}
+.LoginModule .LoginModule_buttons button {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.LoginModule .credentials input {
+  margin-top: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  width: 250px;
+  display: block;
+}
+.LoginModule .credentials .welcomeEmail {
+  display: block;
+  text-align: center;
+}
+.LoginModule .credentials .welcomeEmail .checkbox {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #959DA1;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 25px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.LoginModule .credentials .welcomeEmail .checkbox input {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .Collection {
