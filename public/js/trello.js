@@ -6,13 +6,13 @@ Vue.component('board', {
   template: '#trello-board',
   components: {
     vueDropzone
-    },
-	data: function() {
-		return {
-			editTaskDescription: false,
-			newListTitle: "",
-			newTaskTitle: "",
-			currentList: {},
+  },
+  data: function() {
+    return {
+      editTaskDescription: false,
+      newListTitle: '',
+      newTaskTitle: '',
+      currentList: {},
       currentTask: {},
       currentLists: {},
       showTaskModule: false,
@@ -21,62 +21,62 @@ Vue.component('board', {
       newListInputActive: false,
       newTaskInputActive: null,
       dropzoneOptions: {
-        url: `http://localhost:3000/api/upload`,
+        url: 'http://localhost:3000/api/upload',
         thumbnailWidth: 150,
         maxFilesize: 12
       }
-		}
+    };
   },
   created () {
     axios
       .get(`/api/boards/${this.$route.params.id}`)
       .then(r => r.data)
       .then(board => {   
-        this.currentBoard = board 
+        this.currentBoard = board; 
         this.currentBoardName = board.name;
-        this.loading = false
+        this.loading = false;
         board.lists.forEach(list => {
-          this.$set(this.currentLists, list.id, board.tasks.filter(task => task.listId === list.id))
+          this.$set(this.currentLists, list.id, board.tasks.filter(task => task.listId === list.id));
         });
-      })
+      });
   },
-	methods: {
+  methods: {
     fileUploaded(res) {
 
-      let path = JSON.parse(res.xhr.response).path
+      let path = JSON.parse(res.xhr.response).path;
       
       axios
-        .patch(`/api/tasks/${this.currentTask.id}`, { image: path })
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: path });
 
-      this.currentTask.image = path
+      this.$set(this.currentTask, 'image', path);
 
     },
-    addImageId(file, xhr, formData){
-      xhr.setRequestHeader('taskId', this.currentTask.id)
+    addImageId(file, xhr){
+      xhr.setRequestHeader('taskId', this.currentTask.id);
     },
     removeImage() {
 
       axios
-        .patch(`/api/tasks/${this.currentTask.id}`, { image: null })
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: null });
 
-      this.currentTask.image = null
+      this.currentTask.image = null;
 
     },
     sortList() {
 
       this.currentBoard.lists.forEach((list, index) => {
 
-        list.order = index
+        list.order = index;
 
         axios
-          .patch(`/api/lists/${list.id}`, { order: index })
+          .patch(`/api/lists/${list.id}`, { order: index });
         
       });
     },
     sortTask(evt) {
 
-      let from = parseInt(evt.from.parentElement.getAttribute('data-id'))
-      let to = parseInt(evt.to.parentElement.getAttribute('data-id'))
+      let from = parseInt(evt.from.parentElement.getAttribute('data-id'));
+      let to = parseInt(evt.to.parentElement.getAttribute('data-id'));
 
       // get old position + new position and use it with slice
       // changing 0 and 1 - just change slice (0, 1)
@@ -87,10 +87,10 @@ Vue.component('board', {
       this.currentLists[from].forEach((task, index) => {
 
         // change index in data store
-        task.order = index
+        task.order = index;
 
         axios
-          .patch(`/api/tasks/${task.id}`, { order: index })
+          .patch(`/api/tasks/${task.id}`, { order: index });
         
       });
 
@@ -102,11 +102,11 @@ Vue.component('board', {
         this.currentLists[to].forEach((task, index) => {
   
           // change index in data store - keep this for full reorder of old list, but use currentLists[from]
-          task.order = index
+          task.order = index;
   
           // send request to api
           axios
-            .patch(`/api/tasks/${task.id}`, { order: index, listId: to })
+            .patch(`/api/tasks/${task.id}`, { order: index, listId: to });
           
         });
         
@@ -115,135 +115,136 @@ Vue.component('board', {
     },
     updateListName(list) {      
       axios
-        .patch(`/api/lists/${list.id}`, { title: list.title })
+        .patch(`/api/lists/${list.id}`, { title: list.title });
     },
     updateTaskName(task) {      
       axios
-        .patch(`/api/tasks/${task.id}`, { title: task.title })
+        .patch(`/api/tasks/${task.id}`, { title: task.title });
     },
     updateBoardName() {
       axios
-        .patch(`/api/boards/${this.currentBoard.id}`, { name: this.currentBoard.name })
+        .patch(`/api/boards/${this.currentBoard.id}`, { name: this.currentBoard.name });
     },
-		addTask: function(list) {
+    addTask: function(list) {
       if (!this.newTaskTitle) {
-        this.newTaskInputActive = false
+        this.newTaskInputActive = false;
         return;
       }
       let task = {
         boardId: this.currentBoard.id,
-        description: "",
+        description: '',
         listId: list.id,
         title: this.newTaskTitle
-      } 
+      }; 
       axios
-        .post(`/api/tasks`, task)
+        .post('/api/tasks', task)
         .then(r => r.data)
         .then(taskContent => {    
-          this.newTaskTitle = ""
-          this.newTaskInputActive = false
-          this.currentLists[list.id].push(taskContent)
-        })
-		},
-		addList() {
+          this.newTaskTitle = '';
+          this.newTaskInputActive = false;
+          this.currentLists[list.id].push(taskContent);
+        });
+    },
+    addList() {
       if (!this.newListTitle) {
-        this.newListInputActive = false
+        this.newListInputActive = false;
         return;
       }
       let list = {
         boardId: this.currentBoard.id,
         title: this.newListTitle
-      } 
+      }; 
       axios
-        .post(`/api/lists`, list)
+        .post('/api/lists', list)
         .then(r => r.data)
         .then(listContent => {    
-          this.newListTitle = ""
-          this.newListInputActive = false
-          this.currentBoard.lists.push(listContent)
-          this.currentLists[listContent.id] = []
-        })
-		},
-		cancelNewList() {
-			this.newListTitle = "";
-			this.newListInputActive = false;
+          this.newListTitle = '';
+          this.newListInputActive = false;
+          this.currentBoard.lists.push(listContent);
+          this.currentLists[listContent.id] = [];
+        });
+    },
+    cancelNewList() {
+      this.newListTitle = '';
+      this.newListInputActive = false;
     },
     tasksList: function(list) {
-      return this.currentBoard.tasks.filter(b => b.listId === list.id)
+      return this.currentBoard.tasks.filter(b => b.listId === list.id);
     },
-
-		editTask: function(list, task) {
-			this.showTaskModule = true;
-			this.currentList = list;
+    editTask: function(list, task) {
+      this.showTaskModule = true;
+      this.currentList = list;
       this.currentTask = task;
       // this.$set(this.currentTask, 'id', task.id)
-		},
-		saveNewTaskDescription: function(task) {
+    },
+    saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;
       
       axios
-        .patch(`/api/tasks/${task.id}`, {description: task.description})
-		}
-}
+        .patch(`/api/tasks/${task.id}`, {description: task.description});
+    }
+  }
 });
 },{"axios":5,"vue2-dropzone":38}],2:[function(require,module,exports){
 const axios = require('axios');
 
 Vue.component('board-collection', {
-    template: '#trello-board-collection',
-    data: function() {
-      return {
-        loading: true,
-        boards: [],
-        newBoardTitle: "",
-        newBoardInputActive: false
-      }},
-    created () {
-      axios
-        .get('/api/boards')
-        .then(r => r.data)
-        .then(boards => {          
-          this.loading = false;
-          this.boards = boards;
-        })
+  template: '#trello-board-collection',
+  data: function() {
+    return {
+      loading: true,
+      boards: [],
+      newBoardTitle: '',
+      newBoardInputActive: false
+    };},
+  created () {
+    axios
+      .get('/api/boards')
+      .then(r => r.data)
+      .then(boards => {          
+        this.loading = false;
+        this.boards = boards;
+      });
+  },
+  methods: {
+    createNewBoard () {
+      if (!this.newBoardTitle) {
+        return;
+      }
+      axios.post('/api/boards', { name: this.newBoardTitle }).then((r) => {  
+        this.boards.push(r.data);
+        this.$router.push(`/board/${r.data.id}`);
+      });
+      this.newBoardTitle = '';
     },
-    methods: {
-    	createNewBoard () {
-        if (!this.newBoardTitle) {
-          return;
-        }
-        axios.post('/api/boards', { name: this.newBoardTitle }).then((r) => {  
-          this.boards.push(r.data);
-          this.$router.push(`/board/${r.data.id}`)
-        })
-        this.newBoardTitle = ''
-    	},
-    	toggleNewBoardInput: function(flag) {
-          this.newBoardInputActive = flag
-    	},
-    	updateBoardStarred: function(board) {
-        let flag = !board.starred
-        axios.patch(`/api/boards/${board.id}`, {starred: flag});        
-        this.boards.find(b => b.id === board.id).starred = flag;
-      },
-      starred: function(boards) {
-        let starredBoards = boards.filter(b => b.starred === true)
-    		return starredBoards
-    	}
+    toggleNewBoardInput: function(flag) {
+      this.newBoardInputActive = flag;
+    },
+    updateBoardStarred: function(board) {
+      let flag = !board.starred;
+      axios.patch(`/api/boards/${board.id}`, {starred: flag});        
+      this.boards.find(b => b.id === board.id).starred = flag;
+    },
+    starred: function(boards) {
+      let starredBoards = boards.filter(b => b.starred === true);
+      return starredBoards;
     }
+  }
 });
 },{"axios":5}],3:[function(require,module,exports){
 Vue.directive('focus', {
   inserted: function (el) {
-      el.focus();
+    el.focus();
   },
   update: function (el) {
-      Vue.nextTick(function() {
-            el.focus();
-      })
+    Vue.nextTick(function() {
+      el.focus();
+    });
   }
-})
+});
 },{}],4:[function(require,module,exports){
+const axios = require('axios');
+
 Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
@@ -261,35 +262,85 @@ var router = new VueRouter({
     { path: '/', name: 'board-collection', component: Vue.component('board-collection') },
     { path: '/board/:id', name: 'board', component: Vue.component('board') },
   ]
-})
+});
 
 new Vue({
   data: function() {
-		return {
+    return {
       showLoginModule: false,
       loginCardActive: false,
-      signupCardActive: false
+      signupCardActive: false,
+      loginEmail: '',
+      loginPassword: '',
+      signupEmail: '',
+      signupPassword: '',
+      loggedIn: {
+        active: false,
+        email: '',
+      }
+    };
+  },
+  created () {
+
+    let parsedCookies = document.cookie.split('; ').reduce((prev, current) => {
+      const [name, value] = current.split('=');
+      prev[name] = value;
+      return prev;
+    }, {});
+
+    if (parsedCookies['trello_token']) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookies['trello_token']}`;
+
+      axios
+        .get('/api/users').then( r => {
+          this.loggedIn.active = true;
+          this.loggedIn.email = r.data.user.email;
+        });
+
     }
   },
   methods: {
     openLogin: function() {
-			this.showLoginModule = true;
-			this.loginCardActive = true;
+      this.showLoginModule = true;
+      this.loginCardActive = true;
     },
     closeLogin: function() {
-			this.showLoginModule = false;
-			this.loginCardActive = false;
-			this.signupCardActive = false;
+      this.showLoginModule = false;
+      this.loginCardActive = false;
+      this.signupCardActive = false;
+      this.loginEmail = '';
+      this.loginPassword = '';
+      this.signupEmail = '';
+      this.signupPassword = '';
     },
     logSignSwitch: function() {
-			this.signupCardActive = !this.signupCardActive;
-			this.loginCardActive = !this.loginCardActive;
+      this.signupCardActive = !this.signupCardActive;
+      this.loginCardActive = !this.loginCardActive;
+    },
+    login: function () {
+      axios
+        .post('/login', {
+          email: this.loginEmail,
+          password: this.loginPassword
+        })
+        .then( r => {
+          document.cookie = `trello_token=${r.data.accessToken}`;
+          this.loggedIn.active = true;
+          this.loggedIn.email = this.loginEmail;
+          this.showLoginModule = false;
+          this.loginCardActive = false;
+          this.signupCardActive = false;
+        })
+        .catch( r => {
+          console.log(r.data);
+        });
+      
     }
   },
   router
-}).$mount('#trello-app')
+}).$mount('#trello-app');
 
-},{"./../components/board.js":1,"./../components/collection.js":2,"./../directives/vue-focus.js":3,"vue":36,"vue-router":34,"vuedraggable":39}],5:[function(require,module,exports){
+},{"./../components/board.js":1,"./../components/collection.js":2,"./../directives/vue-focus.js":3,"axios":5,"vue":36,"vue-router":34,"vuedraggable":39}],5:[function(require,module,exports){
 module.exports = require('./lib/axios');
 },{"./lib/axios":7}],6:[function(require,module,exports){
 'use strict';
@@ -5823,7 +5874,7 @@ exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate :
 },{"process/browser.js":31,"timers":33}],34:[function(require,module,exports){
 (function (process){
 /*!
-  * vue-router v3.3.2
+  * vue-router v3.3.4
   * (c) 2020 Evan You
   * @license MIT
   */
@@ -7851,7 +7902,9 @@ function createNavigationRedirectedError (from, to) {
     from,
     to,
     NavigationFailureType.redirected,
-    ("Redirected from \"" + (from.fullPath) + "\" to \"" + (stringifyRoute(to)) + "\" via a navigation guard.")
+    ("Redirected when going from \"" + (from.fullPath) + "\" to \"" + (stringifyRoute(
+      to
+    )) + "\" via a navigation guard.")
   )
 }
 
@@ -7971,9 +8024,17 @@ History.prototype.transitionTo = function transitionTo (
       }
       if (err && !this$1.ready) {
         this$1.ready = true;
-        this$1.readyErrorCbs.forEach(function (cb) {
-          cb(err);
-        });
+        // Initial redirection should still trigger the onReady onSuccess
+        // https://github.com/vuejs/vue-router/issues/3225
+        if (!isRouterError(err, NavigationFailureType.redirected)) {
+          this$1.readyErrorCbs.forEach(function (cb) {
+            cb(err);
+          });
+        } else {
+          this$1.readyCbs.forEach(function (cb) {
+            cb(route);
+          });
+        }
       }
     }
   );
@@ -7999,10 +8060,13 @@ History.prototype.confirmTransition = function confirmTransition (route, onCompl
     }
     onAbort && onAbort(err);
   };
+  var lastRouteIndex = route.matched.length - 1;
+  var lastCurrentIndex = current.matched.length - 1;
   if (
     isSameRoute(route, current) &&
     // in the case the route map has been dynamically appended to
-    route.matched.length === current.matched.length
+    lastRouteIndex === lastCurrentIndex &&
+    route.matched[lastRouteIndex] === current.matched[lastCurrentIndex]
   ) {
     this.ensureURL();
     return abort(createNavigationDuplicatedError(current, route))
@@ -8820,7 +8884,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '3.3.2';
+VueRouter.version = '3.3.4';
 
 if (inBrowser && window.Vue) {
   window.Vue.use(VueRouter);

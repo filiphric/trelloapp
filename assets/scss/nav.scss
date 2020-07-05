@@ -29,7 +29,7 @@ nav.Nav {
 		display: block;
 		@include openSans($small, $white);
 		background-color: $blue-5;
-		padding: 10px 15px;
+		padding: 10px 12px;
 		border-radius: $border-radius;
 		cursor: pointer;
 		&:hover {

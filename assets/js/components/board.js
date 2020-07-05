@@ -5,13 +5,13 @@ Vue.component('board', {
   template: '#trello-board',
   components: {
     vueDropzone
-    },
-	data: function() {
-		return {
-			editTaskDescription: false,
-			newListTitle: "",
-			newTaskTitle: "",
-			currentList: {},
+  },
+  data: function() {
+    return {
+      editTaskDescription: false,
+      newListTitle: '',
+      newTaskTitle: '',
+      currentList: {},
       currentTask: {},
       currentLists: {},
       showTaskModule: false,
@@ -20,62 +20,62 @@ Vue.component('board', {
       newListInputActive: false,
       newTaskInputActive: null,
       dropzoneOptions: {
-        url: `http://localhost:3000/api/upload`,
+        url: 'http://localhost:3000/api/upload',
         thumbnailWidth: 150,
         maxFilesize: 12
       }
-		}
+    };
   },
   created () {
     axios
       .get(`/api/boards/${this.$route.params.id}`)
       .then(r => r.data)
       .then(board => {   
-        this.currentBoard = board 
+        this.currentBoard = board; 
         this.currentBoardName = board.name;
-        this.loading = false
+        this.loading = false;
         board.lists.forEach(list => {
-          this.$set(this.currentLists, list.id, board.tasks.filter(task => task.listId === list.id))
+          this.$set(this.currentLists, list.id, board.tasks.filter(task => task.listId === list.id));
         });
-      })
+      });
   },
-	methods: {
+  methods: {
     fileUploaded(res) {
 
-      let path = JSON.parse(res.xhr.response).path
+      let path = JSON.parse(res.xhr.response).path;
       
       axios
-        .patch(`/api/tasks/${this.currentTask.id}`, { image: path })
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: path });
 
-      this.currentTask.image = path
+      this.$set(this.currentTask, 'image', path);
 
     },
-    addImageId(file, xhr, formData){
-      xhr.setRequestHeader('taskId', this.currentTask.id)
+    addImageId(file, xhr){
+      xhr.setRequestHeader('taskId', this.currentTask.id);
     },
     removeImage() {
 
       axios
-        .patch(`/api/tasks/${this.currentTask.id}`, { image: null })
+        .patch(`/api/tasks/${this.currentTask.id}`, { image: null });
 
-      this.currentTask.image = null
+      this.currentTask.image = null;
 
     },
     sortList() {
 
       this.currentBoard.lists.forEach((list, index) => {
 
-        list.order = index
+        list.order = index;
 
         axios
-          .patch(`/api/lists/${list.id}`, { order: index })
+          .patch(`/api/lists/${list.id}`, { order: index });
         
       });
     },
     sortTask(evt) {
 
-      let from = parseInt(evt.from.parentElement.getAttribute('data-id'))
-      let to = parseInt(evt.to.parentElement.getAttribute('data-id'))
+      let from = parseInt(evt.from.parentElement.getAttribute('data-id'));
+      let to = parseInt(evt.to.parentElement.getAttribute('data-id'));
 
       // get old position + new position and use it with slice
       // changing 0 and 1 - just change slice (0, 1)
@@ -86,10 +86,10 @@ Vue.component('board', {
       this.currentLists[from].forEach((task, index) => {
 
         // change index in data store
-        task.order = index
+        task.order = index;
 
         axios
-          .patch(`/api/tasks/${task.id}`, { order: index })
+          .patch(`/api/tasks/${task.id}`, { order: index });
         
       });
 
@@ -101,11 +101,11 @@ Vue.component('board', {
         this.currentLists[to].forEach((task, index) => {
   
           // change index in data store - keep this for full reorder of old list, but use currentLists[from]
-          task.order = index
+          task.order = index;
   
           // send request to api
           axios
-            .patch(`/api/tasks/${task.id}`, { order: index, listId: to })
+            .patch(`/api/tasks/${task.id}`, { order: index, listId: to });
           
         });
         
@@ -114,74 +114,73 @@ Vue.component('board', {
     },
     updateListName(list) {      
       axios
-        .patch(`/api/lists/${list.id}`, { title: list.title })
+        .patch(`/api/lists/${list.id}`, { title: list.title });
     },
     updateTaskName(task) {      
       axios
-        .patch(`/api/tasks/${task.id}`, { title: task.title })
+        .patch(`/api/tasks/${task.id}`, { title: task.title });
     },
     updateBoardName() {
       axios
-        .patch(`/api/boards/${this.currentBoard.id}`, { name: this.currentBoard.name })
+        .patch(`/api/boards/${this.currentBoard.id}`, { name: this.currentBoard.name });
     },
-		addTask: function(list) {
+    addTask: function(list) {
       if (!this.newTaskTitle) {
-        this.newTaskInputActive = false
+        this.newTaskInputActive = false;
         return;
       }
       let task = {
         boardId: this.currentBoard.id,
-        description: "",
+        description: '',
         listId: list.id,
         title: this.newTaskTitle
-      } 
+      }; 
       axios
-        .post(`/api/tasks`, task)
+        .post('/api/tasks', task)
         .then(r => r.data)
         .then(taskContent => {    
-          this.newTaskTitle = ""
-          this.newTaskInputActive = false
-          this.currentLists[list.id].push(taskContent)
-        })
-		},
-		addList() {
+          this.newTaskTitle = '';
+          this.newTaskInputActive = false;
+          this.currentLists[list.id].push(taskContent);
+        });
+    },
+    addList() {
       if (!this.newListTitle) {
-        this.newListInputActive = false
+        this.newListInputActive = false;
         return;
       }
       let list = {
         boardId: this.currentBoard.id,
         title: this.newListTitle
-      } 
+      }; 
       axios
-        .post(`/api/lists`, list)
+        .post('/api/lists', list)
         .then(r => r.data)
         .then(listContent => {    
-          this.newListTitle = ""
-          this.newListInputActive = false
-          this.currentBoard.lists.push(listContent)
-          this.currentLists[listContent.id] = []
-        })
-		},
-		cancelNewList() {
-			this.newListTitle = "";
-			this.newListInputActive = false;
+          this.newListTitle = '';
+          this.newListInputActive = false;
+          this.currentBoard.lists.push(listContent);
+          this.currentLists[listContent.id] = [];
+        });
+    },
+    cancelNewList() {
+      this.newListTitle = '';
+      this.newListInputActive = false;
     },
     tasksList: function(list) {
-      return this.currentBoard.tasks.filter(b => b.listId === list.id)
+      return this.currentBoard.tasks.filter(b => b.listId === list.id);
     },
-
-		editTask: function(list, task) {
-			this.showTaskModule = true;
-			this.currentList = list;
+    editTask: function(list, task) {
+      this.showTaskModule = true;
+      this.currentList = list;
       this.currentTask = task;
       // this.$set(this.currentTask, 'id', task.id)
-		},
-		saveNewTaskDescription: function(task) {
+    },
+    saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;
       
       axios
-        .patch(`/api/tasks/${task.id}`, {description: task.description})
-		}
-}
+        .patch(`/api/tasks/${task.id}`, {description: task.description});
+    }
+  }
 });

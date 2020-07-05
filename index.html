@@ -13,7 +13,12 @@
 	<meta name="author" content="Zack Thoutt">
 	<meta charset="UTF-8">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="public/css/trello.css">
+  <link rel="stylesheet" type="text/css" href="public/css/trello.css">
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
 
 </head>
 
@@ -209,7 +214,7 @@
 		<div class="Background_container" v-cloak>
 			<h1 class="Background_title" v-show="starred(boards).length" >My Starred</h1>
 			<div class="Collection">
-				<router-link tag="div" class="Collection_item" v-for="board in starred(boards)" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div" class="Collection_item" v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
           <h1 class="Collection_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
@@ -227,7 +232,7 @@
 			</div>
 			<h1 class="Background_title">My Boards</h1>
 			<div class="Collection">
-				<router-link tag="div" class="Collection_item" v-for="board in boards" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div" class="Collection_item" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
 					<h1 class="Collection_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
@@ -261,19 +266,25 @@
 
 <body>
 	<div id="trello-app">
-		<nav class="Nav">
-      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'">
+		<nav class="Nav" >
+      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
         My Boards
       </router-link>
 			<img class="Nav_logo" src="./public/images/trello-logo.png">
-			<div class="Nav_user Nav_button" @click="openLogin()">
+			<div class="Nav_user Nav_button" v-show="!loggedIn.active" @click="openLogin()" v-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" data-name="Layer 1" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg>
-        Log in</div>
+        Log in
+      </div>
+      <div class="Nav_user Nav_button" v-show="loggedIn.active" v-cloak>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#5aac44"/></svg>
+        {{ loggedIn.email }}
+      </div>
     </nav>
     <div
 				class="Overlay"
 				v-on:click.self="closeLogin()"
-				v-show="showLoginModule"
+        v-show="showLoginModule"
+        v-cloak
 			>
 				<div class="LoginModule">
 					<div class="LoginModule_exit">
@@ -289,10 +300,10 @@
             <h2 class="LoginModule_title">Log in to your account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to log in</p>
-                <input type="email" placeholder="Email address">          
-                <input type="password" placeholder="Password">    
+                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail">          
+                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword">    
                 <div class="LoginModule_buttons">
-                  <button class="Button">
+                  <button class="Button" @click="login">
                     Log in</button>
                 </div>      
               </div>
@@ -302,8 +313,8 @@
             <h2 class="LoginModule_title">Sign up to create a free account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to sign up</p>
-                <input type="email" placeholder="Email address">          
-                <input type="password" placeholder="Password"> 
+                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail">          
+                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword"> 
                 <div class="welcomeEmail">
                   <label class="checkbox">
                     <input type="checkbox" value="sendEmails">

@@ -3,10 +3,11 @@ Vue.component('nav-header', {
   data: function() {
     return {
       showLoginModule: false
-    }},
+    };
+  },
   methods: {
     gotoLogin: function() {
-			this.showLoginModule = true;
-		}
+      this.showLoginModule = true;
+    }
   }
-  })
+});

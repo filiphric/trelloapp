@@ -1,58 +1,59 @@
 {
   "boards": [
     {
-      "name": "Nový board",
-      "id": 81943,
+      "name": "aaa",
+      "id": 8,
+      "starred": false
+    },
+    {
+      "name": "aaa",
+      "id": 42052,
       "starred": false
     },
     {
       "name": "new",
-      "id": 74391,
+      "id": 44784186398,
       "starred": false
-    },
-    {
-      "name": "hello",
-      "id": 180,
-      "starred": false
-    }
-  ],
-  "lists": [
-    {
-      "boardId": 74391,
-      "title": "add",
-      "id": 3373
-    },
-    {
-      "boardId": 180,
-      "title": "adsfds",
-      "id": 12573
-    },
-    {
-      "boardId": 180,
-      "title": "sgdaf",
-      "id": 46963
-    },
-    {
-      "boardId": 81943,
-      "title": "new",
-      "id": 10663,
-      "order": 0
-    },
-    {
-      "boardId": 81943,
-      "title": "dasfg",
-      "id": 99569,
-      "order": 1
     }
   ],
   "tasks": [
     {
-      "boardId": 81943,
-      "description": "oijasdgiog oasdg oasdj goajsj dgoij asdoigj sadoig sdiid gioaisod gjas diogjpaoisdjgpoasdj pgo asdpogh asdphg pashd gpiuahsdpiguhas dpiugha psdugh pasiudhg paiusdhg piausdh gpiuahsd pgiuashd pgiuhasd pguha pdiguh aspdugh",
-      "listId": 10663,
-      "title": "upload here\n",
-      "id": 59423,
-      "image": null
+      "boardId": 44784186398,
+      "description": "",
+      "listId": 19858990386,
+      "title": "aaa",
+      "id": 70434675260
+    },
+    {
+      "boardId": 44784186398,
+      "description": "",
+      "listId": 19858990386,
+      "title": "sss",
+      "id": 77928355457
+    }
+  ],
+  "users": [
+    {
+      "email": "filip@filiphric.sk",
+      "password": "$2a$10$8r3.zxalpEncWrrdZydeguhzuSj3hX./47xWJoJmpJVfrISjL8TDK",
+      "id": 1
+    },
+    {
+      "email": "fff@filiphric.sk",
+      "password": "$2a$10$jA2sV3NKtXBULrfGzNaFEuE0/Aohx/ecCJrz7dWeQGKvC6bWz1Nvm",
+      "id": 2
+    }
+  ],
+  "lists": [
+    {
+      "boardId": 44784186398,
+      "title": "new",
+      "id": 19858990386
+    },
+    {
+      "boardId": 42052,
+      "title": "asdfd",
+      "id": 86441694351
     }
   ]
 }
