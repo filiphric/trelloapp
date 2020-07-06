@@ -45,18 +45,18 @@
 		<div class="boardDetail">
 			<div
 				class="Overlay"
-				v-on:click.self="showTaskModule = !showTaskModule"
+				v-on:click.self="showTaskModule = !showTaskModule; taskDropdown = false"
 				v-show="showTaskModule"
 			>
 				<div class="TaskModule">
 					<div class="TaskModule_exit">
-						<svg
-							class="Cancel"
-							v-on:click="showTaskModule = !showTaskModule; editTaskDescription = false"
-						>
-							<line x1="0" y1="0" x2="15" y2="15"/>
-							<line x1="0" y1="15" x2="15" y2="0"/>
-						</svg>
+            <div class="dropdown" @click="taskDropdown = !taskDropdown">
+              <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
+              <div id="myDropdown" class="dropdown-content" :class="{ show: taskDropdown }">
+                <span v-on:click="showTaskModule = false">Close</span>
+                <span class="delete" @click="deleteTask(currentTask)">Delete</span>
+              </div>
+            </div>
 					</div>
 					<input
 						class="Input TaskModule_title"
@@ -89,7 +89,7 @@
 						v-show="editTaskDescription"
 						type="text"
 						v-focus="editTaskDescription"
-						v-on:keyup.enter.prevent="saveNewTaskDescription"
+						v-on:keydown.enter.prevent="saveNewTaskDescription"
 					></textarea>
 					<div
 						class="TaskModule_options"
@@ -129,7 +129,7 @@
             v-show="!currentTask.image" 
             :id="'dropzone' + currentTask.id" 
             :options="dropzoneOptions" 
-            :destroyDropzone=true
+            :destroy-dropzone=true
             :use-custom-slot=true
             @vdropzone-sending="addImageId" 
             @vdropzone-success="fileUploaded"
@@ -151,8 +151,11 @@
 					<input class="Input" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
 					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
             <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
-              v-on:click="editTask(list, task)">
-              <h3 class="Task_title" >{{task.title}}</h3>
+              v-on:click.self="editTask(list, task)">
+              <label class="container"><h3 class="Task_title" :class="{ completed: task.completed }">{{task.title}}</h3>
+                <input type="checkbox" v-model="task.completed" >
+                <span class="checkmark" v-on:click="completeTask(task, !task.completed)"></span>
+              </label>
             </div>
 					</draggable>
 					<h5
@@ -162,7 +165,7 @@
 					>
 						Add a card...
 					</h5>
-					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keyup.enter.prevent="addTask(list)" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
+					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
 					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
 						<button class="Button" v-on:click="addTask(list)">Add</button>
 						<svg class="Cancel" v-on:click="newTaskInputActive = null">
@@ -232,7 +235,7 @@
 			</div>
 			<h1 class="background_title">My Boards</h1>
 			<div class="board">
-				<router-link tag="div" class="board_item" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div" class="board_item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
 					<h1 class="board_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">

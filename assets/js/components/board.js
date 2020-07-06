@@ -15,6 +15,7 @@ Vue.component('board', {
       currentTask: {},
       currentLists: {},
       showTaskModule: false,
+      taskDropdown: false,
       currentBoard: {},
       loading: true,
       newListInputActive: false,
@@ -132,6 +133,7 @@ Vue.component('board', {
       let task = {
         boardId: this.currentBoard.id,
         description: '',
+        completed: false,
         listId: list.id,
         title: this.newTaskTitle
       }; 
@@ -176,9 +178,20 @@ Vue.component('board', {
       this.currentTask = task;
       // this.$set(this.currentTask, 'id', task.id)
     },
+    completeTask: function(task, flag) {
+      axios
+        .patch(`/api/tasks/${task.id}`, {completed: flag});
+    },
+    deleteTask: function(task) {
+      this.showTaskModule = false;
+      this.currentTask = {};
+      this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
+      
+      axios
+        .delete(`/api/tasks/${task.id}`);
+    },
     saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;
-      
       axios
         .patch(`/api/tasks/${task.id}`, {description: task.description});
     }
