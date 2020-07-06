@@ -1,10 +1,10 @@
-.Collection {
+.board {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	width: 100%;
-	.Collection_item {
+	.board_item {
 		display: block;
 		position: relative;
 		height: 85px;
@@ -23,12 +23,12 @@
 			}
 		}
 	}
-	.Collection_title {
+	.board_title {
 		@include openSans($medium, $white);
 		margin: 0;
 		padding: 0;
 	}
-	.Collection_addBoard {
+	.board_addBoard {
 		@include openSans($medium, $black);
 		margin: 0;
 		padding: 7px;
@@ -37,7 +37,7 @@
 		border-radius: $border-radius;
 		background-color: $white;
 	}
-	.Collection_options {
+	.board_options {
 		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
@@ -45,7 +45,7 @@
 		justify-content: flex-start;
 		margin: 10px auto;
 	}
-	.Collection_newItem {
+	.board_newItem {
 		height: 85px;
 		margin: 0 20px 20px 0;
 		border-radius: $border-radius;
@@ -58,7 +58,7 @@
 			background-color: $gray-7;
 		}
 	}
-	.Collection_newItem-active {
+	.board_newItem-active {
 		background-color: $gray-5 !important;
 		&:hover {
 			background-color: $gray-5 !important;

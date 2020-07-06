@@ -1,5 +1,5 @@
-.Board {
-	.Board_title {
+.boardDetail {
+	.boardDetail_title {
 		@include openSans($large, $white);
 		align-self: flex-start;
 		width: $list-width - 14px;
@@ -14,7 +14,7 @@
 			color: $black !important;
 		}
 	}
-	.Board_info {
+	.boardDetail_info {
 		width: 97%;
 		margin: 2% auto 0 auto;
 		height: auto;

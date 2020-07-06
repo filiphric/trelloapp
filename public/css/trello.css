@@ -1,5 +1,5 @@
 @import '../../assets/css/normalize.css';
-.transition, .Star:hover path, .Star, .Collection .Collection_item:hover .Star, .TaskModule .dz-drag-hover .dz-message p, .TaskModule .dz-drag-hover .dz-message, .TaskModule .dz-drag-hover svg, .CreateList-active, .CreateList {
+.transition, .Star:hover path, .Star, .board .board_item:hover .Star, .TaskModule .dz-drag-hover .dz-message p, .TaskModule .dz-drag-hover .dz-message, .TaskModule .dz-drag-hover svg, .CreateList-active, .CreateList {
   transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
   -webkit-transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
   -moz-transition: all 0.15s cubic-bezier(0.2, 0.3, 0.25, 0.9);
@@ -136,22 +136,22 @@ nav.Nav .Nav_button svg {
   margin-bottom: -2px;
 }
 
-.Background {
+.background {
   width: 100vw;
   height: 100vh;
   margin: 0;
   padding: 0;
 }
-.Background .Background_spacer {
+.background .background_spacer {
   width: 100vw;
   height: 55px;
 }
-.Background .Background_container {
+.background .background_container {
   margin: 10px auto;
   width: 90%;
   max-width: 1300px;
 }
-.Background .Background_title {
+.background .background_title {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 20px;
@@ -159,11 +159,11 @@ nav.Nav .Nav_button svg {
   margin: 10px 0;
 }
 
-.Background-white {
+.background-white {
   background-color: #FFFFFF;
 }
 
-.Background-blue {
+.background-blue {
   background-color: #0079BF;
 }
 
@@ -175,11 +175,11 @@ nav.Nav .Nav_button svg {
   transform: translate(-50%, -50%);
 }
 
-.Background-white .loading {
+.background-white .loading {
   color: #000;
 }
 
-.Background-blue .loading {
+.background-blue .loading {
   color: #fff;
 }
 
@@ -598,14 +598,14 @@ nav.Nav .Nav_button svg {
   top: 0;
 }
 
-.Collection {
+.board {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
 }
-.Collection .Collection_item {
+.board .board_item {
   display: block;
   position: relative;
   height: 85px;
@@ -616,14 +616,14 @@ nav.Nav .Nav_button svg {
   width: 250px;
   background-color: #026AA7;
 }
-.Collection .Collection_item:hover {
+.board .board_item:hover {
   background-color: #055A8C;
 }
-.Collection .Collection_item:hover .Star {
+.board .board_item:hover .Star {
   right: 13px;
   visibility: visible;
 }
-.Collection .Collection_title {
+.board .board_title {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 15px;
@@ -631,7 +631,7 @@ nav.Nav .Nav_button svg {
   margin: 0;
   padding: 0;
 }
-.Collection .Collection_addBoard {
+.board .board_addBoard {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 15px;
@@ -643,7 +643,7 @@ nav.Nav .Nav_button svg {
   border-radius: 3px;
   background-color: #FFFFFF;
 }
-.Collection .Collection_options {
+.board .board_options {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -651,7 +651,7 @@ nav.Nav .Nav_button svg {
   justify-content: flex-start;
   margin: 10px auto;
 }
-.Collection .Collection_newItem {
+.board .board_newItem {
   height: 85px;
   margin: 0 20px 20px 0;
   border-radius: 3px;
@@ -664,13 +664,13 @@ nav.Nav .Nav_button svg {
   font-size: 15px;
   color: #4d4d4d;
 }
-.Collection .Collection_newItem:hover {
+.board .board_newItem:hover {
   background-color: #B6BBBF;
 }
-.Collection .Collection_newItem-active {
+.board .board_newItem-active {
   background-color: #CDD2D4 !important;
 }
-.Collection .Collection_newItem-active:hover {
+.board .board_newItem-active:hover {
   background-color: #CDD2D4 !important;
 }
 
@@ -692,7 +692,7 @@ nav.Nav .Nav_button svg {
   stroke-width: 30;
 }
 
-.Board .Board_title {
+.boardDetail .boardDetail_title {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 20px;
@@ -706,11 +706,11 @@ nav.Nav .Nav_button svg {
   background-color: #0079BF;
   border-radius: 3px;
 }
-.Board .Board_title:focus {
+.boardDetail .boardDetail_title:focus {
   background-color: #FFFFFF !important;
   color: #4d4d4d !important;
 }
-.Board .Board_info {
+.boardDetail .boardDetail_info {
   width: 97%;
   margin: 2% auto 0 auto;
   height: auto;

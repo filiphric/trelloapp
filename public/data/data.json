@@ -1,5 +1,11 @@
 {
-  "boards": [],
+  "boards": [
+    {
+      "name": "a",
+      "id": 31622772789,
+      "starred": false
+    }
+  ],
   "tasks": [],
   "users": [],
   "lists": []
