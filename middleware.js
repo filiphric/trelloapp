@@ -80,8 +80,8 @@ module.exports = (req, res, next) => {
   }
 
   if (req.method === 'GET' && req.path === '/users') {
+    
     const userData = parseJWT();
-
     if (!userData) return unauthorized();
 
     const id = parseInt(userData.sub);

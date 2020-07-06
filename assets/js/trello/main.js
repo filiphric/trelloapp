@@ -90,6 +90,25 @@ new Vue({
           console.log(r.data);
         });
       
+    },
+    signup: function () {
+      axios
+        .post('/signup', {
+          email: this.signupEmail,
+          password: this.signupPassword
+        })
+        .then( r => {
+          document.cookie = `trello_token=${r.data.accessToken}`;
+          this.loggedIn.active = true;
+          this.loggedIn.email = this.signupEmail;
+          this.showLoginModule = false;
+          this.loginCardActive = false;
+          this.signupCardActive = false;
+        })
+        .catch( r => {
+          console.log(r.data);
+        });
+      
     }
   },
   router

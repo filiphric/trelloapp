@@ -1,59 +1,6 @@
 {
-  "boards": [
-    {
-      "name": "aaa",
-      "id": 8,
-      "starred": false
-    },
-    {
-      "name": "aaa",
-      "id": 42052,
-      "starred": false
-    },
-    {
-      "name": "new",
-      "id": 44784186398,
-      "starred": false
-    }
-  ],
-  "tasks": [
-    {
-      "boardId": 44784186398,
-      "description": "",
-      "listId": 19858990386,
-      "title": "aaa",
-      "id": 70434675260
-    },
-    {
-      "boardId": 44784186398,
-      "description": "",
-      "listId": 19858990386,
-      "title": "sss",
-      "id": 77928355457
-    }
-  ],
-  "users": [
-    {
-      "email": "filip@filiphric.sk",
-      "password": "$2a$10$8r3.zxalpEncWrrdZydeguhzuSj3hX./47xWJoJmpJVfrISjL8TDK",
-      "id": 1
-    },
-    {
-      "email": "fff@filiphric.sk",
-      "password": "$2a$10$jA2sV3NKtXBULrfGzNaFEuE0/Aohx/ecCJrz7dWeQGKvC6bWz1Nvm",
-      "id": 2
-    }
-  ],
-  "lists": [
-    {
-      "boardId": 44784186398,
-      "title": "new",
-      "id": 19858990386
-    },
-    {
-      "boardId": 42052,
-      "title": "asdfd",
-      "id": 86441694351
-    }
-  ]
+  "boards": [],
+  "tasks": [],
+  "users": [],
+  "lists": []
 }

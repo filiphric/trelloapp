@@ -266,7 +266,7 @@
 
 <body>
 	<div id="trello-app">
-		<nav class="Nav" >
+		<nav class="Nav" v-cloak>
       <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
         My Boards
       </router-link>
@@ -322,7 +322,7 @@
                   </label>    
                 </div>
                 <div class="LoginModule_buttons">
-                  <button class="Button">
+                  <button class="Button" @click="signup">
                     Sign up</button>
                 </div>      
               </div>
