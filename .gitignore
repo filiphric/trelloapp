@@ -1,3 +1,1 @@
-node_modules/
-.sass-cache/
-public/uploaded/*
+/node_modules
