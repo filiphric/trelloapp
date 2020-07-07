@@ -306,6 +306,71 @@ nav.Nav .Nav_button svg {
   margin: 0.5% 1.5%;
   vertical-align: top;
 }
+.List .taskTitle {
+  width: 212px;
+  min-height: 18px;
+  display: inline-block;
+  margin: 0 auto 7px 17px;
+  background-color: #E2E4E6;
+  border-radius: 3px;
+  color: #4d4d4d;
+  outline: none;
+  border: none;
+}
+.List .taskTitle:focus {
+  background-color: #FFFFFF;
+}
+.List .options {
+  fill: #959DA1;
+  width: 21px;
+  height: 21px;
+  margin: 5px 8px 0 0;
+  cursor: pointer;
+}
+.List .dropdown {
+  position: relative;
+  display: block;
+  float: right;
+}
+.List .invisible-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1000;
+}
+.List .dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  margin-left: -75px;
+}
+.List .dropdown-content span {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #4d4d4d;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+.List .dropdown-content span:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.List .dropdown-content span.delete {
+  color: #FF220C;
+}
+.List .show {
+  display: block;
+}
 .List .List_tasks {
   max-height: 70vh;
   overflow-y: scroll;
@@ -395,8 +460,7 @@ nav.Nav .Nav_button svg {
   width: 88%;
   padding: 5px;
   min-height: 18px;
-  display: block;
-  margin: 0 auto;
+  margin: 0 2px 7px 9px;
   background-color: #E2E4E6;
   border-radius: 3px;
   color: #4d4d4d;
@@ -463,13 +527,25 @@ nav.Nav .Nav_button svg {
   display: block;
   float: right;
 }
+.TaskModule .TaskModule_exit .invisible-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1000;
+}
 .TaskModule .TaskModule_exit .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 1002;
   margin-left: -75px;
 }
 .TaskModule .TaskModule_exit .dropdown-content span {
@@ -799,7 +875,7 @@ nav.Nav .Nav_button svg {
   font-size: 20px;
   color: #FFFFFF;
   align-self: flex-start;
-  width: 261px;
+  width: 224px;
   margin: 0;
   padding: 2px 7px;
   outline: 0;
@@ -816,6 +892,57 @@ nav.Nav .Nav_button svg {
   margin: 2% auto 0 auto;
   height: auto;
   display: flex;
+}
+.boardDetail .boardDetail_info .options {
+  fill: #fff;
+  width: 21px;
+  height: 21px;
+  margin: 5px 8px 0 8px;
+  cursor: pointer;
+}
+.boardDetail .boardDetail_info .dropdown {
+  position: relative;
+  display: block;
+  float: right;
+}
+.boardDetail .boardDetail_info .invisible-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1000;
+}
+.boardDetail .boardDetail_info .dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 110px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  margin-left: -88px;
+}
+.boardDetail .boardDetail_info .dropdown-content span {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #4d4d4d;
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+.boardDetail .boardDetail_info .dropdown-content span:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.boardDetail .boardDetail_info .dropdown-content span.delete {
+  color: #FF220C;
+}
+.boardDetail .boardDetail_info .show {
+  display: block;
 }
 
 /*# sourceMappingURL=trello.css.map */

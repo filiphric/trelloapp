@@ -1,6 +1,5 @@
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
-
 Vue.component('board', {
   template: '#trello-board',
   components: {
@@ -16,6 +15,8 @@ Vue.component('board', {
       currentLists: {},
       showTaskModule: false,
       taskDropdown: false,
+      listDropdown: false,
+      boardDropdown: false,
       currentBoard: {},
       loading: true,
       newListInputActive: false,
@@ -41,6 +42,11 @@ Vue.component('board', {
       });
   },
   methods: {
+    listDropdownClose() {
+      console.log('I did something');
+            
+      this.listDropdown = false;
+    },
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
@@ -189,6 +195,21 @@ Vue.component('board', {
       
       axios
         .delete(`/api/tasks/${task.id}`);
+    },
+    deleteList: function(list) {
+      
+      this.currentBoard.lists = this.currentBoard.lists.filter(l => { return l.id !== list.id; });
+      
+      axios
+        .delete(`/api/lists/${list.id}`);
+    },
+    deleteBoard: function(deleteBoard) {
+            
+      axios
+        .delete(`/api/boards/${deleteBoard.id}`)
+        .then( () => {
+          this.$router.push('/');
+        });
     },
     saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;

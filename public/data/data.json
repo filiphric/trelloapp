@@ -1,23 +1,6 @@
 {
-  "boards": [
-    {
-      "name": "aa",
-      "id": 47535671323,
-      "starred": false
-    }
-  ],
+  "boards": [],
   "tasks": [],
   "users": [],
-  "lists": [
-    {
-      "boardId": 47535671323,
-      "title": "a",
-      "id": 56186349250
-    },
-    {
-      "boardId": 47535671323,
-      "title": "b",
-      "id": 35071869447
-    }
-  ]
+  "lists": []
 }

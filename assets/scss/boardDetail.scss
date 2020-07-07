@@ -2,7 +2,7 @@
 	.boardDetail_title {
 		@include openSans($large, $white);
 		align-self: flex-start;
-		width: $list-width - 14px;
+		width: 224px;
 		margin: 0;
 		padding: 2px 7px;
 		outline: 0;
@@ -18,6 +18,54 @@
 		width: 97%;
 		margin: 2% auto 0 auto;
 		height: auto;
-		display: flex;
+    display: flex;
+    .options {
+      fill: #fff;
+      width: 21px;
+      height: 21px;
+      margin: 5px 8px 0 8px;
+      cursor: pointer;
+    }
+    .dropdown {
+      position: relative;
+      display: block;
+      float: right;
+    }
+    .invisible-overlay {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(0, 0, 0, 0);
+      z-index: 1000;
+    }
+    .dropdown-content {
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 110px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      margin-left: -88px;
+      span {
+        @include openSans($small, $black);
+        padding: 10px 16px;
+        text-decoration: none;
+        display: block;
+        cursor: pointer;
+      }
+      span:hover {
+        background-color: rgba(0,0,0,0.15);
+      }
+      span.delete {
+        color: #FF220C;
+      }
+    }
+    .show {
+      display: block;
+    }
 	}
 }

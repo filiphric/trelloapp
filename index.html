@@ -53,9 +53,16 @@
             <div class="dropdown" @click="taskDropdown = !taskDropdown">
               <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
               <div id="myDropdown" class="dropdown-content" :class="{ show: taskDropdown }">
-                <span v-on:click="showTaskModule = false">Close</span>
-                <span class="delete" @click="deleteTask(currentTask)">Delete</span>
+                <span v-on:click="showTaskModule = false">Close task</span>
+                <span class="delete" @click="deleteTask(currentTask)">Delete task</span>
               </div>
+            </div>
+            <div
+            class="invisible-overlay"
+            @click.self="taskDropdown = false"
+            v-show="taskDropdown"
+            v-cloak
+            >
             </div>
 					</div>
 					<input
@@ -144,11 +151,37 @@
 			</div>
 
 			<div class="boardDetail_info">
-				<input class="boardDetail_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
+        <input class="boardDetail_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
+        <div class="dropdown" @click="boardDropdown = !boardDropdown">
+          <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
+          <div id="myDropdown" class="dropdown-content" v-show="boardDropdown">
+            <span class="delete" @click.self="deleteBoard(currentBoard)">Delete board</span>
+          </div>
+        </div>
+        <div
+        class="invisible-overlay"
+        @click.self="boardDropdown = false"
+        v-show="boardDropdown"
+        v-cloak
+        >
+        </div>
 			</div>
 			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @end="sortList">
-        <div class="List" v-for="(list, index) in currentBoard.lists" :data-id="list.id">
-					<input class="Input" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
+        <div class="List" v-for="(list, index) in currentBoard.lists" :data-id="list.id" :key="list.id">
+          <input class="Input taskTitle" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
+          <div class="dropdown" @click="listDropdown = index">
+            <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
+            <div id="myDropdown" class="dropdown-content" v-show="listDropdown === index">
+              <span class="delete" @click.self="deleteList(list)">Delete list</span>
+            </div>
+          </div>
+          <div
+          class="invisible-overlay"
+          @click.self="listDropdown = false"
+          v-show="listDropdown === index"
+          v-cloak
+          >
+          </div>
 					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
             <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
               v-on:click.self="editTask(list, task)">

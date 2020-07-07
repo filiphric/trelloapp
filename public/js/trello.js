@@ -1,7 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
-
 Vue.component('board', {
   template: '#trello-board',
   components: {
@@ -17,6 +16,8 @@ Vue.component('board', {
       currentLists: {},
       showTaskModule: false,
       taskDropdown: false,
+      listDropdown: false,
+      boardDropdown: false,
       currentBoard: {},
       loading: true,
       newListInputActive: false,
@@ -42,6 +43,11 @@ Vue.component('board', {
       });
   },
   methods: {
+    listDropdownClose() {
+      console.log('I did something');
+            
+      this.listDropdown = false;
+    },
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
@@ -190,6 +196,21 @@ Vue.component('board', {
       
       axios
         .delete(`/api/tasks/${task.id}`);
+    },
+    deleteList: function(list) {
+      
+      this.currentBoard.lists = this.currentBoard.lists.filter(l => { return l.id !== list.id; });
+      
+      axios
+        .delete(`/api/lists/${list.id}`);
+    },
+    deleteBoard: function(deleteBoard) {
+            
+      axios
+        .delete(`/api/boards/${deleteBoard.id}`)
+        .then( () => {
+          this.$router.push('/');
+        });
     },
     saveNewTaskDescription: function(task) {
       this.editTaskDescription = false;

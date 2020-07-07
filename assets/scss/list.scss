@@ -19,7 +19,69 @@
 	@include openSansBold($medium, $white);
 	display: inline-block;
 	margin: 0.5% 1.5%;
-	vertical-align: top;
+  vertical-align: top;
+  .taskTitle {
+    width: 212px;
+    min-height: 18px;
+    display: inline-block;
+    margin: 0 auto 7px 17px;
+    background-color: #E2E4E6;
+    border-radius: 3px;
+    color: #4d4d4d;
+    outline: none;
+    border: none;
+  }
+  .taskTitle:focus {
+    background-color: #FFFFFF;
+  }
+  .options {
+    fill: #959DA1;
+    width: 21px;
+    height: 21px;
+    margin: 5px 8px 0 0;
+    cursor: pointer;
+  }
+  .dropdown {
+    position: relative;
+    display: block;
+    float: right;
+  }
+  .invisible-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1000;
+  }
+  .dropdown-content {
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    margin-left: -75px;
+    span {
+      @include openSans($small, $black);
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+    }
+    span:hover {
+      background-color: rgba(0,0,0,0.15);
+    }
+    span.delete {
+      color: #FF220C;
+    }
+  }
+  .show {
+    display: block;
+  }
 	.List_tasks {
 		max-height: 70vh;
 		overflow-y: scroll;
@@ -97,13 +159,13 @@
 		flex-wrap: wrap;
 		align-items: center;
 		justify-content: flex-start;
-	}
+  }
 	.CreateList_input {
 		width: $list-item-width;
 		padding: 5px;
 		min-height: 18px;
-		display: block;
-		margin: 0 auto;
+		// display: block;
+		margin: 0 2px 7px 9px;
 		background-color: $gray-3;
 		border-radius: $border-radius;
 		color: $black;
