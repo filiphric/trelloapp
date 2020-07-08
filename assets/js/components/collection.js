@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 Vue.component('board-collection', {
   template: '#trello-board-collection',
   data: function() {

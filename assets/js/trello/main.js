@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
@@ -79,6 +78,7 @@ new Vue({
           password: this.loginPassword
         })
         .then( r => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${r.data.accessToken}`;
           document.cookie = `trello_token=${r.data.accessToken}`;
           this.loggedIn.active = true;
           this.loggedIn.email = this.loginEmail;
@@ -98,6 +98,7 @@ new Vue({
           password: this.signupPassword
         })
         .then( r => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${r.data.accessToken}`;
           document.cookie = `trello_token=${r.data.accessToken}`;
           this.loggedIn.active = true;
           this.loggedIn.email = this.signupEmail;
