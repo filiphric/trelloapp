@@ -1,3 +1,4 @@
+const sendmail = require('sendmail')();
 const path = require('path'); // used for file path
 const fs = require('fs-extra');
 
@@ -9,6 +10,12 @@ module.exports = (req, res, next) => {
   const unauthorized = function () {
     return res.status(403).jsonp({
       error: 'User not authorized to access resource',
+    });
+  };
+
+  const userNotFound = function () {
+    return res.status(404).jsonp({
+      error: 'User not found',
     });
   };
 
@@ -87,10 +94,30 @@ module.exports = (req, res, next) => {
     const id = parseInt(userData.sub);
     const user = db.get('users').find({ id }).value();
     const result = { user };
+    
+    if (!user) return userNotFound();
 
     const response = res.status(200).jsonp(result);
 
     return response;
+  }
+
+  if (req.method === 'POST' && req.path === '/welcomeemail') {
+
+    // send welcome email if header is true
+    sendmail({
+      from: 'trelloapp@filiphric.sk',
+      to: req.body.email,
+      subject: 'Welcome to Trello app',
+      html: 'Your account was successfully created!\nIn the meantime, subscribe to my <a href="https://www.youtube.com/channel/UCDOCAVIhSh5VpJMEfdak1OA">YouTube channel for Cypress tips!</a>',
+    }, function(err, reply) {
+      console.log(err && err.stack);
+      console.dir(reply);
+    });
+
+    let response = res.status(201).jsonp(req.body);
+    return response;
+
   }
 
   next();

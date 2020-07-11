@@ -185,9 +185,10 @@
 					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
             <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
               v-on:click.self="editTask(list, task)">
-              <label class="container"><h3 class="Task_title" :class="{ completed: task.completed }">{{task.title}}</h3>
-                <input type="checkbox" v-model="task.completed" >
-                <span class="checkmark" v-on:click="completeTask(task, !task.completed)"></span>
+              <label class="container">
+                <input type="checkbox" v-model="task.completed" v-on:change="completeTask(task)">
+                <h3 class="Task_title" :class="{ completed: task.completed }">{{task.title}}</h3>
+                <span class="checkmark"></span>
               </label>
             </div>
 					</draggable>
@@ -253,7 +254,7 @@
 				<router-link tag="div" class="board_item" v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
           <h1 class="board_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
-						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
+             viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
 							c-1.141,3.51-0.22,7.363,2.385,9.979l64.272,64.55l-14.056,90.001c-0.569,3.648,0.95,7.306,3.937,9.476
@@ -343,7 +344,7 @@
                     Log in</button>
                 </div>      
               </div>
-              <p class="LoginModule_logSignSwitch">Don’t have an account? <a href="#" @click="logSignSwitch">Sign up here</a></p>
+              <p class="LoginModule_logSignSwitch">Don’t have an account? <a @click="logSignSwitch">Sign up here</a></p>
           </div>
           <div v-show="signupCardActive">
             <h2 class="LoginModule_title">Sign up to create a free account</h2>
@@ -353,7 +354,7 @@
                 <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword"> 
                 <div class="welcomeEmail">
                   <label class="checkbox">
-                    <input type="checkbox" value="sendEmails">
+                    <input type="checkbox" v-model="sendEmails">
                     Send me a welcome email
                   </label>    
                 </div>
@@ -362,7 +363,7 @@
                     Sign up</button>
                 </div>      
               </div>
-              <p class="LoginModule_logSignSwitch">Already have an account? <a href="#" @click="logSignSwitch">Go to log in</a></p>
+              <p class="LoginModule_logSignSwitch">Already have an account? <a @click="logSignSwitch">Go to log in</a></p>
           </div>
         </div>
     </div>

@@ -54,6 +54,7 @@
     a {
       @include openSans($medium, $gray-10);
       text-decoration: underline;
+      cursor: pointer;
     }
   }
   .LoginModule_buttons{

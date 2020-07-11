@@ -184,9 +184,9 @@ Vue.component('board', {
       this.currentTask = task;
       // this.$set(this.currentTask, 'id', task.id)
     },
-    completeTask: function(task, flag) {
+    completeTask: function(task) {
       axios
-        .patch(`/api/tasks/${task.id}`, {completed: flag});
+        .patch(`/api/tasks/${task.id}`, {completed: task.completed});
     },
     deleteTask: function(task) {
       this.showTaskModule = false;

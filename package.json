@@ -26,6 +26,7 @@
     "json-server-auth": "^1.2.1",
     "lodash": "^4.17.15",
     "sass": "^1.26.8",
+    "sendmail": "^1.6.1",
     "vue": "^2.6.11",
     "vue-focus": "^0.1.1",
     "vue-router": "^3.3.2",

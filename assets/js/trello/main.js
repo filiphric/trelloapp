@@ -28,6 +28,7 @@ new Vue({
       loginPassword: '',
       signupEmail: '',
       signupPassword: '',
+      sendEmails: false,
       loggedIn: {
         active: false,
         email: '',
@@ -46,9 +47,11 @@ new Vue({
       axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookies['trello_token']}`;
 
       axios
-        .get('/api/users').then( r => {
+        .get('/api/users').then( r => {          
           this.loggedIn.active = true;
-          this.loggedIn.email = r.data.user.email;
+          this.loggedIn.email = r.data.user.email;  
+        }).catch( () => {
+          document.cookie = 'trello_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
         });
 
     }
@@ -92,14 +95,26 @@ new Vue({
       
     },
     signup: function () {
-      axios
-        .post('/signup', {
+      axios({
+        method: 'POST',
+        url: '/signup',
+        data: {
           email: this.signupEmail,
           password: this.signupPassword
-        })
+        },
+        headers: { 
+          sendWelcomeEmail: this.sendEmails
+        }
+      })
         .then( r => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${r.data.accessToken}`;
           document.cookie = `trello_token=${r.data.accessToken}`;
+          if (this.sendEmails) {
+            axios
+              .post('/welcomeemail', {
+                email: this.signupEmail
+              });
+          }
           this.loggedIn.active = true;
           this.loggedIn.email = this.signupEmail;
           this.showLoginModule = false;
@@ -109,7 +124,6 @@ new Vue({
         .catch( r => {
           console.log(r.data);
         });
-      
     }
   },
   router

@@ -242,8 +242,10 @@ nav.Nav .Nav_button svg {
   position: absolute;
   opacity: 0;
   cursor: pointer;
-  height: 1px;
-  width: 1px;
+  height: 16px;
+  width: 16px;
+  top: 0;
+  left: 0;
 }
 .Task .checkmark {
   position: absolute;
@@ -737,6 +739,7 @@ nav.Nav .Nav_button svg {
   font-size: 15px;
   color: #838C91;
   text-decoration: underline;
+  cursor: pointer;
 }
 .LoginModule .LoginModule_buttons button {
   display: block;
