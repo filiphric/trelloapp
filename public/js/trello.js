@@ -307,6 +307,7 @@ new Vue({
       signupEmail: '',
       signupPassword: '',
       sendEmails: false,
+      loginDropdown: false,
       loggedIn: {
         active: false,
         email: '',
@@ -371,6 +372,10 @@ new Vue({
           console.log(r.data);
         });
       
+    },
+    logout: function () {
+      this.loggedIn.active = false;
+      document.cookie = 'trello_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
     },
     signup: function () {
       axios({
