@@ -11,7 +11,6 @@ const middleware = require('./middleware');
 const router = jsonServer.router('./public/data/data.json');
 
 server.db = router.db;
-
 server.use(history());
 server.use(defaults);
 server.use(busboy());

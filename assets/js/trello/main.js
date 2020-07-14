@@ -21,6 +21,10 @@ var router = new VueRouter({
 new Vue({
   data: function() {
     return {
+      errorMessage: {
+        show: false,
+        text: 'Oops, there was an error'
+      },
       showLoginModule: false,
       loginCardActive: false,
       signupCardActive: false,

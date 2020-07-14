@@ -1,3 +1,4 @@
+const moment = require('moment');
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
 Vue.component('board', {
@@ -145,11 +146,16 @@ Vue.component('board', {
       }; 
       axios
         .post('/api/tasks', task)
-        .then(r => r.data)
         .then(taskContent => {    
           this.newTaskTitle = '';
           this.newTaskInputActive = false;
-          this.currentLists[list.id].push(taskContent);
+          this.currentLists[list.id].push(taskContent.data);
+        }).catch( () => {
+          this.$root.errorMessage.show = true;
+          this.$root.errorMessage.text = 'There was an error creating task';
+          setTimeout(() => {
+            this.$root.errorMessage.show = false;
+          }, 4000);
         });
     },
     addList() {
@@ -163,12 +169,17 @@ Vue.component('board', {
       }; 
       axios
         .post('/api/lists', list)
-        .then(r => r.data)
         .then(listContent => {    
           this.newListTitle = '';
           this.newListInputActive = false;
-          this.currentBoard.lists.push(listContent);
-          this.currentLists[listContent.id] = [];
+          this.currentBoard.lists.push(listContent.data);
+          this.currentLists[listContent.data.id] = [];
+        }).catch( () => {
+          this.$root.errorMessage.show = true;
+          this.$root.errorMessage.text = 'There was an error creating list';
+          setTimeout(() => {
+            this.$root.errorMessage.show = false;
+          }, 4000);
         });
     },
     cancelNewList() {
@@ -215,6 +226,15 @@ Vue.component('board', {
       this.editTaskDescription = false;
       axios
         .patch(`/api/tasks/${task.id}`, {description: task.description});
+    },
+    saveNewTaskDeadline: function(task) {
+      axios
+        .patch(`/api/tasks/${task.id}`, {deadline: task.deadline});
+    },
+    overdue: function(task) {
+      if (task.deadline && moment(task.deadline).diff(moment().startOf('day'), 'days') < 1) {
+        return 'overDue';
+      } 
     }
   }
 });

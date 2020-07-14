@@ -16,8 +16,9 @@
 	@include openSans($small, $black);
 	&:hover {
 		background-color: $gray-1;
-	}
+  }
 	.Task_title {
+    display: block;
 		margin: 0;
 		padding: 0;
 		text-align: left;
@@ -43,12 +44,14 @@
   /* Hide the browser's default checkbox */
   .container input {
     position: absolute;
-    opacity: 0;
+    -webkit-appearance: none;
+	  appearance: none;
     cursor: pointer;
     height: 16px;
     width: 16px;
     top: 0;
     left: 0;
+    background-color: #eee;
   }
   
   /* Create a custom checkbox */
@@ -62,12 +65,12 @@
   }
   
   /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
+  .container:hover input.checkmark {
     background-color: #ccc;
   }
   
   /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
+  .container input:checked.checkmark {
     background-color: $blue-6;
   }
   
@@ -79,7 +82,7 @@
   }
   
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  .container input:checked.checkmark:after {
     display: block;
   }
   
@@ -94,5 +97,18 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+  }
+  :focus {
+    outline: 0;
+  }
+  
+}
+.overDue {
+  background-color: #E7748D;
+  .Task_title {
+    color: #fff
+  }
+  &:hover {
+    background-color: #E15170;
   }
 }

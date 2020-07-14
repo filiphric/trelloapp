@@ -1,3 +1,4 @@
+const moment = require('moment');
 const sendmail = require('sendmail')();
 const path = require('path'); // used for file path
 const fs = require('fs-extra');
@@ -34,6 +35,7 @@ module.exports = (req, res, next) => {
   if (req.method === 'POST' && req.path === '/boards') {
     req.body.id = randomId();
     req.body.starred = false;
+    req.body.created = moment().format('YYYY-MM-DD');
   }
 
   if (req.method === 'GET' && req.path.match(/\/boards\/\d*/g)) {
@@ -51,10 +53,13 @@ module.exports = (req, res, next) => {
 
   if (req.method === 'POST' && req.path === '/lists') {
     req.body.id = randomId();
+    req.body.created = moment().format('YYYY-MM-DD');
   }
 
   if (req.method === 'POST' && req.path === '/tasks') {
     req.body.id = randomId();
+    req.body.created = moment().format('YYYY-MM-DD');
+    req.body.deadline = moment().add(3, 'days').format('YYYY-MM-DD');
   }
 
   if (req.method === 'POST' && req.path === '/upload') {

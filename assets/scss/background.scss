@@ -38,3 +38,43 @@
 .background-blue .loading {
   color: #fff;
 }
+
+#errorMessage {
+  -moz-box-shadow:    0 0 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #f85252;
+  top: -56px;
+  height: 30px;
+  padding: 16px 0 9px 0;
+  box-shadow:         0 0 5px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  @include openSans($large, $white);
+  left: 0;
+  line-height: 1.4em;
+  font-size: 18px;
+  overflow: hidden; 
+  position: absolute;
+  right: 0;
+  text-align: center;
+  z-index: 101;
+  animation-name: slideDown;
+  animation-duration: 4s;
+}
+
+@-webkit-keyframes slideDown {
+  10%, 90% { -webkit-transform: translateY(56px); }
+  0%, 100% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideDown {
+  10%, 90% { -moz-transform: translateY(56px); }
+  0%, 100% { -moz-transform: translateY(0px); }
+}
+
+@-webkit-keyframes slideUp {
+  0%, 100% { -webkit-transform: translateY(56px); }
+  10%, 90% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideUp {
+  0%, 100% { -moz-transform: translateY(56px); }
+  10%, 90% { -moz-transform: translateY(0px); }
+}

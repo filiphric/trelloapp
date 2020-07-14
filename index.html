@@ -91,7 +91,8 @@
 						Add a description...
 					</p>
 					<textarea
-						class="TextArea"
+            class="TextArea"
+            
 						v-model="currentTask.description"
 						v-show="editTaskDescription"
 						type="text"
@@ -116,7 +117,8 @@
 							<line x1="0" y1="15" x2="15" y2="0"/>
 						</svg>
           </div>
-          
+          <h6 class="TaskModule_descriptionTitle">Due date</h6>
+          <input type="date" :class="overdue(currentTask)" placeholder="yyyy-mm-dd" min="1997-01-01" max="2030-12-31" v-model="currentTask.deadline" @change="saveNewTaskDeadline(currentTask)">
           <div v-show="currentTask.image">
             <h6 class="TaskModule_descriptionTitle">Image</h6>
             <div class="imagePreview">
@@ -184,12 +186,11 @@
           </div>
 					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
             <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
-              v-on:click.self="editTask(list, task)">
-              <label class="container">
-                <input type="checkbox" v-model="task.completed" v-on:change="completeTask(task)">
-                <h3 class="Task_title" :class="{ completed: task.completed }">{{task.title}}</h3>
-                <span class="checkmark"></span>
-              </label>
+              v-on:click.self="editTask(list, task)" :class="overdue(task)">
+              <div class="container">
+                <input type="checkbox" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
+                <label class="Task_title" :class="{ completed: task.completed }">{{task.title}}</label>
+              </div>
             </div>
 					</draggable>
 					<h5
@@ -199,7 +200,7 @@
 					>
 						Add a card...
 					</h5>
-					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
+					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
 					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
 						<button class="Button" v-on:click="addTask(list)">Add</button>
 						<svg class="Cancel" v-on:click="newTaskInputActive = null">
@@ -377,6 +378,8 @@
           </div>
         </div>
     </div>
+    <div id="errorMessage" v-show="errorMessage.show" v-cloak>{{ errorMessage.text }}</div>
+    <div id="loginMessage" v-show="loggedIn.active" v-cloak>User is logged in</div>
 		<router-view :key="$route.fullPath"></router-view>
 	</div>
 
