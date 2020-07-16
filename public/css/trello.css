@@ -842,6 +842,8 @@ nav.Nav .invisible-overlay {
   margin: 4% 0;
   padding: 0;
   overflow: hidden;
+  /* On mouse-over, add a grey background color */
+  /* When the checkbox is checked, add a blue background */
 }
 .LoginModule .LoginModule_exit {
   width: 100%;
@@ -907,27 +909,80 @@ nav.Nav .invisible-overlay {
   width: 250px;
   display: block;
 }
-.LoginModule .credentials .welcomeEmail {
+.LoginModule .welcomeEmail {
   display: block;
-  text-align: center;
+  position: relative;
+  padding-top: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Create a custom checkbox */
+  /* Create the checkmark/indicator (hidden when not checked) */
 }
-.LoginModule .credentials .welcomeEmail .checkbox {
+.LoginModule .welcomeEmail input {
+  position: absolute;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  top: 0;
+  left: 0;
+  background-color: #eee;
+}
+.LoginModule .welcomeEmail .checkmark {
+  position: relative;
+  top: 6px;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+  display: inline-block;
+  margin-right: 4px;
+}
+.LoginModule .welcomeEmail .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.LoginModule .welcomeEmail input:checked.checkmark:after {
+  display: block;
+}
+.LoginModule .welcomeEmail .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 6px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.LoginModule .welcomeEmail .emails_title {
+  display: block;
+  padding: 5px 0px 0px 4px;
+  text-align: center;
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 12px;
-  color: #959DA1;
-  display: inline-block;
-  vertical-align: top;
-  padding-left: 25px;
-  position: relative;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  color: #4d4d4d;
+  white-space: normal;
+  width: 100%;
+  margin: auto;
+  cursor: pointer;
 }
-.LoginModule .credentials .welcomeEmail .checkbox input {
-  position: absolute;
-  left: 0;
-  top: 0;
+.LoginModule .welcomeEmail:hover input.checkmark {
+  background-color: #ccc;
+}
+.LoginModule .welcomeEmail input:checked.checkmark {
+  background-color: #0079BF;
+}
+.LoginModule :focus {
+  outline: 0;
 }
 
 .board {

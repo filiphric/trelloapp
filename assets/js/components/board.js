@@ -43,11 +43,6 @@ Vue.component('board', {
       });
   },
   methods: {
-    listDropdownClose() {
-      console.log('I did something');
-            
-      this.listDropdown = false;
-    },
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
@@ -208,9 +203,7 @@ Vue.component('board', {
         .delete(`/api/tasks/${task.id}`);
     },
     deleteList: function(list) {
-      
       this.currentBoard.lists = this.currentBoard.lists.filter(l => { return l.id !== list.id; });
-      
       axios
         .delete(`/api/lists/${list.id}`);
     },

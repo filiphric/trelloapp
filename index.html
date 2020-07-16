@@ -10,7 +10,7 @@
 	<link rel="shortcut icon" type="image/png" href="public/images/logo.png">
 
 	<title>Trello</title>
-	<meta name="author" content="Zack Thoutt">
+	<meta name="author" content="Filip Hric">
 	<meta charset="UTF-8">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="public/css/trello.css">
@@ -174,7 +174,7 @@
           <div class="dropdown" @click="listDropdown = index">
             <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
             <div id="myDropdown" class="dropdown-content" v-show="listDropdown === index">
-              <span class="delete" @click.self="deleteList(list)">Delete list</span>
+              <span class="delete" @click.self="deleteList(list); listDropdown = false">Delete list</span>
             </div>
           </div>
           <div
@@ -348,8 +348,8 @@
             <h2 class="LoginModule_title">Log in to your account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to log in</p>
-                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail">          
-                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword">    
+                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail" autocomplete="off">          
+                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">    
                 <div class="LoginModule_buttons">
                   <button class="Button" @click="login">
                     Log in</button>
@@ -361,11 +361,11 @@
             <h2 class="LoginModule_title">Sign up to create a free account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to sign up</p>
-                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail">          
-                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword"> 
+                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail" autocomplete="off">          
+                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword" v-on:keyup.enter="signup"> 
                 <div class="welcomeEmail">
-                  <label class="checkbox">
-                    <input type="checkbox" v-model="sendEmails">
+                  <label class="emails_title">
+                    <input type="checkbox" class="checkmark" v-model="sendEmails">
                     Send me a welcome email
                   </label>    
                 </div>

@@ -44,11 +44,6 @@ Vue.component('board', {
       });
   },
   methods: {
-    listDropdownClose() {
-      console.log('I did something');
-            
-      this.listDropdown = false;
-    },
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
@@ -209,9 +204,7 @@ Vue.component('board', {
         .delete(`/api/tasks/${task.id}`);
     },
     deleteList: function(list) {
-      
       this.currentBoard.lists = this.currentBoard.lists.filter(l => { return l.id !== list.id; });
-      
       axios
         .delete(`/api/lists/${list.id}`);
     },
@@ -397,6 +390,7 @@ new Vue({
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
+          this.$router.go();
         })
         .catch( r => {
           console.log(r.data);
@@ -405,7 +399,9 @@ new Vue({
     },
     logout: function () {
       this.loggedIn.active = false;
+      // axios.defaults.headers.common['Authorization'] = '';
       document.cookie = 'trello_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.location.href = '/';
     },
     signup: function () {
       axios({
@@ -433,6 +429,7 @@ new Vue({
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
+          this.$router.go();
         })
         .catch( r => {
           console.log(r.data);

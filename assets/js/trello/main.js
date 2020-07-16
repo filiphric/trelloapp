@@ -93,6 +93,7 @@ new Vue({
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
+          this.$router.go();
         })
         .catch( r => {
           console.log(r.data);
@@ -101,7 +102,9 @@ new Vue({
     },
     logout: function () {
       this.loggedIn.active = false;
+      // axios.defaults.headers.common['Authorization'] = '';
       document.cookie = 'trello_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.location.href = '/';
     },
     signup: function () {
       axios({
@@ -129,6 +132,7 @@ new Vue({
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
+          this.$router.go();
         })
         .catch( r => {
           console.log(r.data);
