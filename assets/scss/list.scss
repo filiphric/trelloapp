@@ -86,7 +86,8 @@
 		max-height: 70vh;
 		overflow-y: scroll;
 		margin: 0;
-		padding: 0;
+    padding: 0;
+    min-height: 2px;
 	}
 	.List_addTask {
 		width: $list-item-width;

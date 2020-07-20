@@ -113,9 +113,6 @@ new Vue({
         data: {
           email: this.signupEmail,
           password: this.signupPassword
-        },
-        headers: { 
-          sendWelcomeEmail: this.sendEmails
         }
       })
         .then( r => {
@@ -125,14 +122,21 @@ new Vue({
             axios
               .post('/welcomeemail', {
                 email: this.signupEmail
+              }).then(() => {
+                this.$router.go();
               });
+          } else {
+
+            this.$router.go();
+
           }
+
           this.loggedIn.active = true;
           this.loggedIn.email = this.signupEmail;
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
-          this.$router.go();
+          
         })
         .catch( r => {
           console.log(r.data);
