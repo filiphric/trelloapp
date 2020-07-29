@@ -8,6 +8,7 @@ function randomId() {
 }
 
 module.exports = (req, res, next) => {
+
   const unauthorized = function () {
     return res.status(403).jsonp({
       error: 'User not authorized to access resource',
@@ -39,6 +40,8 @@ module.exports = (req, res, next) => {
   const { db } = req.app;
   const userData = parseJWT();
   const userId = parseInt(userData.sub);
+
+  db.assign(require('require-uncached')('./public/data/data.json')).write();
 
   if (req.method === 'POST' && req.path === '/boards') {
     req.body.user = userId || 0;
