@@ -1,2 +1,3 @@
 /public/uploaded/*
 /node_modules
+/cypress/integration/examples

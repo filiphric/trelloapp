@@ -4,7 +4,8 @@
   "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test" : "npm start | ./node_modules/.bin/cypress open"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
@@ -33,5 +34,8 @@
     "vue-router": "^3.3.2",
     "vue2-dropzone": "^3.6.0",
     "vuedraggable": "^2.23.2"
+  },
+  "dependencies": {
+    "cypress": "^4.11.0"
   }
 }
