@@ -5,13 +5,20 @@
   "license": "ISC",
   "scripts": {
     "start": "node index.js",
-    "test" : "npm start | ./node_modules/.bin/cypress open"
+    "test": "npm start | ./node_modules/.bin/cypress open",
+    "testwdio": "npm start & ./node_modules/.bin/wdio wdio.conf.js"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
   },
   "devDependencies": {
+    "@wdio/cli": "^6.3.6",
+    "@wdio/local-runner": "^6.3.6",
+    "@wdio/mocha-framework": "^6.3.6",
+    "@wdio/spec-reporter": "^6.3.6",
+    "@wdio/sync": "^6.3.6",
     "axios": "^0.19.2",
+    "chromedriver": "^84.0.1",
     "connect-busboy": "0.0.2",
     "connect-history-api-fallback": "^1.6.0",
     "eslint": "^7.4.0",
@@ -33,7 +40,8 @@
     "vue-focus": "^0.1.1",
     "vue-router": "^3.3.2",
     "vue2-dropzone": "^3.6.0",
-    "vuedraggable": "^2.23.2"
+    "vuedraggable": "^2.23.2",
+    "wdio-chromedriver-service": "^6.0.3"
   },
   "dependencies": {
     "cypress": "^4.11.0"
