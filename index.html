@@ -20,6 +20,8 @@
     }
   </style>
 
+  <!-- <script src="node_modules/sockets.io-client/dist/socket.io.js"></script> -->
+
 </head>
 
 <template id="trello-board">
@@ -68,7 +70,7 @@
 					<input
 						class="Input TaskModule_title"
             v-model.lazy="currentTask.title"
-            @change="updateTaskName(currentTask)" 
+            @change="updateTaskName(currentTask)"
             v-on:keyup.enter="$event.target.blur()"
 						type="text"
 					></input>
@@ -92,7 +94,7 @@
 					</p>
 					<textarea
             class="TextArea"
-            
+
 						v-model="currentTask.description"
 						v-show="editTaskDescription"
 						type="text"
@@ -133,14 +135,14 @@
           </div>
           <div v-show="!currentTask.image">
             <h6 class="TaskModule_descriptionTitle" v-show="!currentTask.image">Upload image</h6>
-            <vue-dropzone 
-            ref="myVueDropzone" 
-            v-show="!currentTask.image" 
-            :id="'dropzone' + currentTask.id" 
-            :options="dropzoneOptions" 
+            <vue-dropzone
+            ref="myVueDropzone"
+            v-show="!currentTask.image"
+            :id="'dropzone' + currentTask.id"
+            :options="dropzoneOptions"
             :destroy-dropzone=true
             :use-custom-slot=true
-            @vdropzone-sending="addImageId" 
+            @vdropzone-sending="addImageId"
             @vdropzone-success="fileUploaded"
             >
               <div class="dropzone-custom-content">
@@ -248,7 +250,7 @@
     </svg>&nbsp;&nbsp;Loading data ...</div>
     <div class="background_spacer"></div>
 		<hr class="pad20">
-    
+
 		<div class="background_container" v-cloak>
 			<h1 class="background_title" v-show="starred(boards).length" >My Starred</h1>
 			<div class="board">
@@ -348,12 +350,12 @@
             <h2 class="LoginModule_title">Log in to your account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to log in</p>
-                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail" autocomplete="off">          
-                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">    
+                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail" autocomplete="off">
+                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">
                 <div class="LoginModule_buttons">
                   <button class="Button" @click="login">
                     Log in</button>
-                </div>      
+                </div>
               </div>
               <p class="LoginModule_logSignSwitch">Don’t have an account? <a @click="logSignSwitch">Sign up here</a></p>
           </div>
@@ -361,18 +363,18 @@
             <h2 class="LoginModule_title">Sign up to create a free account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to sign up</p>
-                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail" autocomplete="off">          
-                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword" v-on:keyup.enter="signup"> 
+                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail" autocomplete="off">
+                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword" v-on:keyup.enter="signup">
                 <div class="welcomeEmail">
                   <label class="emails_title">
                     <input type="checkbox" class="checkmark" v-model="sendEmails">
                     Send me a welcome email
-                  </label>    
+                  </label>
                 </div>
                 <div class="LoginModule_buttons">
                   <button class="Button" @click="signup">
                     Sign up</button>
-                </div>      
+                </div>
               </div>
               <p class="LoginModule_logSignSwitch">Already have an account? <a @click="logSignSwitch">Go to log in</a></p>
           </div>

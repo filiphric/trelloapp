@@ -2,6 +2,8 @@ const moment = require('moment');
 const sendmail = require('sendmail')();
 const path = require('path'); // used for file path
 const fs = require('fs-extra');
+const io = require('socket.io-client');
+const socket = io('http://localhost:3000');
 
 function randomId() {
   return Math.floor(100000 * Math.random() * 900000);
@@ -48,6 +50,7 @@ module.exports = (req, res, next) => {
     req.body.id = randomId();
     req.body.starred = false;
     req.body.created = moment().format('YYYY-MM-DD');
+    socket.emit('updatedBoard', req.body);
   }
 
   if (req.method === 'GET' && req.path === '/boards') {
@@ -119,12 +122,12 @@ module.exports = (req, res, next) => {
   }
 
   if (req.method === 'GET' && req.path === '/users') {
-    
+
     if (!userData) return unauthorized();
 
     const user = db.get('users').find({ id: userId }).value();
     const result = { user };
-    
+
     if (!user) return userNotFound();
 
     const response = res.status(200).jsonp(result);
@@ -157,7 +160,7 @@ module.exports = (req, res, next) => {
     db.set('tasks', []).write();
 
     return res.sendStatus(204);
-    
+
   }
 
   if (req.method === 'DELETE' && req.path === '/lists') {
@@ -166,7 +169,7 @@ module.exports = (req, res, next) => {
     db.set('tasks', []).write();
 
     return res.sendStatus(204);
-    
+
   }
 
   if (req.method === 'DELETE' && req.path === '/tasks') {
@@ -174,7 +177,7 @@ module.exports = (req, res, next) => {
     db.set('tasks', []).write();
 
     return res.sendStatus(204);
-    
+
   }
 
   if (req.method === 'DELETE' && req.path === '/users') {
@@ -182,7 +185,7 @@ module.exports = (req, res, next) => {
     db.set('users', []).write();
 
     return res.sendStatus(204);
-    
+
   }
 
   next();

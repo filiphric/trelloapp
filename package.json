@@ -28,9 +28,11 @@
     "require-uncached": "^2.0.0",
     "sass": "^1.26.8",
     "sendmail": "^1.6.1",
+    "socket.io": "^2.3.0",
     "vue": "^2.6.11",
     "vue-focus": "^0.1.1",
     "vue-router": "^3.3.2",
+    "vue-socket.io-extended": "^4.0.4",
     "vue2-dropzone": "^3.6.0",
     "vuedraggable": "^2.23.2"
   }

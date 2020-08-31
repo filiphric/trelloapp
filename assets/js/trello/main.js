@@ -1,7 +1,11 @@
 const axios = require('axios');
+const io = require('socket.io-client');
+const VueSocketIOExt = require('vue-socket.io-extended');
+const socket = io('http://localhost:3000');
 Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
+Vue.use(VueSocketIOExt, socket);
 
 require('vuedraggable');
 require('./../directives/vue-focus.js');
@@ -19,6 +23,15 @@ var router = new VueRouter({
 });
 
 new Vue({
+  sockets: {
+    connect() {
+      console.log('socket connected');
+    },
+    updatedBoard(val) {
+      console.log('updating!!');
+      console.log(val);
+    }
+  },
   data: function() {
     return {
       errorMessage: {
@@ -42,6 +55,8 @@ new Vue({
   },
   created () {
 
+    this.getRealtimeData();
+
     let parsedCookies = document.cookie.split('; ').reduce((prev, current) => {
       const [name, value] = current.split('=');
       prev[name] = value;
@@ -52,9 +67,9 @@ new Vue({
       axios.defaults.headers.common['Authorization'] = `Bearer ${parsedCookies['trello_token']}`;
 
       axios
-        .get('/api/users').then( r => {          
+        .get('/api/users').then( r => {
           this.loggedIn.active = true;
-          this.loggedIn.email = r.data.user.email;  
+          this.loggedIn.email = r.data.user.email;
         }).catch( () => {
           document.cookie = 'trello_token=;expires=Thu, 01 Jan 1970 00:00:00 GMT';
         });
@@ -62,6 +77,11 @@ new Vue({
     }
   },
   methods: {
+    getRealtimeData: function() {
+      socket.on('update', (content) => {
+        console.log('here comes update ' + content);
+      });
+    },
     openLogin: function() {
       this.showLoginModule = true;
       this.loginCardActive = true;
@@ -98,7 +118,6 @@ new Vue({
         .catch( r => {
           console.log(r.data);
         });
-      
     },
     logout: function () {
       this.loggedIn.active = false;
@@ -136,7 +155,7 @@ new Vue({
           this.showLoginModule = false;
           this.loginCardActive = false;
           this.signupCardActive = false;
-          
+
         })
         .catch( r => {
           console.log(r.data);
