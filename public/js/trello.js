@@ -2,10 +2,18 @@
 const moment = require('moment');
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
+const VueSocketIOExt = require('vue-socket.io-extended');
+const io = require('socket.io-client');
+const socket = io('http://localhost:3000');
+Vue.use(VueSocketIOExt, socket);
+
 Vue.component('board', {
   template: '#trello-board',
   components: {
     vueDropzone
+  },
+  sockets: {
+
   },
   data: function() {
     return {
@@ -34,8 +42,8 @@ Vue.component('board', {
     axios
       .get(`/api/boards/${this.$route.params.id}`)
       .then(r => r.data)
-      .then(board => {   
-        this.currentBoard = board; 
+      .then(board => {
+        this.currentBoard = board;
         this.currentBoardName = board.name;
         this.loading = false;
         board.lists.forEach(list => {
@@ -47,7 +55,7 @@ Vue.component('board', {
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
-      
+
       axios
         .patch(`/api/tasks/${this.currentTask.id}`, { image: path });
 
@@ -73,7 +81,7 @@ Vue.component('board', {
 
         axios
           .patch(`/api/lists/${list.id}`, { order: index });
-        
+
       });
     },
     sortTask(evt) {
@@ -94,33 +102,33 @@ Vue.component('board', {
 
         axios
           .patch(`/api/tasks/${task.id}`, { order: index });
-        
+
       });
 
       // get old list and do a full reorder
       // get new list and new position, order everything from slice start to slice down
 
       if (from !== to) {
-  
+
         this.currentLists[to].forEach((task, index) => {
-  
+
           // change index in data store - keep this for full reorder of old list, but use currentLists[from]
           task.order = index;
-  
+
           // send request to api
           axios
             .patch(`/api/tasks/${task.id}`, { order: index, listId: to });
-          
+
         });
-        
-      } 
+
+      }
 
     },
-    updateListName(list) {      
+    updateListName(list) {
       axios
         .patch(`/api/lists/${list.id}`, { title: list.title });
     },
-    updateTaskName(task) {      
+    updateTaskName(task) {
       axios
         .patch(`/api/tasks/${task.id}`, { title: task.title });
     },
@@ -139,10 +147,10 @@ Vue.component('board', {
         completed: false,
         listId: list.id,
         title: this.newTaskTitle
-      }; 
+      };
       axios
         .post('/api/tasks', task)
-        .then(taskContent => {    
+        .then(taskContent => {
           this.newTaskTitle = '';
           this.newTaskInputActive = false;
           this.currentLists[list.id].push(taskContent.data);
@@ -162,10 +170,10 @@ Vue.component('board', {
       let list = {
         boardId: this.currentBoard.id,
         title: this.newListTitle
-      }; 
+      };
       axios
         .post('/api/lists', list)
-        .then(listContent => {    
+        .then(listContent => {
           this.newListTitle = '';
           this.newListInputActive = false;
           this.currentBoard.lists.push(listContent.data);
@@ -199,7 +207,7 @@ Vue.component('board', {
       this.showTaskModule = false;
       this.currentTask = {};
       this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
-      
+
       axios
         .delete(`/api/tasks/${task.id}`);
     },
@@ -209,7 +217,7 @@ Vue.component('board', {
         .delete(`/api/lists/${list.id}`);
     },
     deleteBoard: function(deleteBoard) {
-            
+
       axios
         .delete(`/api/boards/${deleteBoard.id}`)
         .then( () => {
@@ -228,14 +236,34 @@ Vue.component('board', {
     overdue: function(task) {
       if (task.deadline && moment(task.deadline).diff(moment().startOf('day'), 'days') < 1) {
         return 'overDue';
-      } 
+      }
     }
   }
 });
-},{"axios":7,"moment":62,"vue2-dropzone":88}],2:[function(require,module,exports){
+},{"axios":7,"moment":62,"socket.io-client":67,"vue-socket.io-extended":84,"vue2-dropzone":88}],2:[function(require,module,exports){
 const axios = require('axios');
+const VueSocketIOExt = require('vue-socket.io-extended');
+const io = require('socket.io-client');
+const socket = io('http://localhost:3000');
+Vue.use(VueSocketIOExt, socket);
+
 Vue.component('board-collection', {
   template: '#trello-board-collection',
+  sockets: {
+    connect() {
+      console.log('socket connected');
+    },
+    boardCreated(message) {
+      this.boards.push(message);
+    },
+    boardsState(message) {
+      this.boards = message;
+    },
+    boardDeleted(id) {
+      let deleted = this.boards.findIndex( board => board.id === id);
+      this.boards.splice(deleted, 1);
+    }
+  },
   data: function() {
     return {
       loading: true,
@@ -247,7 +275,7 @@ Vue.component('board-collection', {
     axios
       .get('/api/boards')
       .then(r => r.data)
-      .then(boards => {          
+      .then(boards => {
         this.loading = false;
         this.boards = boards;
       });
@@ -257,7 +285,7 @@ Vue.component('board-collection', {
       if (!this.newBoardTitle) {
         return;
       }
-      axios.post('/api/boards', { name: this.newBoardTitle }).then((r) => {  
+      axios.post('/api/boards', { name: this.newBoardTitle }).then((r) => {
         this.boards.push(r.data);
         this.$router.push(`/board/${r.data.id}`);
       }).catch( () => {
@@ -274,7 +302,7 @@ Vue.component('board-collection', {
     },
     updateBoardStarred: function(board) {
       let flag = !board.starred;
-      axios.patch(`/api/boards/${board.id}`, {starred: flag});        
+      axios.patch(`/api/boards/${board.id}`, {starred: flag});
       this.boards.find(b => b.id === board.id).starred = flag;
     },
     starred: function(boards) {
@@ -283,7 +311,7 @@ Vue.component('board-collection', {
     }
   }
 });
-},{"axios":7}],3:[function(require,module,exports){
+},{"axios":7,"socket.io-client":67,"vue-socket.io-extended":84}],3:[function(require,module,exports){
 Vue.directive('focus', {
   inserted: function (el) {
     el.focus();
@@ -296,13 +324,10 @@ Vue.directive('focus', {
 });
 },{}],4:[function(require,module,exports){
 const axios = require('axios');
-const io = require('socket.io-client');
-const VueSocketIOExt = require('vue-socket.io-extended');
-const socket = io('http://localhost:3000');
+
 Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
-Vue.use(VueSocketIOExt, socket);
 
 require('vuedraggable');
 require('./../directives/vue-focus.js');
@@ -320,15 +345,6 @@ var router = new VueRouter({
 });
 
 new Vue({
-  sockets: {
-    connect() {
-      console.log('socket connected');
-    },
-    updatedBoard(val) {
-      console.log('updating!!');
-      console.log(val);
-    }
-  },
   data: function() {
     return {
       errorMessage: {
@@ -352,8 +368,6 @@ new Vue({
   },
   created () {
 
-    this.getRealtimeData();
-
     let parsedCookies = document.cookie.split('; ').reduce((prev, current) => {
       const [name, value] = current.split('=');
       prev[name] = value;
@@ -374,11 +388,6 @@ new Vue({
     }
   },
   methods: {
-    getRealtimeData: function() {
-      socket.on('update', (content) => {
-        console.log('here comes update ' + content);
-      });
-    },
     openLogin: function() {
       this.showLoginModule = true;
       this.loginCardActive = true;
@@ -462,7 +471,7 @@ new Vue({
   router
 }).$mount('#trello-app');
 
-},{"./../components/board.js":1,"./../components/collection.js":2,"./../directives/vue-focus.js":3,"axios":7,"socket.io-client":67,"vue":86,"vue-router":83,"vue-socket.io-extended":84,"vuedraggable":89}],5:[function(require,module,exports){
+},{"./../components/board.js":1,"./../components/collection.js":2,"./../directives/vue-focus.js":3,"axios":7,"vue":86,"vue-router":83,"vuedraggable":89}],5:[function(require,module,exports){
 module.exports = after
 
 function after(count, callback, err_cb) {

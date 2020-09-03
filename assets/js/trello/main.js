@@ -1,11 +1,8 @@
 const axios = require('axios');
-const io = require('socket.io-client');
-const VueSocketIOExt = require('vue-socket.io-extended');
-const socket = io('http://localhost:3000');
+
 Vue = require('vue');
 VueRouter = require('vue-router');
 Vue.use(VueRouter);
-Vue.use(VueSocketIOExt, socket);
 
 require('vuedraggable');
 require('./../directives/vue-focus.js');
@@ -23,15 +20,6 @@ var router = new VueRouter({
 });
 
 new Vue({
-  sockets: {
-    connect() {
-      console.log('socket connected');
-    },
-    updatedBoard(val) {
-      console.log('updating!!');
-      console.log(val);
-    }
-  },
   data: function() {
     return {
       errorMessage: {
@@ -55,8 +43,6 @@ new Vue({
   },
   created () {
 
-    this.getRealtimeData();
-
     let parsedCookies = document.cookie.split('; ').reduce((prev, current) => {
       const [name, value] = current.split('=');
       prev[name] = value;
@@ -77,11 +63,6 @@ new Vue({
     }
   },
   methods: {
-    getRealtimeData: function() {
-      socket.on('update', (content) => {
-        console.log('here comes update ' + content);
-      });
-    },
     openLogin: function() {
       this.showLoginModule = true;
       this.loginCardActive = true;

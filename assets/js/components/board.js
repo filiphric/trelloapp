@@ -1,10 +1,18 @@
 const moment = require('moment');
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
+const VueSocketIOExt = require('vue-socket.io-extended');
+const io = require('socket.io-client');
+const socket = io('http://localhost:3000');
+Vue.use(VueSocketIOExt, socket);
+
 Vue.component('board', {
   template: '#trello-board',
   components: {
     vueDropzone
+  },
+  sockets: {
+
   },
   data: function() {
     return {
@@ -33,8 +41,8 @@ Vue.component('board', {
     axios
       .get(`/api/boards/${this.$route.params.id}`)
       .then(r => r.data)
-      .then(board => {   
-        this.currentBoard = board; 
+      .then(board => {
+        this.currentBoard = board;
         this.currentBoardName = board.name;
         this.loading = false;
         board.lists.forEach(list => {
@@ -46,7 +54,7 @@ Vue.component('board', {
     fileUploaded(res) {
 
       let path = JSON.parse(res.xhr.response).path;
-      
+
       axios
         .patch(`/api/tasks/${this.currentTask.id}`, { image: path });
 
@@ -72,7 +80,7 @@ Vue.component('board', {
 
         axios
           .patch(`/api/lists/${list.id}`, { order: index });
-        
+
       });
     },
     sortTask(evt) {
@@ -93,33 +101,33 @@ Vue.component('board', {
 
         axios
           .patch(`/api/tasks/${task.id}`, { order: index });
-        
+
       });
 
       // get old list and do a full reorder
       // get new list and new position, order everything from slice start to slice down
 
       if (from !== to) {
-  
+
         this.currentLists[to].forEach((task, index) => {
-  
+
           // change index in data store - keep this for full reorder of old list, but use currentLists[from]
           task.order = index;
-  
+
           // send request to api
           axios
             .patch(`/api/tasks/${task.id}`, { order: index, listId: to });
-          
+
         });
-        
-      } 
+
+      }
 
     },
-    updateListName(list) {      
+    updateListName(list) {
       axios
         .patch(`/api/lists/${list.id}`, { title: list.title });
     },
-    updateTaskName(task) {      
+    updateTaskName(task) {
       axios
         .patch(`/api/tasks/${task.id}`, { title: task.title });
     },
@@ -138,10 +146,10 @@ Vue.component('board', {
         completed: false,
         listId: list.id,
         title: this.newTaskTitle
-      }; 
+      };
       axios
         .post('/api/tasks', task)
-        .then(taskContent => {    
+        .then(taskContent => {
           this.newTaskTitle = '';
           this.newTaskInputActive = false;
           this.currentLists[list.id].push(taskContent.data);
@@ -161,10 +169,10 @@ Vue.component('board', {
       let list = {
         boardId: this.currentBoard.id,
         title: this.newListTitle
-      }; 
+      };
       axios
         .post('/api/lists', list)
-        .then(listContent => {    
+        .then(listContent => {
           this.newListTitle = '';
           this.newListInputActive = false;
           this.currentBoard.lists.push(listContent.data);
@@ -198,7 +206,7 @@ Vue.component('board', {
       this.showTaskModule = false;
       this.currentTask = {};
       this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
-      
+
       axios
         .delete(`/api/tasks/${task.id}`);
     },
@@ -208,7 +216,7 @@ Vue.component('board', {
         .delete(`/api/lists/${list.id}`);
     },
     deleteBoard: function(deleteBoard) {
-            
+
       axios
         .delete(`/api/boards/${deleteBoard.id}`)
         .then( () => {
@@ -227,7 +235,7 @@ Vue.component('board', {
     overdue: function(task) {
       if (task.deadline && moment(task.deadline).diff(moment().startOf('day'), 'days') < 1) {
         return 'overDue';
-      } 
+      }
     }
   }
 });

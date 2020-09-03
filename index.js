@@ -32,11 +32,13 @@ const app = server.listen(3000, () => {
 const io = require('socket.io')(app);
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
+  socket.on('boardCreated', (message) => {
+    io.emit('boardCreated', message);
   });
-  socket.on('updatedBoard', () => {
-    console.log('something got updated');
+  socket.on('boardsState', (message) => {
+    io.emit('boardsState', message);
+  });
+  socket.on('boardDeleted', (id) => {
+    io.emit('boardDeleted', id);
   });
 });
