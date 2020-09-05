@@ -84,18 +84,70 @@ module.exports = (req, res, next) => {
     socket.emit('boardDeleted', id);
   }
 
+  if (req.method === 'PATCH' && req.path.match(/\/boards\/\d*/g)) {
+
+    const id = parseInt(req.path.replace('/boards/', ''));
+
+    socket.emit('boardUpdate', id, req.body);
+  }
+
   if (req.method === 'POST' && req.path === '/lists') {
+
+    // validation
     if (req.body.boardId === undefined) return badRequest('boardId');
+
+    // data generation
     req.body.id = randomId();
     req.body.created = moment().format('YYYY-MM-DD');
+
+    // stream message
+    socket.emit('listCreated', req.body.boardId, req.body);
+  }
+
+  if (req.method === 'PATCH' && req.path.match(/\/lists\/\d*/g)) {
+
+    const id = parseInt(req.path.replace('/lists/', ''));
+    socket.emit('listUpdated', id, req.body);
+  }
+
+  if (req.method === 'DELETE' && req.path.match(/\/lists\/\d*/g)) {
+
+    const id = parseInt(req.path.replace('/lists/', ''));
+    socket.emit('listDeleted', id);
   }
 
   if (req.method === 'POST' && req.path === '/tasks') {
+
+    // validation
     if (req.body.boardId === undefined) return badRequest('boardId');
     if (req.body.listId === undefined) return badRequest('listId');
+
+    // data generation
     req.body.id = randomId();
     req.body.created = moment().format('YYYY-MM-DD');
     req.body.deadline = moment().add(3, 'days').format('YYYY-MM-DD');
+
+    // stream message
+    socket.emit('taskCreated', req.body.listId, req.body);
+
+  }
+
+  if (req.method === 'PATCH' && req.path.match(/\/tasks\/\d*/g)) {
+
+    // stream message
+    const id = parseInt(req.path.replace('/tasks/', ''));
+    const task = db.get('tasks').find({ id }).value();
+    socket.emit('taskUpdated', id, { ...task, ...req.body });
+
+  }
+
+  if (req.method === 'DELETE' && req.path.match(/\/tasks\/\d*/g)) {
+
+    // stream message
+    const id = parseInt(req.path.replace('/tasks/', ''));
+    const task = db.get('tasks').find({ id }).value();
+    socket.emit('taskDeleted', id, { ...task, ...req.body });
+
   }
 
   if (req.method === 'POST' && req.path === '/upload') {
@@ -112,22 +164,6 @@ module.exports = (req, res, next) => {
     });
 
     return;
-  }
-
-  if (req.method === 'POST' && req.path === '/reset') {
-
-    db
-      .setState({
-        boards: [],
-        tasks: [],
-        users: [],
-        lists: [],
-      })
-      .write();
-
-    socket.emit('boardsState', []);
-
-    return res.sendStatus(204);
   }
 
   if (req.method === 'GET' && req.path === '/users') {
@@ -160,6 +196,23 @@ module.exports = (req, res, next) => {
     let response = res.status(201).jsonp(req.body);
     return response;
 
+  }
+
+  // cleanup methods
+  if (req.method === 'POST' && req.path === '/reset') {
+
+    db
+      .setState({
+        boards: [],
+        tasks: [],
+        users: [],
+        lists: [],
+      })
+      .write();
+
+    socket.emit('boardsState', []);
+
+    return res.sendStatus(204);
   }
 
   if (req.method === 'DELETE' && req.path === '/boards') {

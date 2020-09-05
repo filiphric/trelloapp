@@ -4,6 +4,7 @@ const vueDropzone = require('vue2-dropzone');
 const VueSocketIOExt = require('vue-socket.io-extended');
 const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
+const _ = require('lodash');
 Vue.use(VueSocketIOExt, socket);
 
 Vue.component('board', {
@@ -12,7 +13,51 @@ Vue.component('board', {
     vueDropzone
   },
   sockets: {
-
+    listCreated(boardId, message) {
+      // check that created list is in current board
+      if (this.currentBoard.id === boardId) {
+        // add list to board overview data
+        this.currentBoard.lists.push(message);
+        // add list to current list data
+        this.$set(this.currentLists, message.id, []);
+      }
+    },
+    listUpdated(id, message) {
+      // find list with ID in board list and update its values
+      const updatedData = this.currentBoard.lists.map(x => (x.id === id ? { ...x, ...message } : x));
+      this.currentBoard.lists = updatedData;
+    },
+    listDeleted(id) {
+      // update current board overview data
+      const updatedItem = this.currentBoard.lists.filter( list => {
+        return list.id !== id;
+      });
+      this.currentBoard.lists = updatedItem;
+      // update current lists data
+      const updatedList = _.pick(this.currentLists, id);
+      this.$set(this.currentLists, updatedList);
+    },
+    taskCreated(listId, message) {
+      // check that created task is in lists of current board
+      if (listId in this.currentLists) {
+        this.currentLists[listId].push(message);
+      }
+    },
+    taskUpdated(id, message) {
+      // find list with ID in board list and update its values
+      const updatedData = this.currentLists[message.listId].map(x => (x.id === id ? { ...x, ...message } : x));
+      this.currentLists[message.listId] = updatedData;
+      this.currentTask = message;
+    },
+    taskDeleted(id, message) {
+      // update current list tasks
+      if (message.listId in this.currentLists) {
+        const updatedList = this.currentLists[message.listId].filter( task => {
+          return task.id !== id;
+        });
+        this.currentLists[message.listId] = updatedList;
+      }
+    }
   },
   data: function() {
     return {
@@ -149,10 +194,9 @@ Vue.component('board', {
       };
       axios
         .post('/api/tasks', task)
-        .then(taskContent => {
+        .then(() => {
           this.newTaskTitle = '';
           this.newTaskInputActive = false;
-          this.currentLists[list.id].push(taskContent.data);
         }).catch( () => {
           this.$root.errorMessage.show = true;
           this.$root.errorMessage.text = 'There was an error creating task';
@@ -172,11 +216,9 @@ Vue.component('board', {
       };
       axios
         .post('/api/lists', list)
-        .then(listContent => {
+        .then(() => {
           this.newListTitle = '';
           this.newListInputActive = false;
-          this.currentBoard.lists.push(listContent.data);
-          this.currentLists[listContent.data.id] = [];
         }).catch( () => {
           this.$root.errorMessage.show = true;
           this.$root.errorMessage.text = 'There was an error creating list';
@@ -196,22 +238,23 @@ Vue.component('board', {
       this.showTaskModule = true;
       this.currentList = list;
       this.currentTask = task;
-      // this.$set(this.currentTask, 'id', task.id)
     },
     completeTask: function(task) {
       axios
         .patch(`/api/tasks/${task.id}`, {completed: task.completed});
     },
+    closeTask: function() {
+      this.currentTask = {};
+    },
     deleteTask: function(task) {
       this.showTaskModule = false;
       this.currentTask = {};
-      this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
+      // this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
 
       axios
         .delete(`/api/tasks/${task.id}`);
     },
     deleteList: function(list) {
-      this.currentBoard.lists = this.currentBoard.lists.filter(l => { return l.id !== list.id; });
       axios
         .delete(`/api/lists/${list.id}`);
     },

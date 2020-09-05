@@ -41,4 +41,26 @@ io.on('connection', (socket) => {
   socket.on('boardDeleted', (id) => {
     io.emit('boardDeleted', id);
   });
+  socket.on('boardUpdate', (id, message) => {
+    io.emit('boardUpdate', id, message);
+  });
+  socket.on('listCreated', (boardId, message) => {
+    io.emit('listCreated', boardId, message);
+  });
+  socket.on('listUpdated', (id, message) => {
+    io.emit('listUpdated', id, message);
+  });
+  socket.on('listDeleted', (id) => {
+    io.emit('listDeleted', id);
+  });
+  socket.on('taskCreated', (listId, message) => {
+    io.emit('taskCreated', listId, message);
+  });
+  socket.on('taskUpdated', (id, message) => {
+    io.emit('taskUpdated', id, message);
+  });
+  socket.on('taskDeleted', (id, message) => {
+    io.emit('taskDeleted', id, message);
+  });
+
 });

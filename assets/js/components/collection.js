@@ -7,9 +7,6 @@ Vue.use(VueSocketIOExt, socket);
 Vue.component('board-collection', {
   template: '#trello-board-collection',
   sockets: {
-    connect() {
-      console.log('socket connected');
-    },
     boardCreated(message) {
       this.boards.push(message);
     },
@@ -20,8 +17,10 @@ Vue.component('board-collection', {
       let deleted = this.boards.findIndex( board => board.id === id);
       this.boards.splice(deleted, 1);
     },
-    boardStarred(id) {
-      // todo
+    boardUpdate(id, message) {
+      let updated = this.boards.findIndex( board => board.id === id);
+      let board = this.boards[updated];
+      this.$set(this.boards, [updated], { ...board, ...message });
     }
   },
   data: function() {

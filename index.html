@@ -47,7 +47,7 @@
 		<div class="boardDetail">
 			<div
 				class="Overlay"
-				v-on:click.self="showTaskModule = !showTaskModule; taskDropdown = false"
+				v-on:click.self="showTaskModule = false; taskDropdown = false; closeTask()"
 				v-show="showTaskModule"
 			>
 				<div class="TaskModule">
@@ -55,7 +55,7 @@
             <div class="dropdown" @click="taskDropdown = !taskDropdown">
               <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
               <div id="myDropdown" class="dropdown-content" :class="{ show: taskDropdown }">
-                <span v-on:click="showTaskModule = false">Close task</span>
+                <span v-on:click="showTaskModule = false; closeTask()">Close task</span>
                 <span class="delete" @click="deleteTask(currentTask)">Delete task</span>
               </div>
             </div>
@@ -200,7 +200,7 @@
 						v-show="newTaskInputActive !== list.id"
 						v-on:click.stop.prevent="newTaskInputActive = list.id"
 					>
-						Add a card...
+						Add new task
 					</h5>
 					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
 					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
