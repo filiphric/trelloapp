@@ -57,6 +57,9 @@ Vue.component('board', {
         });
         this.currentLists[message.listId] = updatedList;
       }
+    },
+    boardUpdate(id, message) {
+      this.currentBoard.name = message.name;
     }
   },
   data: function() {

@@ -56,11 +56,11 @@ Vue.component('board', {
         const updatedList = this.currentLists[message.listId].filter( task => {
           return task.id !== id;
         });
-        console.log(message);
-        console.log(this.currentLists[message.listId]);
-        console.log(updatedList);
         this.currentLists[message.listId] = updatedList;
       }
+    },
+    boardUpdate(id, message) {
+      this.currentBoard.name = message.name;
     }
   },
   data: function() {
