@@ -13,6 +13,55 @@
       "id": 82235218314,
       "starred": false,
       "created": "2020-09-04"
+    },
+    {
+      "name": "My new board",
+      "user": 1,
+      "id": 55499277713,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "Test board",
+      "user": 0,
+      "id": 7352291358,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "Test board",
+      "user": 0,
+      "id": 13918464177,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "Test board",
+      "user": 0,
+      "id": 83680862520,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "Test board",
+      "user": 0,
+      "id": 66938456165,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "Test board",
+      "user": 0,
+      "id": 9781371907,
+      "starred": false,
+      "created": "2020-10-12"
+    },
+    {
+      "name": "My new board",
+      "user": 1,
+      "id": 25265465019,
+      "starred": false,
+      "created": "2020-10-12"
     }
   ],
   "tasks": [
@@ -37,19 +86,63 @@
       "deadline": "2020-09-08"
     }
   ],
-  "users": [],
+  "users": [
+    {
+      "email": "test@test.com",
+      "password": "$2a$10$TteSOANWvE2No/ryLH2y8e3I2cLKVAi6dJfkBIqGQEov1l8O4cuRe",
+      "id": 1
+    }
+  ],
   "lists": [
     {
       "boardId": 82235218314,
       "title": "ads",
       "id": 10874818037,
-      "created": "2020-09-05"
+      "created": "2020-09-05",
+      "order": 0
     },
     {
       "boardId": 53216181178,
       "title": "hftg",
       "id": 53659094555,
       "created": "2020-09-05",
+      "order": 0
+    },
+    {
+      "boardId": 7352291358,
+      "title": "New test list",
+      "id": 53659094556,
+      "order": 1
+    },
+    {
+      "boardId": 13918464177,
+      "title": "New test list",
+      "id": 53659094557,
+      "order": 1
+    },
+    {
+      "boardId": 7352291358,
+      "title": "asdsa",
+      "id": 45953110570,
+      "created": "2020-10-12",
+      "order": 0
+    },
+    {
+      "boardId": 66938456165,
+      "title": "New test list",
+      "id": 53659094558
+    },
+    {
+      "boardId": 66938456165,
+      "title": "My new list",
+      "id": 9139536448,
+      "created": "2020-10-12"
+    },
+    {
+      "boardId": 13918464177,
+      "title": "sasa",
+      "id": 21034575515,
+      "created": "2020-10-12",
       "order": 0
     }
   ]
