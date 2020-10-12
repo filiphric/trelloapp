@@ -4,7 +4,10 @@
   "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test:ui": "npx cypress run --headed --spec 'cypress/integration/ui/*'",
+    "test:api": "npx cypress run --headless --spec 'cypress/integration/api/*'",
+    "test": "npx cypress run"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
