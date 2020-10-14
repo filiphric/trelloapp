@@ -19,7 +19,7 @@ var router = new VueRouter({
   ]
 });
 
-new Vue({
+const app = new Vue({
   data: function() {
     return {
       errorMessage: {
@@ -145,3 +145,7 @@ new Vue({
   },
   router
 }).$mount('#trello-app');
+
+if (window.Cypress) {
+  window.app = app;
+}
