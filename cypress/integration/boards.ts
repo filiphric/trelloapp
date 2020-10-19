@@ -32,21 +32,21 @@ describe('Boards functionality', () => {
     cy
       .log('create board request is fired')
       .wait('@createBoard')
-      .then(board => {
+      .then(({ status, requestBody, responseBody }) => {
 
-        expect(board.status).to.eq(201);
-        expect(board.requestBody.name).to.eq('new board');
-        expect(board.responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(board.responseBody.id).to.exist;
-        expect(board.responseBody.name).to.eq('new board');
-        expect(board.responseBody.starred).to.be.false;
-        expect(board.responseBody.user).to.eq(0);
+        expect(status).to.eq(201);
+        expect(requestBody.name).to.eq('new board');
+        expect(responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
+        expect(responseBody.id).to.exist;
+        expect(responseBody.name).to.eq('new board');
+        expect(responseBody.starred).to.be.false;
+        expect(responseBody.user).to.eq(0);
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${board.responseBody.id}`);
+          .should('eq', `/board/${responseBody.id}`);
 
       });
 
@@ -75,21 +75,21 @@ describe('Boards functionality', () => {
     cy
       .log('create board request is fired')
       .wait('@createBoard')
-      .then(board => {
+      .then(({ responseBody, requestBody, status }) => {
 
-        expect(board.status).to.eq(201);
-        expect(board.requestBody.name).to.eq('new board');
-        expect(board.responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(board.responseBody.id).to.exist;
-        expect(board.responseBody.name).to.eq('new board');
-        expect(board.responseBody.starred).to.be.false;
-        expect(board.responseBody.user).to.eq(0);
+        expect(status).to.eq(201);
+        expect(requestBody.name).to.eq('new board');
+        expect(responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
+        expect(responseBody.id).to.exist;
+        expect(responseBody.name).to.eq('new board');
+        expect(responseBody.starred).to.be.false;
+        expect(responseBody.user).to.eq(0);
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${board.responseBody.id}`);
+          .should('eq', `/board/${responseBody.id}`);
 
       });
 
@@ -154,27 +154,27 @@ describe('Boards functionality', () => {
 
     cy
       .get('@createBoardRequest')
-      .then(createBoardRequest => {
+      .then(({ body }) => {
 
         cy
           .wait('@boardInfo')
-          .then(boardInfo => {
+          .then(({ responseBody, status }) => {
 
-            expect(boardInfo.status).to.eq(200);
-            expect(boardInfo.responseBody.name).to.eq('new board');
-            expect(boardInfo.responseBody.user).to.eq(0);
-            expect(boardInfo.responseBody.id).to.eq(createBoardRequest.body.id);
-            expect(boardInfo.responseBody.starred).to.eq(false);
-            expect(boardInfo.responseBody.created).to.eq(createBoardRequest.body.created);
-            expect(boardInfo.responseBody.lists).to.be.empty;
-            expect(boardInfo.responseBody.tasks).to.be.empty;
+            expect(status).to.eq(200);
+            expect(responseBody.name).to.eq('new board');
+            expect(responseBody.user).to.eq(0);
+            expect(responseBody.id).to.eq(body.id);
+            expect(responseBody.starred).to.eq(false);
+            expect(responseBody.created).to.eq(body.created);
+            expect(responseBody.lists).to.be.empty;
+            expect(responseBody.tasks).to.be.empty;
           });
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${createBoardRequest.body.id}`);
+          .should('eq', `/board/${body.id}`);
 
         cy
           .log('board name is visible on board')
@@ -196,10 +196,10 @@ describe('Boards functionality', () => {
       .as('createBoardRequest');
 
     cy
-      .get('@createBoardRequest').then(board => {
+      .get('@createBoardRequest').then(({ body }) => {
 
         cy
-          .visit(`/board/${board.body.id}`);
+          .visit(`/board/${body.id}`);
 
       });
 
@@ -210,14 +210,14 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@boardUpdate.1')
-      .then(boardUpdate => {
+      .then(({ status, responseBody, requestBody }) => {
 
-        expect(boardUpdate.status).to.eq(200);
-        expect(boardUpdate.requestBody.name).to.eq('updated board name');
-        expect(boardUpdate.responseBody.id).to.exist;
-        expect(boardUpdate.responseBody.name).to.eq('updated board name');
-        expect(boardUpdate.responseBody.starred).to.be.false;
-        expect(boardUpdate.responseBody.user).to.eq(0);
+        expect(status).to.eq(200);
+        expect(requestBody.name).to.eq('updated board name');
+        expect(responseBody.id).to.exist;
+        expect(responseBody.name).to.eq('updated board name');
+        expect(responseBody.starred).to.be.false;
+        expect(responseBody.user).to.eq(0);
 
       });
 
@@ -253,14 +253,14 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@boardUpdate.1')
-      .then(boardUpdate => {
+      .then(({ status, requestBody, responseBody }) => {
 
-        expect(boardUpdate.status).to.eq(200);
-        expect(boardUpdate.requestBody.starred).to.be.true;
-        expect(boardUpdate.responseBody.id).to.exist;
-        expect(boardUpdate.responseBody.name).to.eq('new board');
-        expect(boardUpdate.responseBody.starred).to.be.true;
-        expect(boardUpdate.responseBody.user).to.eq(0);
+        expect(status).to.eq(200);
+        expect(requestBody.starred).to.be.true;
+        expect(responseBody.id).to.exist;
+        expect(responseBody.name).to.eq('new board');
+        expect(responseBody.starred).to.be.true;
+        expect(responseBody.user).to.eq(0);
 
       });
 
@@ -295,14 +295,14 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@boardUpdate.2')
-      .then(boardUpdate => {
+      .then(({ responseBody, requestBody, status }) => {
 
-        expect(boardUpdate.status).to.eq(200);
-        expect(boardUpdate.requestBody.starred).to.be.false;
-        expect(boardUpdate.responseBody.id).to.exist;
-        expect(boardUpdate.responseBody.name).to.eq('new board');
-        expect(boardUpdate.responseBody.starred).to.be.false;
-        expect(boardUpdate.responseBody.user).to.eq(0);
+        expect(status).to.eq(200);
+        expect(requestBody.starred).to.be.false;
+        expect(responseBody.id).to.exist;
+        expect(responseBody.name).to.eq('new board');
+        expect(responseBody.starred).to.be.false;
+        expect(responseBody.user).to.eq(0);
 
       });
 
@@ -332,10 +332,10 @@ describe('Boards functionality', () => {
       .as('createBoardRequest');
 
     cy
-      .get('@createBoardRequest').then(board => {
+      .get('@createBoardRequest').then(({ body }) => {
 
         cy
-          .visit(`/board/${board.body.id}`);
+          .visit(`/board/${body.id}`);
 
       });
 
@@ -352,9 +352,9 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@deleteBoard')
-      .then(deleteBoard => {
-        expect(deleteBoard.status).to.eq(200);
-        expect(deleteBoard.responseBody).to.be.empty;
+      .then(({ status, responseBody }) => {
+        expect(status).to.eq(200);
+        expect(responseBody).to.be.empty;
       });
 
     cy
@@ -375,10 +375,10 @@ describe('Boards functionality', () => {
       .as('createBoardRequest');
 
     cy
-      .get('@createBoardRequest').then(board => {
+      .get('@createBoardRequest').then(({ body }) => {
 
         cy
-          .visit(`/board/${board.body.id}`);
+          .visit(`/board/${body.id}`);
 
       });
 
@@ -417,15 +417,15 @@ describe('Boards functionality', () => {
     cy
       .log('create a new board via api')
       .request('POST', '/api/boards', { name: 'new board' })
-      .then(board => {
+      .then(({ status, body }) => {
 
-        expect(board.status).to.eq(201);
-        expect(board.body.name).to.eq('new board');
-        expect(board.body.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(board.body.id).to.exist;
-        expect(board.body.name).to.eq('new board');
-        expect(board.body.starred).to.be.false;
-        expect(board.body.user).to.eq(0);
+        expect(status).to.eq(201);
+        expect(body.name).to.eq('new board');
+        expect(body.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
+        expect(body.id).to.exist;
+        expect(body.name).to.eq('new board');
+        expect(body.starred).to.be.false;
+        expect(body.user).to.eq(0);
 
       });
 
@@ -445,10 +445,10 @@ describe('Boards functionality', () => {
       .as('createBoardRequest');
 
     cy
-      .get('@createBoardRequest').then(board => {
+      .get('@createBoardRequest').then(({ body }) => {
 
         cy
-          .visit(`/board/${board.body.id}`);
+          .visit(`/board/${body.id}`);
 
       });
 
@@ -458,10 +458,10 @@ describe('Boards functionality', () => {
       .should('have.value', 'new board');
 
     cy
-      .get('@createBoardRequest').then(board => {
+      .get('@createBoardRequest').then(({ body }) => {
 
         cy
-          .request('PATCH', `/api/boards/${board.body.id}`, {
+          .request('PATCH', `/api/boards/${body.id}`, {
             name: 'updated board name'
           });
 
@@ -492,17 +492,17 @@ describe('Boards functionality', () => {
 
     cy
       .get('@createBoardRequest')
-      .then(createBoardRequest => {
+      .then(({ body }) => {
         cy
-          .request('PATCH', `/api/boards/${createBoardRequest.body.id}`, { starred: true })
-          .then(boardUpdate => {
+          .request('PATCH', `/api/boards/${body.id}`, { starred: true })
+          .then(({ status, body }) => {
 
-            expect(boardUpdate.status).to.eq(200);
-            expect(boardUpdate.body.starred).to.be.true;
-            expect(boardUpdate.body.id).to.exist;
-            expect(boardUpdate.body.name).to.eq('new board');
-            expect(boardUpdate.body.starred).to.be.true;
-            expect(boardUpdate.body.user).to.eq(0);
+            expect(status).to.eq(200);
+            expect(body.starred).to.be.true;
+            expect(body.id).to.exist;
+            expect(body.name).to.eq('new board');
+            expect(body.starred).to.be.true;
+            expect(body.user).to.eq(0);
 
           });
       });
@@ -531,9 +531,9 @@ describe('Boards functionality', () => {
 
     cy
       .get('@createBoardRequest')
-      .then(createBoardRequest => {
+      .then(({ body }) => {
         cy
-          .request('PATCH', `/api/boards/${createBoardRequest.body.id}`, { starred: false })
+          .request('PATCH', `/api/boards/${body.id}`, { starred: false })
           .then(boardUpdate => {
 
             expect(boardUpdate.status).to.eq(200);
@@ -580,12 +580,12 @@ describe('Boards functionality', () => {
 
     cy
       .get('@createBoardRequest')
-      .then(createBoardRequest => {
+      .then(({ body }) => {
         cy
-          .request('DELETE', `/api/boards/${createBoardRequest.body.id}`)
-          .then(deleteBoard => {
-            expect(deleteBoard.status).to.eq(200);
-            expect(deleteBoard.body).to.be.empty;
+          .request('DELETE', `/api/boards/${body.id}`)
+          .then(({ status, body }) => {
+            expect(status).to.eq(200);
+            expect(body).to.be.empty;
           });
       });
 
