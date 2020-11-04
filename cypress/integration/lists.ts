@@ -16,7 +16,8 @@ describe('List functionality', () => {
       .server();
 
     cy
-      .route('POST', '/api/lists').as('createList');
+      .route('POST', '/api/lists').as('createList')
+      .route('PATCH', '/api/lists/*').as('updateList');
 
   });
 
@@ -49,7 +50,35 @@ describe('List functionality', () => {
 
   });
 
-  it('renames a list', () => {
+  it.only('renames a list', () => {
+
+    cy
+      .request('POST', '/api/lists', {
+        boardId: Cypress.env('boards').id,
+        title: 'new list'
+      }).then(({ body }) => {
+        Cypress.env('lists', body);
+      });
+
+    cy
+      .visit(`/board/${Cypress.env('boards').id}`);
+
+    cy
+      .get('.taskTitle')
+      .clear()
+      .type('new list title{enter}');
+
+    cy
+      .wait('@updateList')
+      .then(({ status, requestBody, responseBody }) => {
+
+        expect(status).to.eq(200);
+        expect(requestBody.title).to.eq('new list title');
+        expect(responseBody.created).to.eq(Cypress.env('boards').created);
+        expect(responseBody.id).to.exist;
+        expect(responseBody.boardId).to.eq(Cypress.env('boards').id);
+
+      });
 
   });
 

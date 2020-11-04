@@ -4,7 +4,8 @@
   "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "cy:open": "npx cypres open"
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
