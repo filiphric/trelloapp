@@ -72,7 +72,8 @@
             v-model.lazy="currentTask.title"
             @change="updateTaskName(currentTask)"
             v-on:keyup.enter="$event.target.blur()"
-						type="text"
+            type="text"
+            data-cy="task-title-text-box"
 					></input>
 					<h5 class="TaskModule_list">in list <strong>{{ currentList.title }}</strong></h5>
 					<h6 class="TaskModule_descriptionTitle">Description</h6>
@@ -80,7 +81,8 @@
 						class="TaskModule_description"
 						v-if="currentTask.description"
 						v-show="!editTaskDescription"
-						v-on:click="editTaskDescription = !editTaskDescription"
+            v-on:click="editTaskDescription = !editTaskDescription"
+            data-cy="task-description-text-box"
 					>
 						{{ currentTask.description }}
 					</p>
@@ -120,7 +122,7 @@
 						</svg>
           </div>
           <h6 class="TaskModule_descriptionTitle">Due date</h6>
-          <input type="date" :class="overdue(currentTask)" placeholder="yyyy-mm-dd" min="1997-01-01" max="2030-12-31" v-model="currentTask.deadline" @change="saveNewTaskDeadline(currentTask)">
+          <input type="date" data-cy="task-date-picker" :class="overdue(currentTask)" placeholder="yyyy-mm-dd" min="1997-01-01" max="2030-12-31" v-model="currentTask.deadline" @change="saveNewTaskDeadline(currentTask)">
           <div v-show="currentTask.image">
             <h6 class="TaskModule_descriptionTitle">Image</h6>
             <div class="imagePreview">
@@ -144,6 +146,7 @@
             :use-custom-slot=true
             @vdropzone-sending="addImageId"
             @vdropzone-success="fileUploaded"
+            data-cy="task-upload-file"
             >
               <div class="dropzone-custom-content">
                 <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,13a1,1,0,0,0-1,1v.38L16.52,12.9a2.79,2.79,0,0,0-3.93,0l-.7.7L9.41,11.12a2.85,2.85,0,0,0-3.93,0L4,12.6V7A1,1,0,0,1,5,6h7a1,1,0,0,0,0-2H5A3,3,0,0,0,2,7V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V14A1,1,0,0,0,19,13ZM5,20a1,1,0,0,1-1-1V15.43l2.9-2.9a.79.79,0,0,1,1.09,0l3.17,3.17,0,0L15.46,20Zm13-1a.89.89,0,0,1-.18.53L13.31,15l.7-.7a.77.77,0,0,1,1.1,0L18,17.21ZM22.71,4.29l-3-3a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-3,3a1,1,0,0,0,1.42,1.42L18,4.41V10a1,1,0,0,0,2,0V4.41l1.29,1.3a1,1,0,0,0,1.42,0A1,1,0,0,0,22.71,4.29Z"/></svg>
@@ -155,11 +158,11 @@
 			</div>
 
 			<div class="boardDetail_info">
-        <input class="boardDetail_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
+        <input class="boardDetail_title" data-cy="board-detail-title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
         <div class="dropdown" @click="boardDropdown = !boardDropdown">
-          <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
+          <svg class="options" data-cy="board-dashboard-options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
           <div id="myDropdown" class="dropdown-content" v-show="boardDropdown">
-            <span class="delete" @click.self="deleteBoard(currentBoard)">Delete board</span>
+            <span class="delete" data-cy="board-dashboard-options-delete-board" @click.self="deleteBoard(currentBoard)">Delete board</span>
           </div>
         </div>
         <div
@@ -171,12 +174,12 @@
         </div>
 			</div>
 			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @end="sortList">
-        <div class="List" v-for="(list, index) in currentBoard.lists" :data-id="list.id" :key="list.id">
+        <div class="List" data-cy="board-list-item" v-for="(list, index) in currentBoard.lists" :data-id="list.id" :key="list.id">
           <input class="Input taskTitle" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
           <div class="dropdown" @click="listDropdown = index">
-            <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
+            <svg class="options" data-cy="board-list-options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
             <div id="myDropdown" class="dropdown-content" v-show="listDropdown === index">
-              <span class="delete" @click.self="deleteList(list); listDropdown = false">Delete list</span>
+              <span class="delete" @click.self="deleteList(list); listDropdown = false" data-cy="board-list-options-delete-list">Delete list</span>
             </div>
           </div>
           <div
@@ -184,13 +187,14 @@
           @click.self="listDropdown = false"
           v-show="listDropdown === index"
           v-cloak
+          
           >
           </div>
-					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
-            <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
+					<draggable class="List_tasks" data-cy="board-list-tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
+            <div class="Task" data-cy="board-list-task" v-for="task in currentLists[list.id]" :key="task.id"
               v-on:click.self="editTask(list, task)" :class="overdue(task)">
               <div class="container">
-                <input type="checkbox" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
+                <input type="checkbox" data-cy="board-list-checkbox" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
                 <label class="Task_title" :class="{ completed: task.completed }">{{task.title}}</label>
               </div>
             </div>
@@ -198,7 +202,8 @@
 					<h5
 						class="List_addTask"
 						v-show="newTaskInputActive !== list.id"
-						v-on:click.stop.prevent="newTaskInputActive = list.id"
+            v-on:click.stop.prevent="newTaskInputActive = list.id"
+            data-cy="board-add-new-task"
 					>
 						Add new task
 					</h5>
@@ -213,11 +218,11 @@
         </div>
 
 				<div class="CreateList" v-bind:class="{ 'CreateList-active': newListInputActive }">
-					<h3 class="CreateList_title" v-show="!newListInputActive" v-on:click="newListInputActive = !newListInputActive">Add a list...</h3>
-					<input class="CreateList_input" v-model="newListTitle" type="text" placeholder="Add a list..." v-on:keyup.enter="addList" v-focus="newListInputActive" v-show="newListInputActive"></input>
+					<h3 class="CreateList_title" data-cy="board-create-list-title" v-show="!newListInputActive" v-on:click="newListInputActive = !newListInputActive">Add a list...</h3>
+					<input class="CreateList_input"  v-model="newListTitle" type="text" placeholder="Add a list..." data-cy="board-create-list-title-text-box" v-on:keyup.enter="addList" v-focus="newListInputActive" v-show="newListInputActive"></input>
 					<div class="CreateList_options" v-show="newListInputActive">
-						<button class="Button" v-on:click="addList">Save</button>
-						<svg class="Cancel" v-on:click="cancelNewList">
+						<button class="Button" data-cy="board-save-list-button" v-on:click="addList">Save</button>
+						<svg class="Cancel" data-cy="board-cancel-list-button" v-on:click="cancelNewList">
 							<line x1="0" y1="0" x2="15" y2="15"/>
 							<line x1="0" y1="15" x2="15" y2="0"/>
 						</svg>
@@ -253,10 +258,10 @@
 
 		<div class="background_container" v-cloak>
 			<h1 class="background_title" v-show="starred(boards).length" >My Starred</h1>
-			<div class="board">
-				<router-link tag="div" class="board_item" v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
+			<div class="board" data-cy="dashboard-board">
+				<router-link tag="div"  class="board_item"  v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
           <h1 class="board_title">{{ board.name }}</h1>
-					<svg version="1.1" class="Star"   x="0px" y="0px"
+					<svg version="1.1" class="Star"  x="0px" y="0px" data-cy="dashboard-star-board"
              viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
@@ -272,7 +277,7 @@
 			</div>
 			<h1 class="background_title">My Boards</h1>
 			<div class="board">
-				<router-link tag="div" class="board_item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div"  data-cy="dashboard-board-item"  class="board_item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
 					<h1 class="board_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
@@ -287,12 +292,12 @@
 							L212.404,178.509z"/>
 					</svg>
 				</router-link>
-				<div class="board_newItem" id="new-board" data-cy="create-board" v-bind:class="{ 'board_newItem-active': newBoardInputActive }" v-on:click="toggleNewBoardInput(true)" >
+				<div class="board_newItem" id="new-board" data-cy="dashboard-create-board" v-bind:class="{ 'board_newItem-active': newBoardInputActive }" v-on:click="toggleNewBoardInput(true)" >
 					<h1 class="board_title" v-show="!newBoardInputActive">Create a board...</h1>
-					<input class="board_addBoard" v-model="newBoardTitle" v-on:keyup.enter.prevent="createNewBoard()" placeholder="Create a board..." v-show="newBoardInputActive" v-focus="newBoardInputActive" ></input>
-					<div class="board_options" v-show="newBoardInputActive">
+					<input class="board_addBoard" data-cy="dashboard-add-board-text-box" v-model="newBoardTitle" v-on:keyup.enter.prevent="createNewBoard()" placeholder="Create a board..." v-show="newBoardInputActive" v-focus="newBoardInputActive" ></input>
+					<div class="board_options" data-cy="dashboard-save-board-button" v-show="newBoardInputActive">
 						<button class="Button" v-on:click.stop="createNewBoard()">Save</button>
-						<svg class="Cancel" v-on:click.stop="toggleNewBoardInput(false)">
+						<svg class="Cancel" data-cy="dashboard-cancel-board-button" v-on:click.stop="toggleNewBoardInput(false)">
 							<line x1="0" y1="0" x2="15" y2="15"/>
 							<line x1="0" y1="15" x2="15" y2="0"/>
 						</svg>
@@ -307,19 +312,19 @@
 <body>
 	<div id="trello-app">
 		<nav class="Nav" v-cloak>
-      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
+      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak data-cy="board-dashboard-button">
         My Boards
       </router-link>
 			<img class="Nav_logo" src="./public/images/trello-logo.png">
-			<div class="Nav_user Nav_button" v-show="!loggedIn.active" @click="openLogin()" v-cloak>
+			<div class="Nav_user Nav_button" v-show="!loggedIn.active"  data-cy="log-in-dashboard-button" @click="openLogin()" v-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" data-name="Layer 1" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg>
         Log in
       </div>
-      <div class="Nav_user Nav_button" v-show="loggedIn.active" @click="loginDropdown = !loginDropdown" v-cloak>
+      <div class="Nav_user Nav_button"  v-show="loggedIn.active" data-cy="log-in-user-dropdown" @click="loginDropdown = !loginDropdown" v-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#5aac44"/></svg>
         {{ loggedIn.email }}
         <div id="myDropdown" class="dropdown-content" :class="{ show: loginDropdown }">
-          <span @click="logout()">Log out</span>
+          <span @click="logout()" data-cy="log-in-user-log-out">Log out</span>
         </div>
       </div>
       <div
@@ -350,10 +355,10 @@
             <h2 class="LoginModule_title">Log in to your account</h2>
               <div class="credentials">
                 <p class="LoginModule_description">Enter your email and password to log in</p>
-                <input type="email" placeholder="Email address" id="loginEmail" v-model="loginEmail" autocomplete="off">
-                <input type="password" placeholder="Password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">
+                <input type="email" data-cy="log-in-email-address" placeholder="Email address" id="loginEmail" v-model="loginEmail" autocomplete="off">
+                <input type="password" data-cy="log-in-password" placeholder="Password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">
                 <div class="LoginModule_buttons">
-                  <button class="Button" @click="login">
+                  <button class="Button" data-cy="log-in-button" @click="login">
                     Log in</button>
                 </div>
               </div>

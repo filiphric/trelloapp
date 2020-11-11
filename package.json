@@ -4,7 +4,9 @@
   "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+	"cypress:open": "cypress open"
+
   },
   "browser": {
     "vue": "vue/dist/vue.common.js"
@@ -13,6 +15,7 @@
     "axios": "^0.19.2",
     "connect-busboy": "0.0.2",
     "connect-history-api-fallback": "^1.6.0",
+    "cypress": "^5.6.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",

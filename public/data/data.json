@@ -1,6 +1,20 @@
 {
-  "boards": [],
+  "boards": [
+    {
+      "name": "klmlk",
+      "user": 0,
+      "id": 89286194938,
+      "starred": false,
+      "created": "2020-11-11"
+    }
+  ],
   "tasks": [],
-  "users": [],
+  "users": [
+    {
+      "email": "adrian.klostermann@gmail.com",
+      "password": "$2a$10$neYxLMfWVJI8ZF4mwmz5MOYDaRIRPKhxcbb5yNW7fQCDLVXVz8ssi",
+      "id": 1
+    }
+  ],
   "lists": []
 }
