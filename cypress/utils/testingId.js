@@ -6,6 +6,7 @@ export const TESTING_ID_DASHBOARD_BOARD_ITEM = "dashboard-board-item";
 export const TESTING_ID_DASHBOARD_STAR_BOARD = "dashboard-star-board";
 export const TESTING_ID_DASHBOARD_BOARD_LIST = "dashboard-board-list";
 export const TESTING_ID_DASHBOARD_ADD_BOARD_TEXT_BOX = "dashboard-add-board-text-box";
+export const TESTING_ID_DASHBOARD_BOARD_TITLE = "dashboard-board-title";
 
 // board
 
@@ -24,12 +25,15 @@ export const TESTING_ID_BOARD_LIST_ITEM = "board-list-item";
 export const TESTING_ID_BOARD_LIST_TASKS = "board-list-tasks";
 export const TESTING_ID_BOARD_LIST_CHECKBOX = "board-list-checkbox";
 export const TESTING_ID_BOARD_LIST_TASK = "board-list-task";
+export const TESTING_ID_BOARD_LIST_ADD_TASK_SAVE_BUTTON = "board-list-add-task-save-button";
+export const TESTING_ID_BOARD_LIST_TASK_TITLE = "board-list-task-title";
 
 // task
 export const TESTING_ID_TASK_TITLE_TEXT_BOX = "task-title-text-box";
 export const TESTING_ID_TASK_DESCRIPTION_TEXT_BOX = "task-description-text-box";
 export const TESTING_ID_TASK_DATE_PICKER = "task-date-picker";
-export const TESTING__TASK_UPLOAD_FILE = "task-upload-file";
+export const TESTING_ID_TASK_UPLOAD_FILE = "task-upload-file";
+export const TESTING_ID_TASK_LIST_ADD_TASK_TITLE = "task-list-add-task-title";
 
 // login
 export const TESTING_ID_LOG_IN_DASHBOARD_BUTTON = "log-in-dashboard-button";

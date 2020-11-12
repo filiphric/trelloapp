@@ -91,7 +91,8 @@
 						v-else
 						v-on:click="editTaskDescription = !editTaskDescription"
 						v-show="!editTaskDescription"
-					>
+          >
+          
 						Add a description...
 					</p>
 					<textarea
@@ -195,7 +196,7 @@
               v-on:click.self="editTask(list, task)" :class="overdue(task)">
               <div class="container">
                 <input type="checkbox" data-cy="board-list-checkbox" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
-                <label class="Task_title" :class="{ completed: task.completed }">{{task.title}}</label>
+                <label class="Task_title" data-cy="board-list-task-title" :class="{ completed: task.completed }">{{task.title}}</label>
               </div>
             </div>
 					</draggable>
@@ -207,9 +208,9 @@
 					>
 						Add new task
 					</h5>
-					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
+					<textarea class="TextArea" data-cy="task-list-add-task-title" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
 					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
-						<button class="Button" v-on:click="addTask(list)">Add</button>
+						<button class="Button" data-cy="board-list-add-task-save-button" v-on:click="addTask(list)">Add</button>
 						<svg class="Cancel" v-on:click="newTaskInputActive = null">
 							<line x1="0" y1="0" x2="15" y2="15"/>
 							<line x1="0" y1="15" x2="15" y2="0"/>
@@ -260,7 +261,7 @@
 			<h1 class="background_title" v-show="starred(boards).length" >My Starred</h1>
 			<div class="board" data-cy="dashboard-board">
 				<router-link tag="div"  class="board_item"  v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
-          <h1 class="board_title">{{ board.name }}</h1>
+          <h1 class="board_title"  >{{ board.name }}</h1>
 					<svg version="1.1" class="Star"  x="0px" y="0px" data-cy="dashboard-star-board"
              viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
@@ -278,7 +279,7 @@
 			<h1 class="background_title">My Boards</h1>
 			<div class="board">
 				<router-link tag="div"  data-cy="dashboard-board-item"  class="board_item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
-					<h1 class="board_title">{{ board.name }}</h1>
+					<h1 class="board_title" data-cy="dashboard-board-title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
