@@ -1,5 +1,5 @@
 import * as dashboard from "./screens/dashboard";
-import { ENDPOINT_BOARD, URL_LOCALHOST, URL_BOARD_ID } from "../../utils/endpoints";
+import { URL_LOCALHOST, URL_BOARD_ID } from "../../utils/endpoints";
 import * as board from "./screens/board";
 import * as task from "./screens/task";
 import {

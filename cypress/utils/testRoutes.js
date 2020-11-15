@@ -28,7 +28,7 @@ export const postBoardWithRecord = {
   status: 201,
   response: {
     name: "First dashboard",
-    user: 0,
+    user: 4,
     id: 35893852650,
     starred: false,
     created: "2020-11-12",
