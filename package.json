@@ -11,10 +11,11 @@
     "vue": "vue/dist/vue.common.js"
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^1.4.0",
     "axios": "^0.19.2",
     "connect-busboy": "0.0.2",
     "connect-history-api-fallback": "^1.6.0",
-    "cypress": "^5.1.0",
+    "cypress": "^6.0.0",
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",

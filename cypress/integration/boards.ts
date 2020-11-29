@@ -1,3 +1,5 @@
+import '../support/commands/addBoardApi';
+
 describe('Boards functionality', () => {
 
   beforeEach(() => {
@@ -6,11 +8,11 @@ describe('Boards functionality', () => {
       .request('POST', '/reset');
 
     cy
-      .server();
-
-    cy
-      .route('POST', '/api/boards').as('createBoard')
-      .route('GET', '/api/boards').as('boardList');
+      .intercept('POST', '**/api/boards').as('createBoard')
+      .intercept('GET', '**/api/boards').as('boardList')
+      .intercept('GET', '**/api/boards/*').as('boardInfo')
+      .intercept('PATCH', '**/api/boards/*').as('boardUpdate')
+      .intercept('DELETE', '/api/boards/*').as('deleteBoard');
 
   });
 
@@ -32,21 +34,21 @@ describe('Boards functionality', () => {
     cy
       .log('create board request is fired')
       .wait('@createBoard')
-      .then(({ status, requestBody, responseBody }) => {
+      .then(({ request, response }) => {
 
-        expect(status).to.eq(201);
-        expect(requestBody.name).to.eq('new board');
-        expect(responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(responseBody.id).to.exist;
-        expect(responseBody.name).to.eq('new board');
-        expect(responseBody.starred).to.be.false;
-        expect(responseBody.user).to.eq(0);
+        expect(response.statusCode).to.eq(201);
+        expect(request.body.name).to.eq('new board');
+        expect(response.body.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
+        expect(response.body.id).to.exist;
+        expect(response.body.name).to.eq('new board');
+        expect(response.body.starred).to.be.false;
+        expect(response.body.user).to.eq(0);
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${responseBody.id}`);
+          .should('eq', `/board/${response.body.id}`);
 
       });
 
@@ -75,21 +77,21 @@ describe('Boards functionality', () => {
     cy
       .log('create board request is fired')
       .wait('@createBoard')
-      .then(({ responseBody, requestBody, status }) => {
+      .then(({ response, request }) => {
 
-        expect(status).to.eq(201);
-        expect(requestBody.name).to.eq('new board');
-        expect(responseBody.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(responseBody.id).to.exist;
-        expect(responseBody.name).to.eq('new board');
-        expect(responseBody.starred).to.be.false;
-        expect(responseBody.user).to.eq(0);
+        expect(response.statusCode).to.eq(201);
+        expect(request.body.name).to.eq('new board');
+        expect(response.body.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
+        expect(response.body.id).to.exist;
+        expect(response.body.name).to.eq('new board');
+        expect(response.body.starred).to.be.false;
+        expect(response.body.user).to.eq(0);
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${responseBody.id}`);
+          .should('eq', `/board/${response.body.id}`);
 
       });
 
@@ -138,12 +140,8 @@ describe('Boards functionality', () => {
   it('enters a board', () => {
 
     cy
-      .route('/api/boards/*').as('boardInfo');
-
-    cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
+      .addBoardApi('new board');
 
     cy
       .visit('/');
@@ -153,53 +151,42 @@ describe('Boards functionality', () => {
       .click();
 
     cy
-      .get('@createBoardRequest')
-      .then(({ body }) => {
+      .wait('@boardInfo')
+      .then(({ response }) => {
 
-        cy
-          .wait('@boardInfo')
-          .then(({ responseBody, status }) => {
-
-            expect(status).to.eq(200);
-            expect(responseBody.name).to.eq('new board');
-            expect(responseBody.user).to.eq(0);
-            expect(responseBody.id).to.eq(body.id);
-            expect(responseBody.starred).to.eq(false);
-            expect(responseBody.created).to.eq(body.created);
-            expect(responseBody.lists).to.be.empty;
-            expect(responseBody.tasks).to.be.empty;
-          });
+        expect(response.statusCode).to.eq(200);
+        expect(response.body.name).to.eq('new board');
+        expect(response.body.user).to.eq(0);
+        expect(response.body.id).to.eq(Cypress.env('boards')[0].id);
+        expect(response.body.starred).to.eq(false);
+        expect(response.body.created).to.eq(Cypress.env('boards')[0].created);
+        expect(response.body.lists).to.be.empty;
+        expect(response.body.tasks).to.be.empty;
 
         cy
           .log('user is redirected into board')
           .location()
           .its('pathname')
-          .should('eq', `/board/${body.id}`);
-
-        cy
-          .log('board name is visible on board')
-          .get('.boardDetail_title')
-          .should('have.value', 'new board');
+          .should('eq', `/board/${Cypress.env('boards')[0].id}`);
 
       });
+
+    cy
+      .log('board name is visible on board')
+      .get('.boardDetail_title')
+      .should('have.value', 'new board');
 
   });
 
   it('renames a board', () => {
 
     cy
-      .route('PATCH', '/api/boards/*').as('boardUpdate');
-
-    cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
-
-    cy
-      .get('@createBoardRequest').then(({ body }) => {
+      .addBoardApi('new board')
+      .then(() => {
 
         cy
-          .visit(`/board/${body.id}`);
+          .visit(`/board/${Cypress.env('boards')[0].id}`);
 
       });
 
@@ -209,15 +196,15 @@ describe('Boards functionality', () => {
       .type('updated board name{enter}');
 
     cy
-      .wait('@boardUpdate.1')
-      .then(({ status, responseBody, requestBody }) => {
+      .wait('@boardUpdate')
+      .then(({ request, response }) => {
 
-        expect(status).to.eq(200);
-        expect(requestBody.name).to.eq('updated board name');
-        expect(responseBody.id).to.exist;
-        expect(responseBody.name).to.eq('updated board name');
-        expect(responseBody.starred).to.be.false;
-        expect(responseBody.user).to.eq(0);
+        expect(response.statusCode).to.eq(200);
+        expect(request.body.name).to.eq('updated board name');
+        expect(response.body.id).to.exist;
+        expect(response.body.name).to.eq('updated board name');
+        expect(response.body.starred).to.be.false;
+        expect(response.body.user).to.eq(0);
 
       });
 
@@ -231,11 +218,8 @@ describe('Boards functionality', () => {
   it('stars/unstars board', () => {
 
     cy
-      .route('PATCH', '/api/boards/*').as('boardUpdate');
-
-    cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' });
+      .addBoardApi('new board');
 
     cy
       .visit('/');
@@ -253,14 +237,14 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@boardUpdate.1')
-      .then(({ status, requestBody, responseBody }) => {
+      .then(({ response, request }) => {
 
-        expect(status).to.eq(200);
-        expect(requestBody.starred).to.be.true;
-        expect(responseBody.id).to.exist;
-        expect(responseBody.name).to.eq('new board');
-        expect(responseBody.starred).to.be.true;
-        expect(responseBody.user).to.eq(0);
+        expect(response.statusCode).to.eq(200);
+        expect(request.body.starred).to.be.true;
+        expect(response.body.id).to.exist;
+        expect(response.body.name).to.eq('new board');
+        expect(response.body.starred).to.be.true;
+        expect(response.body.user).to.eq(0);
 
       });
 
@@ -295,14 +279,14 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@boardUpdate.2')
-      .then(({ responseBody, requestBody, status }) => {
+      .then(({ request, response }) => {
 
-        expect(status).to.eq(200);
-        expect(requestBody.starred).to.be.false;
-        expect(responseBody.id).to.exist;
-        expect(responseBody.name).to.eq('new board');
-        expect(responseBody.starred).to.be.false;
-        expect(responseBody.user).to.eq(0);
+        expect(response.statusCode).to.eq(200);
+        expect(request.body.starred).to.be.false;
+        expect(response.body.id).to.exist;
+        expect(response.body.name).to.eq('new board');
+        expect(response.body.starred).to.be.false;
+        expect(response.body.user).to.eq(0);
 
       });
 
@@ -324,18 +308,14 @@ describe('Boards functionality', () => {
   it('deletes board', () => {
 
     cy
-      .route('DELETE', '/api/boards/*').as('deleteBoard');
-
-    cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
+      .addBoardApi('new board');
 
     cy
-      .get('@createBoardRequest').then(({ body }) => {
+      .then(() => {
 
         cy
-          .visit(`/board/${body.id}`);
+          .visit(`/board/${Cypress.env('boards')[0].id}`);
 
       });
 
@@ -352,9 +332,9 @@ describe('Boards functionality', () => {
 
     cy
       .wait('@deleteBoard')
-      .then(({ status, responseBody }) => {
-        expect(status).to.eq(200);
-        expect(responseBody).to.be.empty;
+      .then(({ response }) => {
+        expect(response.statusCode).to.eq(200);
+        expect(response.body).to.be.empty;
       });
 
     cy
@@ -367,18 +347,14 @@ describe('Boards functionality', () => {
   it('closes delete board dropdown', () => {
 
     cy
-      .route('DELETE', '/api/boards/*').as('deleteBoard');
-
-    cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
+      .addBoardApi('new board');
 
     cy
-      .get('@createBoardRequest').then(({ body }) => {
+      .then(() => {
 
         cy
-          .visit(`/board/${body.id}`);
+          .visit(`/board/${Cypress.env('boards')[0].id}`);
 
       });
 
@@ -404,30 +380,19 @@ describe('Boards functionality', () => {
 
   });
 
-  it('creates board via api', () => {
+  it.skip('creates board via api', () => {
 
     cy
       .visit('/');
 
     cy
       .wait('@boardList')
-      .its('responseBody')
+      .its('response.body')
       .should('be.empty');
 
     cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .then(({ status, body }) => {
-
-        expect(status).to.eq(201);
-        expect(body.name).to.eq('new board');
-        expect(body.created).to.eq(Cypress.moment().format('YYYY-MM-DD'));
-        expect(body.id).to.exist;
-        expect(body.name).to.eq('new board');
-        expect(body.starred).to.be.false;
-        expect(body.user).to.eq(0);
-
-      });
+      .addBoardApi('new board');
 
     cy
       .log('created board is visible')
@@ -441,14 +406,13 @@ describe('Boards functionality', () => {
 
     cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
+      .addBoardApi('new board');
 
     cy
-      .get('@createBoardRequest').then(({ body }) => {
+      .then(() => {
 
         cy
-          .visit(`/board/${body.id}`);
+          .visit(`/board/${Cypress.env('boards')[0].id}`);
 
       });
 
@@ -458,10 +422,10 @@ describe('Boards functionality', () => {
       .should('have.value', 'new board');
 
     cy
-      .get('@createBoardRequest').then(({ body }) => {
+      .then(() => {
 
         cy
-          .request('PATCH', `/api/boards/${body.id}`, {
+          .request('PATCH', `/api/boards/${Cypress.env('boards')[0].id}`, {
             name: 'updated board name'
           });
 
@@ -474,12 +438,11 @@ describe('Boards functionality', () => {
 
   });
 
-  it('stars/unstars board via api', () => {
+  it.only('stars/unstars board via api', () => {
 
     cy
       .log('create a new board via api')
-      .request('POST', '/api/boards', { name: 'new board' })
-      .as('createBoardRequest');
+      .addBoardApi('new board');
 
     cy
       .visit('/');
@@ -491,26 +454,7 @@ describe('Boards functionality', () => {
       .should('have.length', 1);
 
     cy
-      .get('@createBoardRequest')
-      .then(({ body }) => {
-        cy
-          .request('PATCH', `/api/boards/${body.id}`, { starred: true })
-          .then(({ status, body }) => {
-
-            expect(status).to.eq(200);
-            expect(body.starred).to.be.true;
-            expect(body.id).to.exist;
-            expect(body.name).to.eq('new board');
-            expect(body.starred).to.be.true;
-            expect(body.user).to.eq(0);
-
-          });
-      });
-
-    cy
-      .log('starred section appears');
-
-    cy
+      .log('starred section appears')
       .contains('h1.background_title', 'My Starred')
       .should('be.visible')
       .as('starredSection');
@@ -530,22 +474,7 @@ describe('Boards functionality', () => {
       .should('have.length', 2);
 
     cy
-      .get('@createBoardRequest')
-      .then(({ body }) => {
-        cy
-          .request('PATCH', `/api/boards/${body.id}`, { starred: false })
-          .then(boardUpdate => {
-
-            expect(boardUpdate.status).to.eq(200);
-            expect(boardUpdate.body.starred).to.be.false;
-            expect(boardUpdate.body.id).to.exist;
-            expect(boardUpdate.body.name).to.eq('new board');
-            expect(boardUpdate.body.starred).to.be.false;
-            expect(boardUpdate.body.user).to.eq(0);
-
-          });
-
-      });
+      .request('PATCH', `/api/boards/${Cypress.env('boards')[0].id}`, { starred: false });
 
     cy
       .log('starred section disappears');
