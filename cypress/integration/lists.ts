@@ -144,7 +144,7 @@ describe('List functionality', () => {
 
   });
 
-  it.only('deletes a list via api', () => {
+  it('deletes a list via api', () => {
 
     cy
       .addListApi({ title: 'new list' });

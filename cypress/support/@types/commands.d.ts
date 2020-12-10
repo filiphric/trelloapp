@@ -1,9 +1,15 @@
 declare namespace Cypress {
   interface Chainable {
+
     /**
      * create new board via API
     */
     addBoardApi(value: string): Chainable<Element>
+
+    /**
+     * create new board via UI
+    */
+    addBoardUi(value: string): Chainable<Element>
 
     /**
      * Adds new list via API and saves it to env

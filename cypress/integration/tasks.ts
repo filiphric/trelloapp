@@ -63,7 +63,7 @@ describe('Tasks behavior', () => {
 
   });
 
-  it.only('deletes a task', () => {
+  it('deletes a task', () => {
 
     cy
       .addTaskApi({ title: 'new task' });
@@ -101,6 +101,53 @@ describe('Tasks behavior', () => {
     cy
       .get('.Task')
       .should('not.exist');
+
+  });
+
+  it('drag a task to another list', () => {
+
+    cy
+      .addListApi({ title: 'another board' })
+      .addTaskApi({ title: 'new task' });
+
+    cy
+      .visit(`/board/${Cypress.env('boards')[0].id}`);
+
+    cy
+      .get('.List_tasks')
+      .eq(0)
+      .as('firstList');
+
+    cy
+      .get('.List_tasks')
+      .eq(1)
+      .as('secondList');
+
+    cy
+      .get('.Task')
+      .drag('@secondList');
+
+  });
+
+  it.only('upload a file into a tast', () => {
+
+    cy
+      .addTaskApi({ title: 'new task' });
+
+    cy
+      .visit(`/board/${Cypress.env('boards')[0].id}`);
+
+    cy
+      .contains('.Task', 'new task')
+      .click();
+
+    cy
+      .get('.TaskModule')
+      .should('be.visible');
+
+    cy
+      .get('[type=\'file\']')
+      .attachFile('udemy.png');
 
   });
 
