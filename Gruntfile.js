@@ -12,7 +12,11 @@ module.exports = function(grunt) {
       dist: {
         files: {
           'public/js/trello.js': 'assets/js/trello/main.js',
-        }
+        },
+      },
+      options: {
+        transform: [['babelify']],
+        watch: true
       }
     },
     watch: {
@@ -32,4 +36,5 @@ module.exports = function(grunt) {
   grunt.registerTask('s', ['sass']);
   grunt.registerTask('b', ['browserify']);
   grunt.registerTask('dev', ['sass', 'browserify']);
+
 };

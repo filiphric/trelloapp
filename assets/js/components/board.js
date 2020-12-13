@@ -1,3 +1,4 @@
+const Vue = require('vue');
 const moment = require('moment');
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
