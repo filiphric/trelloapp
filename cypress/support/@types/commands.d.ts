@@ -16,7 +16,7 @@ declare namespace Cypress {
     */
     addListApi(options: {
       title: string;
-      boardIndex?: string;
+      boardIndex?: number;
     }): Chainable<Element>
 
     /**

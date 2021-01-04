@@ -1,4 +1,5 @@
 import '../support/commands/addBoardApi';
+import '../support/commands/addBoardUi';
 
 describe('Boards functionality', () => {
 
@@ -12,7 +13,7 @@ describe('Boards functionality', () => {
       .intercept('GET', '**/api/boards').as('boardList')
       .intercept('GET', '**/api/boards/*').as('boardInfo')
       .intercept('PATCH', '**/api/boards/*').as('boardUpdate')
-      .intercept('DELETE', '/api/boards/*').as('deleteBoard');
+      .intercept('DELETE', '**/api/boards/*').as('deleteBoard');
 
   });
 
@@ -438,7 +439,7 @@ describe('Boards functionality', () => {
 
   });
 
-  it.only('stars/unstars board via api', () => {
+  it.skip('stars/unstars board via api', () => {
 
     cy
       .log('create a new board via api')
@@ -522,6 +523,45 @@ describe('Boards functionality', () => {
       .log('created board disappears')
       .get('.board_item')
       .should('have.length', 0);
+
+  });
+
+  it('does nothing when board name is not set', () => {
+
+    cy
+      .visit('/');
+
+    cy
+      .contains('h1', 'Create a board...')
+      .click();
+
+    cy
+      .contains('.Button', 'Save')
+      .click();
+
+  });
+
+  it('throws a proper error on unsuccesful api', () => {
+
+    cy
+      .intercept('POST', '**/api/boards', {
+        forceNetworkError: true
+      })
+      .as('createBoard');
+
+    cy
+      .visit('/');
+
+    cy
+      .addBoardUi('new board');
+
+    cy
+      .get('#errorMessage')
+      .should('be.visible');
+
+    cy
+      .get('#errorMessage')
+      .should('not.be.visible');
 
   });
 

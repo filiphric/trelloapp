@@ -171,8 +171,8 @@
         </div>
 			</div>
 			<draggable class="ListContainer" :list="currentBoard.lists" animation="150" group="lists" @end="sortList">
-        <div class="List" v-for="(list, index) in currentBoard.lists" :data-id="list.id" :key="list.id">
-          <input class="Input taskTitle" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
+        <div class="List" data-cy="list" v-for="(list, index) in currentBoard.lists" :data-id="list.id" :key="list.id">
+          <input class="Input taskTitle" data-cy="list-name" v-model.lazy="list.title" @change="updateListName(list)" v-on:keyup.enter="$event.target.blur()"></input>
           <div class="dropdown" @click="listDropdown = index">
             <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
             <div id="myDropdown" class="dropdown-content" v-show="listDropdown === index">
@@ -213,11 +213,11 @@
         </div>
 
 				<div class="CreateList" v-bind:class="{ 'CreateList-active': newListInputActive }">
-					<h3 class="CreateList_title" v-show="!newListInputActive" v-on:click="newListInputActive = !newListInputActive">Add a list...</h3>
-					<input class="CreateList_input" v-model="newListTitle" type="text" placeholder="Add a list..." v-on:keyup.enter="addList" v-focus="newListInputActive" v-show="newListInputActive"></input>
-					<div class="CreateList_options" v-show="newListInputActive">
-						<button class="Button" v-on:click="addList">Save</button>
-						<svg class="Cancel" v-on:click="cancelNewList">
+					<h3 class="CreateList_title" data-cy="add-list" v-show="!newListInputActive" v-on:click="newListInputActive = !newListInputActive">Add a list...</h3>
+					<input class="CreateList_input" data-cy="add-list-input" v-model="newListTitle" type="text" placeholder="Add a list..." v-on:keyup.enter="addList" v-focus="newListInputActive" v-show="newListInputActive"></input>
+					<div class="CreateList_options" data-cy="add-list-options" v-show="newListInputActive">
+						<button class="Button" data-cy="save" v-on:click="addList">Save</button>
+						<svg data-cy="cancel" class="Cancel" v-on:click="cancelNewList">
 							<line x1="0" y1="0" x2="15" y2="15"/>
 							<line x1="0" y1="15" x2="15" y2="0"/>
 						</svg>
