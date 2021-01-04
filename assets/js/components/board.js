@@ -6,12 +6,14 @@ const VueSocketIOExt = require('vue-socket.io-extended');
 const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
 const _ = require('lodash');
+const draggable = require('vuedraggable');
 Vue.use(VueSocketIOExt, socket);
 
 Vue.component('board', {
   template: '#trello-board',
   components: {
-    vueDropzone
+    vueDropzone,
+    draggable
   },
   sockets: {
     listCreated(boardId, message) {
