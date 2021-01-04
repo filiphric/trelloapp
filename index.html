@@ -50,11 +50,11 @@
 				v-on:click.self="showTaskModule = false; taskDropdown = false; closeTask()"
 				v-show="showTaskModule"
 			>
-				<div class="TaskModule">
+				<div class="TaskModule" data-cy="task-module">
 					<div class="TaskModule_exit">
-            <div class="dropdown" @click="taskDropdown = !taskDropdown">
+            <div data-cy="task-module-close" class="dropdown" @click="taskDropdown = !taskDropdown">
               <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
-              <div id="myDropdown" class="dropdown-content" :class="{ show: taskDropdown }">
+              <div id="myDropdown" data-cy="task-dropdown" class="dropdown-content" :class="{ show: taskDropdown }">
                 <span v-on:click="showTaskModule = false; closeTask()">Close task</span>
                 <span class="delete" @click="deleteTask(currentTask)">Delete task</span>
               </div>
@@ -68,7 +68,8 @@
             </div>
 					</div>
 					<input
-						class="Input TaskModule_title"
+            class="Input TaskModule_title"
+            data-cy="task-module-name"
             v-model.lazy="currentTask.title"
             @change="updateTaskName(currentTask)"
             v-on:keyup.enter="$event.target.blur()"
@@ -155,7 +156,7 @@
 			</div>
 
 			<div class="boardDetail_info">
-        <input class="boardDetail_title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
+        <input class="boardDetail_title" data-cy="board-title" v-model.lazy="currentBoard.name" @change="updateBoardName()" v-on:keyup.enter="$event.target.blur()"></input>
         <div class="dropdown" @click="boardDropdown = !boardDropdown">
           <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
           <div id="myDropdown" class="dropdown-content" v-show="boardDropdown">
@@ -187,7 +188,7 @@
           >
           </div>
 					<draggable class="List_tasks" :list="currentLists[list.id]" animation="150" group="{ name: 'tasksList' + index}" @end="sortTask($event, list)" >
-            <div class="Task" v-for="task in currentLists[list.id]" :key="task.id"
+            <div class="Task" data-cy="task" v-for="task in currentLists[list.id]" :key="task.id"
               v-on:click.self="editTask(list, task)" :class="overdue(task)">
               <div class="container">
                 <input type="checkbox" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
@@ -196,14 +197,15 @@
             </div>
 					</draggable>
 					<h5
-						class="List_addTask"
+            class="List_addTask"
+            data-cy="add-task"
 						v-show="newTaskInputActive !== list.id"
 						v-on:click.stop.prevent="newTaskInputActive = list.id"
 					>
 						Add new task
 					</h5>
-					<textarea class="TextArea" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
-					<div v-show="newTaskInputActive === list.id" class="List_newTaskOptions">
+					<textarea class="TextArea" data-cy="task-input" v-model="newTaskTitle" type="text" v-on:keydown.enter.prevent="addTask(list)" data-id="newTaskTitle" v-show="newTaskInputActive === list.id" v-focus="newTaskInputActive === list.id"></textarea>
+					<div v-show="newTaskInputActive === list.id" data-cy="task-options" class="List_newTaskOptions">
 						<button class="Button" v-on:click="addTask(list)">Add</button>
 						<svg class="Cancel" v-on:click="newTaskInputActive = null">
 							<line x1="0" y1="0" x2="15" y2="15"/>

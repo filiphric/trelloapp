@@ -164,3 +164,85 @@ it('deletes list', () => {
     .should('eq', 200);
 
 });
+
+it('update board name', () => {
+
+  cy
+    .visit(`/board/${Cypress.env('boards')[0].id}`);
+
+  cy
+    .get('[data-cy="board-title"]')
+    .should('have.value', 'new board')
+    .clear()
+    .type('updated board name{enter}')
+    .should('have.value', 'updated board name');
+
+});
+
+it('adds, updates and deletes a task', () => {
+
+  cy
+    .addListApi({ boardIndex: 0, title: 'new list' });
+
+  cy
+    .visit(`/board/${Cypress.env('boards')[0].id}`);
+
+  cy
+    .log('click on add task button')
+    .get('[data-cy="add-task"]')
+    .click();
+
+  cy
+    .log('task options appear')
+    .get('[data-cy="task-options"]')
+    .should('be.visible');
+
+  cy
+    .log('type the task name')
+    .get('[data-cy="task-input"]')
+    .type('new task{enter}');
+
+  cy
+    .log('task is created')
+    .get('[data-cy="task"]')
+    .should('be.visible');
+
+  cy
+    .get('[data-cy="task"]')
+    .click();
+
+  cy
+    .log('task module appears')
+    .get('[data-cy="task-module"]')
+    .should('be.visible');
+
+  cy
+    .log('change the task name')
+    .get('[data-cy="task-module-name"]')
+    .clear()
+    .type('updated task name{enter}');
+
+  cy
+    .log('open dropdown')
+    .get('[data-cy="task-module-close"]')
+    .click();
+
+  cy
+    .log('dropdown appear')
+    .get('[data-cy="task-dropdown"]');
+
+  cy
+    .contains('Delete task')
+    .click();
+
+  cy
+    .log('task module diappears')
+    .get('[data-cy="task-module"]')
+    .should('not.be.visible');
+
+  cy
+    .log('task disappears')
+    .get('[data-cy="task"]')
+    .should('not.exist');
+
+});
