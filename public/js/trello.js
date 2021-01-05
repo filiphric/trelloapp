@@ -3,7 +3,7 @@
 
 function cov_2l47phmtlg() {
   var path = "/Users/filiphric/trelloapp/assets/js/components/board.js";
-  var hash = "63c899827fd257c3769ce80ae779ba55386deea2";
+  var hash = "3d3ea6e669c0555bb07e5327abf67c910b2993e9";
   var global = new Function("return this")();
   var gcv = "__coverage__";
   var coverageData = {
@@ -291,45 +291,35 @@ function cov_2l47phmtlg() {
       },
       "28": {
         start: {
-          line: 57,
-          column: 6
+          line: 58,
+          column: 26
         },
         end: {
-          line: 62,
-          column: 7
+          line: 60,
+          column: 8
         }
       },
       "29": {
         start: {
-          line: 58,
-          column: 28
+          line: 59,
+          column: 8
         },
         end: {
-          line: 60,
-          column: 10
+          line: 59,
+          column: 30
         }
       },
       "30": {
         start: {
-          line: 59,
-          column: 10
+          line: 61,
+          column: 6
         },
         end: {
-          line: 59,
-          column: 32
+          line: 61,
+          column: 54
         }
       },
       "31": {
-        start: {
-          line: 61,
-          column: 8
-        },
-        end: {
-          line: 61,
-          column: 56
-        }
-      },
-      "32": {
         start: {
           line: 65,
           column: 6
@@ -339,7 +329,7 @@ function cov_2l47phmtlg() {
           column: 44
         }
       },
-      "33": {
+      "32": {
         start: {
           line: 69,
           column: 4
@@ -349,7 +339,7 @@ function cov_2l47phmtlg() {
           column: 6
         }
       },
-      "34": {
+      "33": {
         start: {
           line: 92,
           column: 4
@@ -359,7 +349,7 @@ function cov_2l47phmtlg() {
           column: 9
         }
       },
-      "35": {
+      "34": {
         start: {
           line: 94,
           column: 17
@@ -369,7 +359,7 @@ function cov_2l47phmtlg() {
           column: 23
         }
       },
-      "36": {
+      "35": {
         start: {
           line: 96,
           column: 8
@@ -379,7 +369,7 @@ function cov_2l47phmtlg() {
           column: 34
         }
       },
-      "37": {
+      "36": {
         start: {
           line: 97,
           column: 8
@@ -389,7 +379,7 @@ function cov_2l47phmtlg() {
           column: 43
         }
       },
-      "38": {
+      "37": {
         start: {
           line: 98,
           column: 8
@@ -399,7 +389,7 @@ function cov_2l47phmtlg() {
           column: 29
         }
       },
-      "39": {
+      "38": {
         start: {
           line: 99,
           column: 8
@@ -409,7 +399,7 @@ function cov_2l47phmtlg() {
           column: 11
         }
       },
-      "40": {
+      "39": {
         start: {
           line: 100,
           column: 10
@@ -419,7 +409,7 @@ function cov_2l47phmtlg() {
           column: 101
         }
       },
-      "41": {
+      "40": {
         start: {
           line: 100,
           column: 75
@@ -429,7 +419,7 @@ function cov_2l47phmtlg() {
           column: 98
         }
       },
-      "42": {
+      "41": {
         start: {
           line: 107,
           column: 17
@@ -439,7 +429,7 @@ function cov_2l47phmtlg() {
           column: 50
         }
       },
-      "43": {
+      "42": {
         start: {
           line: 109,
           column: 6
@@ -449,7 +439,7 @@ function cov_2l47phmtlg() {
           column: 69
         }
       },
-      "44": {
+      "43": {
         start: {
           line: 112,
           column: 6
@@ -459,7 +449,7 @@ function cov_2l47phmtlg() {
           column: 49
         }
       },
-      "45": {
+      "44": {
         start: {
           line: 116,
           column: 6
@@ -469,7 +459,7 @@ function cov_2l47phmtlg() {
           column: 58
         }
       },
-      "46": {
+      "45": {
         start: {
           line: 120,
           column: 6
@@ -479,7 +469,7 @@ function cov_2l47phmtlg() {
           column: 69
         }
       },
-      "47": {
+      "46": {
         start: {
           line: 123,
           column: 6
@@ -489,7 +479,7 @@ function cov_2l47phmtlg() {
           column: 36
         }
       },
-      "48": {
+      "47": {
         start: {
           line: 128,
           column: 6
@@ -499,7 +489,7 @@ function cov_2l47phmtlg() {
           column: 9
         }
       },
-      "49": {
+      "48": {
         start: {
           line: 130,
           column: 8
@@ -509,7 +499,7 @@ function cov_2l47phmtlg() {
           column: 27
         }
       },
-      "50": {
+      "49": {
         start: {
           line: 132,
           column: 8
@@ -519,7 +509,7 @@ function cov_2l47phmtlg() {
           column: 60
         }
       },
-      "51": {
+      "50": {
         start: {
           line: 139,
           column: 17
@@ -529,7 +519,7 @@ function cov_2l47phmtlg() {
           column: 73
         }
       },
-      "52": {
+      "51": {
         start: {
           line: 140,
           column: 15
@@ -539,7 +529,7 @@ function cov_2l47phmtlg() {
           column: 69
         }
       },
-      "53": {
+      "52": {
         start: {
           line: 148,
           column: 6
@@ -549,7 +539,7 @@ function cov_2l47phmtlg() {
           column: 9
         }
       },
-      "54": {
+      "53": {
         start: {
           line: 151,
           column: 8
@@ -559,7 +549,7 @@ function cov_2l47phmtlg() {
           column: 27
         }
       },
-      "55": {
+      "54": {
         start: {
           line: 153,
           column: 8
@@ -569,7 +559,7 @@ function cov_2l47phmtlg() {
           column: 60
         }
       },
-      "56": {
+      "55": {
         start: {
           line: 161,
           column: 6
@@ -579,7 +569,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "57": {
+      "56": {
         start: {
           line: 163,
           column: 8
@@ -589,7 +579,7 @@ function cov_2l47phmtlg() {
           column: 11
         }
       },
-      "58": {
+      "57": {
         start: {
           line: 166,
           column: 10
@@ -599,7 +589,7 @@ function cov_2l47phmtlg() {
           column: 29
         }
       },
-      "59": {
+      "58": {
         start: {
           line: 169,
           column: 10
@@ -609,7 +599,7 @@ function cov_2l47phmtlg() {
           column: 74
         }
       },
-      "60": {
+      "59": {
         start: {
           line: 178,
           column: 6
@@ -619,7 +609,7 @@ function cov_2l47phmtlg() {
           column: 63
         }
       },
-      "61": {
+      "60": {
         start: {
           line: 182,
           column: 6
@@ -629,7 +619,7 @@ function cov_2l47phmtlg() {
           column: 63
         }
       },
-      "62": {
+      "61": {
         start: {
           line: 186,
           column: 6
@@ -639,7 +629,7 @@ function cov_2l47phmtlg() {
           column: 88
         }
       },
-      "63": {
+      "62": {
         start: {
           line: 190,
           column: 6
@@ -649,7 +639,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "64": {
+      "63": {
         start: {
           line: 191,
           column: 8
@@ -659,7 +649,7 @@ function cov_2l47phmtlg() {
           column: 40
         }
       },
-      "65": {
+      "64": {
         start: {
           line: 192,
           column: 8
@@ -669,7 +659,7 @@ function cov_2l47phmtlg() {
           column: 15
         }
       },
-      "66": {
+      "65": {
         start: {
           line: 194,
           column: 17
@@ -679,7 +669,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "67": {
+      "66": {
         start: {
           line: 201,
           column: 6
@@ -689,7 +679,7 @@ function cov_2l47phmtlg() {
           column: 11
         }
       },
-      "68": {
+      "67": {
         start: {
           line: 204,
           column: 10
@@ -699,7 +689,7 @@ function cov_2l47phmtlg() {
           column: 33
         }
       },
-      "69": {
+      "68": {
         start: {
           line: 205,
           column: 10
@@ -709,7 +699,7 @@ function cov_2l47phmtlg() {
           column: 42
         }
       },
-      "70": {
+      "69": {
         start: {
           line: 207,
           column: 10
@@ -719,7 +709,7 @@ function cov_2l47phmtlg() {
           column: 46
         }
       },
-      "71": {
+      "70": {
         start: {
           line: 208,
           column: 10
@@ -729,7 +719,7 @@ function cov_2l47phmtlg() {
           column: 76
         }
       },
-      "72": {
+      "71": {
         start: {
           line: 209,
           column: 10
@@ -739,7 +729,7 @@ function cov_2l47phmtlg() {
           column: 19
         }
       },
-      "73": {
+      "72": {
         start: {
           line: 210,
           column: 12
@@ -749,7 +739,7 @@ function cov_2l47phmtlg() {
           column: 49
         }
       },
-      "74": {
+      "73": {
         start: {
           line: 215,
           column: 6
@@ -759,7 +749,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "75": {
+      "74": {
         start: {
           line: 216,
           column: 8
@@ -769,7 +759,7 @@ function cov_2l47phmtlg() {
           column: 40
         }
       },
-      "76": {
+      "75": {
         start: {
           line: 217,
           column: 8
@@ -779,7 +769,7 @@ function cov_2l47phmtlg() {
           column: 15
         }
       },
-      "77": {
+      "76": {
         start: {
           line: 219,
           column: 17
@@ -789,7 +779,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "78": {
+      "77": {
         start: {
           line: 223,
           column: 6
@@ -799,7 +789,7 @@ function cov_2l47phmtlg() {
           column: 11
         }
       },
-      "79": {
+      "78": {
         start: {
           line: 226,
           column: 10
@@ -809,7 +799,7 @@ function cov_2l47phmtlg() {
           column: 33
         }
       },
-      "80": {
+      "79": {
         start: {
           line: 227,
           column: 10
@@ -819,7 +809,7 @@ function cov_2l47phmtlg() {
           column: 42
         }
       },
-      "81": {
+      "80": {
         start: {
           line: 229,
           column: 10
@@ -829,7 +819,7 @@ function cov_2l47phmtlg() {
           column: 46
         }
       },
-      "82": {
+      "81": {
         start: {
           line: 230,
           column: 10
@@ -839,7 +829,7 @@ function cov_2l47phmtlg() {
           column: 76
         }
       },
-      "83": {
+      "82": {
         start: {
           line: 231,
           column: 10
@@ -849,7 +839,7 @@ function cov_2l47phmtlg() {
           column: 19
         }
       },
-      "84": {
+      "83": {
         start: {
           line: 232,
           column: 12
@@ -859,7 +849,7 @@ function cov_2l47phmtlg() {
           column: 49
         }
       },
-      "85": {
+      "84": {
         start: {
           line: 237,
           column: 6
@@ -869,7 +859,7 @@ function cov_2l47phmtlg() {
           column: 29
         }
       },
-      "86": {
+      "85": {
         start: {
           line: 238,
           column: 6
@@ -879,27 +869,7 @@ function cov_2l47phmtlg() {
           column: 38
         }
       },
-      "87": {
-        start: {
-          line: 241,
-          column: 6
-        },
-        end: {
-          line: 241,
-          column: 71
-        }
-      },
-      "88": {
-        start: {
-          line: 241,
-          column: 49
-        },
-        end: {
-          line: 241,
-          column: 69
-        }
-      },
-      "89": {
+      "86": {
         start: {
           line: 244,
           column: 6
@@ -909,7 +879,7 @@ function cov_2l47phmtlg() {
           column: 33
         }
       },
-      "90": {
+      "87": {
         start: {
           line: 245,
           column: 6
@@ -919,7 +889,7 @@ function cov_2l47phmtlg() {
           column: 30
         }
       },
-      "91": {
+      "88": {
         start: {
           line: 246,
           column: 6
@@ -929,7 +899,7 @@ function cov_2l47phmtlg() {
           column: 30
         }
       },
-      "92": {
+      "89": {
         start: {
           line: 249,
           column: 6
@@ -939,7 +909,7 @@ function cov_2l47phmtlg() {
           column: 69
         }
       },
-      "93": {
+      "90": {
         start: {
           line: 253,
           column: 6
@@ -949,7 +919,7 @@ function cov_2l47phmtlg() {
           column: 28
         }
       },
-      "94": {
+      "91": {
         start: {
           line: 256,
           column: 6
@@ -959,7 +929,7 @@ function cov_2l47phmtlg() {
           column: 34
         }
       },
-      "95": {
+      "92": {
         start: {
           line: 257,
           column: 6
@@ -969,7 +939,7 @@ function cov_2l47phmtlg() {
           column: 28
         }
       },
-      "96": {
+      "93": {
         start: {
           line: 260,
           column: 6
@@ -979,7 +949,7 @@ function cov_2l47phmtlg() {
           column: 41
         }
       },
-      "97": {
+      "94": {
         start: {
           line: 264,
           column: 6
@@ -989,7 +959,7 @@ function cov_2l47phmtlg() {
           column: 41
         }
       },
-      "98": {
+      "95": {
         start: {
           line: 269,
           column: 6
@@ -999,7 +969,7 @@ function cov_2l47phmtlg() {
           column: 11
         }
       },
-      "99": {
+      "96": {
         start: {
           line: 272,
           column: 10
@@ -1009,7 +979,7 @@ function cov_2l47phmtlg() {
           column: 33
         }
       },
-      "100": {
+      "97": {
         start: {
           line: 276,
           column: 6
@@ -1019,7 +989,7 @@ function cov_2l47phmtlg() {
           column: 39
         }
       },
-      "101": {
+      "98": {
         start: {
           line: 277,
           column: 6
@@ -1029,7 +999,7 @@ function cov_2l47phmtlg() {
           column: 73
         }
       },
-      "102": {
+      "99": {
         start: {
           line: 281,
           column: 6
@@ -1039,7 +1009,7 @@ function cov_2l47phmtlg() {
           column: 67
         }
       },
-      "103": {
+      "100": {
         start: {
           line: 285,
           column: 6
@@ -1049,7 +1019,7 @@ function cov_2l47phmtlg() {
           column: 7
         }
       },
-      "104": {
+      "101": {
         start: {
           line: 286,
           column: 8
@@ -1282,21 +1252,21 @@ function cov_2l47phmtlg() {
         decl: {
           start: {
             line: 58,
-            column: 70
+            column: 68
           },
           end: {
             line: 58,
-            column: 71
+            column: 69
           }
         },
         loc: {
           start: {
             line: 58,
-            column: 78
+            column: 76
           },
           end: {
             line: 60,
-            column: 9
+            column: 7
           }
         },
         line: 58
@@ -1953,54 +1923,6 @@ function cov_2l47phmtlg() {
         name: "(anonymous_37)",
         decl: {
           start: {
-            line: 240,
-            column: 15
-          },
-          end: {
-            line: 240,
-            column: 16
-          }
-        },
-        loc: {
-          start: {
-            line: 240,
-            column: 30
-          },
-          end: {
-            line: 242,
-            column: 5
-          }
-        },
-        line: 240
-      },
-      "38": {
-        name: "(anonymous_38)",
-        decl: {
-          start: {
-            line: 241,
-            column: 44
-          },
-          end: {
-            line: 241,
-            column: 45
-          }
-        },
-        loc: {
-          start: {
-            line: 241,
-            column: 49
-          },
-          end: {
-            line: 241,
-            column: 69
-          }
-        },
-        line: 241
-      },
-      "39": {
-        name: "(anonymous_39)",
-        decl: {
-          start: {
             line: 243,
             column: 14
           },
@@ -2021,8 +1943,8 @@ function cov_2l47phmtlg() {
         },
         line: 243
       },
-      "40": {
-        name: "(anonymous_40)",
+      "38": {
+        name: "(anonymous_38)",
         decl: {
           start: {
             line: 248,
@@ -2045,8 +1967,8 @@ function cov_2l47phmtlg() {
         },
         line: 248
       },
-      "41": {
-        name: "(anonymous_41)",
+      "39": {
+        name: "(anonymous_39)",
         decl: {
           start: {
             line: 252,
@@ -2069,8 +1991,8 @@ function cov_2l47phmtlg() {
         },
         line: 252
       },
-      "42": {
-        name: "(anonymous_42)",
+      "40": {
+        name: "(anonymous_40)",
         decl: {
           start: {
             line: 255,
@@ -2093,8 +2015,8 @@ function cov_2l47phmtlg() {
         },
         line: 255
       },
-      "43": {
-        name: "(anonymous_43)",
+      "41": {
+        name: "(anonymous_41)",
         decl: {
           start: {
             line: 263,
@@ -2117,8 +2039,8 @@ function cov_2l47phmtlg() {
         },
         line: 263
       },
-      "44": {
-        name: "(anonymous_44)",
+      "42": {
+        name: "(anonymous_42)",
         decl: {
           start: {
             line: 267,
@@ -2141,8 +2063,8 @@ function cov_2l47phmtlg() {
         },
         line: 267
       },
-      "45": {
-        name: "(anonymous_45)",
+      "43": {
+        name: "(anonymous_43)",
         decl: {
           start: {
             line: 271,
@@ -2165,8 +2087,8 @@ function cov_2l47phmtlg() {
         },
         line: 271
       },
-      "46": {
-        name: "(anonymous_46)",
+      "44": {
+        name: "(anonymous_44)",
         decl: {
           start: {
             line: 275,
@@ -2189,8 +2111,8 @@ function cov_2l47phmtlg() {
         },
         line: 275
       },
-      "47": {
-        name: "(anonymous_47)",
+      "45": {
+        name: "(anonymous_45)",
         decl: {
           start: {
             line: 280,
@@ -2213,8 +2135,8 @@ function cov_2l47phmtlg() {
         },
         line: 280
       },
-      "48": {
-        name: "(anonymous_48)",
+      "46": {
+        name: "(anonymous_46)",
         decl: {
           start: {
             line: 284,
@@ -2374,39 +2296,6 @@ function cov_2l47phmtlg() {
       "4": {
         loc: {
           start: {
-            line: 57,
-            column: 6
-          },
-          end: {
-            line: 62,
-            column: 7
-          }
-        },
-        type: "if",
-        locations: [{
-          start: {
-            line: 57,
-            column: 6
-          },
-          end: {
-            line: 62,
-            column: 7
-          }
-        }, {
-          start: {
-            line: 57,
-            column: 6
-          },
-          end: {
-            line: 62,
-            column: 7
-          }
-        }],
-        line: 57
-      },
-      "5": {
-        loc: {
-          start: {
             line: 161,
             column: 6
           },
@@ -2437,7 +2326,7 @@ function cov_2l47phmtlg() {
         }],
         line: 161
       },
-      "6": {
+      "5": {
         loc: {
           start: {
             line: 190,
@@ -2470,7 +2359,7 @@ function cov_2l47phmtlg() {
         }],
         line: 190
       },
-      "7": {
+      "6": {
         loc: {
           start: {
             line: 215,
@@ -2503,7 +2392,7 @@ function cov_2l47phmtlg() {
         }],
         line: 215
       },
-      "8": {
+      "7": {
         loc: {
           start: {
             line: 285,
@@ -2536,7 +2425,7 @@ function cov_2l47phmtlg() {
         }],
         line: 285
       },
-      "9": {
+      "8": {
         loc: {
           start: {
             line: 285,
@@ -2672,10 +2561,7 @@ function cov_2l47phmtlg() {
       "98": 0,
       "99": 0,
       "100": 0,
-      "101": 0,
-      "102": 0,
-      "103": 0,
-      "104": 0
+      "101": 0
     },
     f: {
       "0": 0,
@@ -2724,9 +2610,7 @@ function cov_2l47phmtlg() {
       "43": 0,
       "44": 0,
       "45": 0,
-      "46": 0,
-      "47": 0,
-      "48": 0
+      "46": 0
     },
     b: {
       "0": [0, 0],
@@ -2737,11 +2621,10 @@ function cov_2l47phmtlg() {
       "5": [0, 0],
       "6": [0, 0],
       "7": [0, 0],
-      "8": [0, 0],
-      "9": [0, 0]
+      "8": [0, 0]
     },
     _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
-    hash: "63c899827fd257c3769ce80ae779ba55386deea2"
+    hash: "3d3ea6e669c0555bb07e5327abf67c910b2993e9"
   };
   var coverage = global[gcv] || (global[gcv] = {});
 
@@ -2859,31 +2742,25 @@ Vue.component('board', {
     },
     taskDeleted: function taskDeleted(id, message) {
       cov_2l47phmtlg().f[8]++;
-      cov_2l47phmtlg().s[28]++;
-
       // update current list tasks
-      if (message.listId in this.currentLists) {
-        cov_2l47phmtlg().b[4][0]++;
-        var updatedList = (cov_2l47phmtlg().s[29]++, this.currentLists[message.listId].filter(function (task) {
-          cov_2l47phmtlg().f[9]++;
-          cov_2l47phmtlg().s[30]++;
-          return task.id !== id;
-        }));
-        cov_2l47phmtlg().s[31]++;
-        this.currentLists[message.listId] = updatedList;
-      } else {
-        cov_2l47phmtlg().b[4][1]++;
-      }
+      // if (message.listId in this.currentLists) {
+      var updatedList = (cov_2l47phmtlg().s[28]++, this.currentLists[message.listId].filter(function (task) {
+        cov_2l47phmtlg().f[9]++;
+        cov_2l47phmtlg().s[29]++;
+        return task.id !== id;
+      }));
+      cov_2l47phmtlg().s[30]++;
+      this.currentLists[message.listId] = updatedList; // }
     },
     boardUpdate: function boardUpdate(id, message) {
       cov_2l47phmtlg().f[10]++;
-      cov_2l47phmtlg().s[32]++;
+      cov_2l47phmtlg().s[31]++;
       this.currentBoard.name = message.name;
     }
   },
   data: function data() {
     cov_2l47phmtlg().f[11]++;
-    cov_2l47phmtlg().s[33]++;
+    cov_2l47phmtlg().s[32]++;
     return {
       editTaskDescription: false,
       newListTitle: '',
@@ -2910,27 +2787,27 @@ Vue.component('board', {
     var _this = this;
 
     cov_2l47phmtlg().f[12]++;
-    cov_2l47phmtlg().s[34]++;
+    cov_2l47phmtlg().s[33]++;
     axios.get("/api/boards/".concat(this.$route.params.id)).then(function (r) {
       cov_2l47phmtlg().f[13]++;
-      cov_2l47phmtlg().s[35]++;
+      cov_2l47phmtlg().s[34]++;
       return r.data;
     }).then(function (board) {
       cov_2l47phmtlg().f[14]++;
-      cov_2l47phmtlg().s[36]++;
+      cov_2l47phmtlg().s[35]++;
       _this.currentBoard = board;
-      cov_2l47phmtlg().s[37]++;
+      cov_2l47phmtlg().s[36]++;
       _this.currentBoardName = board.name;
-      cov_2l47phmtlg().s[38]++;
+      cov_2l47phmtlg().s[37]++;
       _this.loading = false;
-      cov_2l47phmtlg().s[39]++;
+      cov_2l47phmtlg().s[38]++;
       board.lists.forEach(function (list) {
         cov_2l47phmtlg().f[15]++;
-        cov_2l47phmtlg().s[40]++;
+        cov_2l47phmtlg().s[39]++;
 
         _this.$set(_this.currentLists, list.id, board.tasks.filter(function (task) {
           cov_2l47phmtlg().f[16]++;
-          cov_2l47phmtlg().s[41]++;
+          cov_2l47phmtlg().s[40]++;
           return task.listId === list.id;
         }));
       });
@@ -2939,36 +2816,36 @@ Vue.component('board', {
   methods: {
     fileUploaded: function fileUploaded(res) {
       cov_2l47phmtlg().f[17]++;
-      var path = (cov_2l47phmtlg().s[42]++, JSON.parse(res.xhr.response).path);
-      cov_2l47phmtlg().s[43]++;
+      var path = (cov_2l47phmtlg().s[41]++, JSON.parse(res.xhr.response).path);
+      cov_2l47phmtlg().s[42]++;
       axios.patch("/api/tasks/".concat(this.currentTask.id), {
         image: path
       });
-      cov_2l47phmtlg().s[44]++;
+      cov_2l47phmtlg().s[43]++;
       this.$set(this.currentTask, 'image', path);
     },
     addImageId: function addImageId(file, xhr) {
       cov_2l47phmtlg().f[18]++;
-      cov_2l47phmtlg().s[45]++;
+      cov_2l47phmtlg().s[44]++;
       xhr.setRequestHeader('taskId', this.currentTask.id);
     },
     removeImage: function removeImage() {
       cov_2l47phmtlg().f[19]++;
-      cov_2l47phmtlg().s[46]++;
+      cov_2l47phmtlg().s[45]++;
       axios.patch("/api/tasks/".concat(this.currentTask.id), {
         image: null
       });
-      cov_2l47phmtlg().s[47]++;
+      cov_2l47phmtlg().s[46]++;
       this.currentTask.image = null;
     },
     sortList: function sortList() {
       cov_2l47phmtlg().f[20]++;
-      cov_2l47phmtlg().s[48]++;
+      cov_2l47phmtlg().s[47]++;
       this.currentBoard.lists.forEach(function (list, index) {
         cov_2l47phmtlg().f[21]++;
-        cov_2l47phmtlg().s[49]++;
+        cov_2l47phmtlg().s[48]++;
         list.order = index;
-        cov_2l47phmtlg().s[50]++;
+        cov_2l47phmtlg().s[49]++;
         axios.patch("/api/lists/".concat(list.id), {
           order: index
         });
@@ -2976,64 +2853,64 @@ Vue.component('board', {
     },
     sortTask: function sortTask(evt) {
       cov_2l47phmtlg().f[22]++;
-      var from = (cov_2l47phmtlg().s[51]++, parseInt(evt.from.parentElement.getAttribute('data-id')));
-      var to = (cov_2l47phmtlg().s[52]++, parseInt(evt.to.parentElement.getAttribute('data-id'))); // get old position + new position and use it with slice
+      var from = (cov_2l47phmtlg().s[50]++, parseInt(evt.from.parentElement.getAttribute('data-id')));
+      var to = (cov_2l47phmtlg().s[51]++, parseInt(evt.to.parentElement.getAttribute('data-id'))); // get old position + new position and use it with slice
       // changing 0 and 1 - just change slice (0, 1)
       // changing 2 and 4 - just change slice (2, 4)
       // ordering backwards - revert slice order
       // how to get indexes numbers?
 
-      cov_2l47phmtlg().s[53]++;
+      cov_2l47phmtlg().s[52]++;
       this.currentLists[from].forEach(function (task, index) {
         cov_2l47phmtlg().f[23]++;
-        cov_2l47phmtlg().s[54]++;
+        cov_2l47phmtlg().s[53]++;
         // change index in data store
         task.order = index;
-        cov_2l47phmtlg().s[55]++;
+        cov_2l47phmtlg().s[54]++;
         axios.patch("/api/tasks/".concat(task.id), {
           order: index
         });
       }); // get old list and do a full reorder
       // get new list and new position, order everything from slice start to slice down
 
-      cov_2l47phmtlg().s[56]++;
+      cov_2l47phmtlg().s[55]++;
 
       if (from !== to) {
-        cov_2l47phmtlg().b[5][0]++;
-        cov_2l47phmtlg().s[57]++;
+        cov_2l47phmtlg().b[4][0]++;
+        cov_2l47phmtlg().s[56]++;
         this.currentLists[to].forEach(function (task, index) {
           cov_2l47phmtlg().f[24]++;
-          cov_2l47phmtlg().s[58]++;
+          cov_2l47phmtlg().s[57]++;
           // change index in data store - keep this for full reorder of old list, but use currentLists[from]
           task.order = index; // send request to api
 
-          cov_2l47phmtlg().s[59]++;
+          cov_2l47phmtlg().s[58]++;
           axios.patch("/api/tasks/".concat(task.id), {
             order: index,
             listId: to
           });
         });
       } else {
-        cov_2l47phmtlg().b[5][1]++;
+        cov_2l47phmtlg().b[4][1]++;
       }
     },
     updateListName: function updateListName(list) {
       cov_2l47phmtlg().f[25]++;
-      cov_2l47phmtlg().s[60]++;
+      cov_2l47phmtlg().s[59]++;
       axios.patch("/api/lists/".concat(list.id), {
         title: list.title
       });
     },
     updateTaskName: function updateTaskName(task) {
       cov_2l47phmtlg().f[26]++;
-      cov_2l47phmtlg().s[61]++;
+      cov_2l47phmtlg().s[60]++;
       axios.patch("/api/tasks/".concat(task.id), {
         title: task.title
       });
     },
     updateBoardName: function updateBoardName() {
       cov_2l47phmtlg().f[27]++;
-      cov_2l47phmtlg().s[62]++;
+      cov_2l47phmtlg().s[61]++;
       axios.patch("/api/boards/".concat(this.currentBoard.id), {
         name: this.currentBoard.name
       });
@@ -3042,42 +2919,42 @@ Vue.component('board', {
       var _this2 = this;
 
       cov_2l47phmtlg().f[28]++;
-      cov_2l47phmtlg().s[63]++;
+      cov_2l47phmtlg().s[62]++;
 
       if (!this.newTaskTitle) {
-        cov_2l47phmtlg().b[6][0]++;
-        cov_2l47phmtlg().s[64]++;
+        cov_2l47phmtlg().b[5][0]++;
+        cov_2l47phmtlg().s[63]++;
         this.newTaskInputActive = false;
-        cov_2l47phmtlg().s[65]++;
+        cov_2l47phmtlg().s[64]++;
         return;
       } else {
-        cov_2l47phmtlg().b[6][1]++;
+        cov_2l47phmtlg().b[5][1]++;
       }
 
-      var task = (cov_2l47phmtlg().s[66]++, {
+      var task = (cov_2l47phmtlg().s[65]++, {
         boardId: this.currentBoard.id,
         description: '',
         completed: false,
         listId: list.id,
         title: this.newTaskTitle
       });
-      cov_2l47phmtlg().s[67]++;
+      cov_2l47phmtlg().s[66]++;
       axios.post('/api/tasks', task).then(function () {
         cov_2l47phmtlg().f[29]++;
-        cov_2l47phmtlg().s[68]++;
+        cov_2l47phmtlg().s[67]++;
         _this2.newTaskTitle = '';
-        cov_2l47phmtlg().s[69]++;
+        cov_2l47phmtlg().s[68]++;
         _this2.newTaskInputActive = false;
       })["catch"](function () {
         cov_2l47phmtlg().f[30]++;
-        cov_2l47phmtlg().s[70]++;
+        cov_2l47phmtlg().s[69]++;
         _this2.$root.errorMessage.show = true;
-        cov_2l47phmtlg().s[71]++;
+        cov_2l47phmtlg().s[70]++;
         _this2.$root.errorMessage.text = 'There was an error creating task';
-        cov_2l47phmtlg().s[72]++;
+        cov_2l47phmtlg().s[71]++;
         setTimeout(function () {
           cov_2l47phmtlg().f[31]++;
-          cov_2l47phmtlg().s[73]++;
+          cov_2l47phmtlg().s[72]++;
           _this2.$root.errorMessage.show = false;
         }, 4000);
       });
@@ -3086,133 +2963,127 @@ Vue.component('board', {
       var _this3 = this;
 
       cov_2l47phmtlg().f[32]++;
-      cov_2l47phmtlg().s[74]++;
+      cov_2l47phmtlg().s[73]++;
 
       if (!this.newListTitle) {
-        cov_2l47phmtlg().b[7][0]++;
-        cov_2l47phmtlg().s[75]++;
+        cov_2l47phmtlg().b[6][0]++;
+        cov_2l47phmtlg().s[74]++;
         this.newListInputActive = false;
-        cov_2l47phmtlg().s[76]++;
+        cov_2l47phmtlg().s[75]++;
         return;
       } else {
-        cov_2l47phmtlg().b[7][1]++;
+        cov_2l47phmtlg().b[6][1]++;
       }
 
-      var list = (cov_2l47phmtlg().s[77]++, {
+      var list = (cov_2l47phmtlg().s[76]++, {
         boardId: this.currentBoard.id,
         title: this.newListTitle
       });
-      cov_2l47phmtlg().s[78]++;
+      cov_2l47phmtlg().s[77]++;
       axios.post('/api/lists', list).then(function () {
         cov_2l47phmtlg().f[33]++;
-        cov_2l47phmtlg().s[79]++;
+        cov_2l47phmtlg().s[78]++;
         _this3.newListTitle = '';
-        cov_2l47phmtlg().s[80]++;
+        cov_2l47phmtlg().s[79]++;
         _this3.newListInputActive = false;
       })["catch"](function () {
         cov_2l47phmtlg().f[34]++;
-        cov_2l47phmtlg().s[81]++;
+        cov_2l47phmtlg().s[80]++;
         _this3.$root.errorMessage.show = true;
-        cov_2l47phmtlg().s[82]++;
+        cov_2l47phmtlg().s[81]++;
         _this3.$root.errorMessage.text = 'There was an error creating list';
-        cov_2l47phmtlg().s[83]++;
+        cov_2l47phmtlg().s[82]++;
         setTimeout(function () {
           cov_2l47phmtlg().f[35]++;
-          cov_2l47phmtlg().s[84]++;
+          cov_2l47phmtlg().s[83]++;
           _this3.$root.errorMessage.show = false;
         }, 4000);
       });
     },
     cancelNewList: function cancelNewList() {
       cov_2l47phmtlg().f[36]++;
-      cov_2l47phmtlg().s[85]++;
+      cov_2l47phmtlg().s[84]++;
       this.newListTitle = '';
-      cov_2l47phmtlg().s[86]++;
+      cov_2l47phmtlg().s[85]++;
       this.newListInputActive = false;
     },
-    tasksList: function tasksList(list) {
-      cov_2l47phmtlg().f[37]++;
-      cov_2l47phmtlg().s[87]++;
-      return this.currentBoard.tasks.filter(function (b) {
-        cov_2l47phmtlg().f[38]++;
-        cov_2l47phmtlg().s[88]++;
-        return b.listId === list.id;
-      });
-    },
+    // tasksList: function(list) {
+    //   return this.currentBoard.tasks.filter(b => b.listId === list.id);
+    // },
     editTask: function editTask(list, task) {
-      cov_2l47phmtlg().f[39]++;
-      cov_2l47phmtlg().s[89]++;
+      cov_2l47phmtlg().f[37]++;
+      cov_2l47phmtlg().s[86]++;
       this.showTaskModule = true;
-      cov_2l47phmtlg().s[90]++;
+      cov_2l47phmtlg().s[87]++;
       this.currentList = list;
-      cov_2l47phmtlg().s[91]++;
+      cov_2l47phmtlg().s[88]++;
       this.currentTask = task;
     },
     completeTask: function completeTask(task) {
-      cov_2l47phmtlg().f[40]++;
-      cov_2l47phmtlg().s[92]++;
+      cov_2l47phmtlg().f[38]++;
+      cov_2l47phmtlg().s[89]++;
       axios.patch("/api/tasks/".concat(task.id), {
         completed: task.completed
       });
     },
     closeTask: function closeTask() {
-      cov_2l47phmtlg().f[41]++;
-      cov_2l47phmtlg().s[93]++;
+      cov_2l47phmtlg().f[39]++;
+      cov_2l47phmtlg().s[90]++;
       this.currentTask = {};
     },
     deleteTask: function deleteTask(task) {
-      cov_2l47phmtlg().f[42]++;
-      cov_2l47phmtlg().s[94]++;
+      cov_2l47phmtlg().f[40]++;
+      cov_2l47phmtlg().s[91]++;
       this.showTaskModule = false;
-      cov_2l47phmtlg().s[95]++;
+      cov_2l47phmtlg().s[92]++;
       this.currentTask = {}; // this.currentLists[task.listId] = this.currentLists[task.listId].filter(t => { return t.id !== task.id; });
 
-      cov_2l47phmtlg().s[96]++;
+      cov_2l47phmtlg().s[93]++;
       axios["delete"]("/api/tasks/".concat(task.id));
     },
     deleteList: function deleteList(list) {
-      cov_2l47phmtlg().f[43]++;
-      cov_2l47phmtlg().s[97]++;
+      cov_2l47phmtlg().f[41]++;
+      cov_2l47phmtlg().s[94]++;
       axios["delete"]("/api/lists/".concat(list.id));
     },
     deleteBoard: function deleteBoard(_deleteBoard) {
       var _this4 = this;
 
-      cov_2l47phmtlg().f[44]++;
-      cov_2l47phmtlg().s[98]++;
+      cov_2l47phmtlg().f[42]++;
+      cov_2l47phmtlg().s[95]++;
       axios["delete"]("/api/boards/".concat(_deleteBoard.id)).then(function () {
-        cov_2l47phmtlg().f[45]++;
-        cov_2l47phmtlg().s[99]++;
+        cov_2l47phmtlg().f[43]++;
+        cov_2l47phmtlg().s[96]++;
 
         _this4.$router.push('/');
       });
     },
     saveNewTaskDescription: function saveNewTaskDescription(task) {
-      cov_2l47phmtlg().f[46]++;
-      cov_2l47phmtlg().s[100]++;
+      cov_2l47phmtlg().f[44]++;
+      cov_2l47phmtlg().s[97]++;
       this.editTaskDescription = false;
-      cov_2l47phmtlg().s[101]++;
+      cov_2l47phmtlg().s[98]++;
       axios.patch("/api/tasks/".concat(task.id), {
         description: task.description
       });
     },
     saveNewTaskDeadline: function saveNewTaskDeadline(task) {
-      cov_2l47phmtlg().f[47]++;
-      cov_2l47phmtlg().s[102]++;
+      cov_2l47phmtlg().f[45]++;
+      cov_2l47phmtlg().s[99]++;
       axios.patch("/api/tasks/".concat(task.id), {
         deadline: task.deadline
       });
     },
     overdue: function overdue(task) {
-      cov_2l47phmtlg().f[48]++;
-      cov_2l47phmtlg().s[103]++;
+      cov_2l47phmtlg().f[46]++;
+      cov_2l47phmtlg().s[100]++;
 
-      if ((cov_2l47phmtlg().b[9][0]++, task.deadline) && (cov_2l47phmtlg().b[9][1]++, moment(task.deadline).diff(moment().startOf('day'), 'days') < 1)) {
-        cov_2l47phmtlg().b[8][0]++;
-        cov_2l47phmtlg().s[104]++;
+      if ((cov_2l47phmtlg().b[8][0]++, task.deadline) && (cov_2l47phmtlg().b[8][1]++, moment(task.deadline).diff(moment().startOf('day'), 'days') < 1)) {
+        cov_2l47phmtlg().b[7][0]++;
+        cov_2l47phmtlg().s[101]++;
         return 'overDue';
       } else {
-        cov_2l47phmtlg().b[8][1]++;
+        cov_2l47phmtlg().b[7][1]++;
       }
     }
   }

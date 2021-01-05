@@ -4,7 +4,7 @@
   "author": "Filip Hric",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js",
+    "start": "grunt dev && node index.js",
     "cy:open": "npx cypres open"
   },
   "browser": {

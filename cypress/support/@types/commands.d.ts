@@ -29,6 +29,14 @@ declare namespace Cypress {
     }): Chainable<Element>
 
     /**
+     * deletes a board via API
+    */
+    deleteBoardApi(options?: {
+      id: number;
+    }): Chainable<Element>
+
+
+    /**
      * Deletes new list via API
     */
     deleteListApi(index: number): Chainable<Element>
@@ -47,6 +55,22 @@ declare namespace Cypress {
     reorderListApi(options: {
       order: number;
       index?: number;
+    }): Chainable<Element>
+
+    /**
+     * signup via API
+    */
+    signupApi(options: {
+      email: string;
+      password: string;
+    }): Chainable<Element>
+
+    /**
+     * updtates a board via API
+    */
+    updateBoardApi(options: {
+      name: string;
+      id?: number;
     }): Chainable<Element>
 
   }

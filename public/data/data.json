@@ -1,27 +1,6 @@
 {
-  "boards": [
-    {
-      "name": "new board",
-      "user": 0,
-      "id": 64437440163,
-      "starred": false,
-      "created": "2020-12-13"
-    }
-  ],
+  "boards": [],
   "tasks": [],
   "users": [],
-  "lists": [
-    {
-      "boardId": 64437440163,
-      "title": "list 1",
-      "id": 21540384676,
-      "created": "2020-12-13"
-    },
-    {
-      "boardId": 64437440163,
-      "title": "list 2",
-      "id": 54565423256,
-      "created": "2020-12-13"
-    }
-  ]
+  "lists": []
 }

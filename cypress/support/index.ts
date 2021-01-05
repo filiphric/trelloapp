@@ -8,5 +8,6 @@ beforeEach(() => {
   Cypress.env('boards', []);
   Cypress.env('lists', []);
   Cypress.env('tasks', []);
+  Cypress.env('users', []);
 
 });

@@ -54,12 +54,12 @@ Vue.component('board', {
     },
     taskDeleted(id, message) {
       // update current list tasks
-      if (message.listId in this.currentLists) {
-        const updatedList = this.currentLists[message.listId].filter( task => {
-          return task.id !== id;
-        });
-        this.currentLists[message.listId] = updatedList;
-      }
+      // if (message.listId in this.currentLists) {
+      const updatedList = this.currentLists[message.listId].filter( task => {
+        return task.id !== id;
+      });
+      this.currentLists[message.listId] = updatedList;
+      // }
     },
     boardUpdate(id, message) {
       this.currentBoard.name = message.name;
@@ -237,9 +237,9 @@ Vue.component('board', {
       this.newListTitle = '';
       this.newListInputActive = false;
     },
-    tasksList: function(list) {
-      return this.currentBoard.tasks.filter(b => b.listId === list.id);
-    },
+    // tasksList: function(list) {
+    //   return this.currentBoard.tasks.filter(b => b.listId === list.id);
+    // },
     editTask: function(list, task) {
       this.showTaskModule = true;
       this.currentList = list;
