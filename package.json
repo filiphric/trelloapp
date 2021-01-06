@@ -10,7 +10,7 @@
     "vue": "vue/dist/vue.common.js"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "connect-busboy": "0.0.2",
     "connect-history-api-fallback": "^1.6.0",
     "eslint": "^7.4.0",
