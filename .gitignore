@@ -1,7 +1,8 @@
-/public/uploaded/*
 /node_modules
 .nyc_output
 coverage
 cypress/videos
 cypress/screenshots
-public
+/public/uploaded/*
+public/css
+public/js
