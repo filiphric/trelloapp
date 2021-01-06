@@ -1,3 +1,4 @@
+const Vue = require('vue');
 const moment = require('moment');
 const axios = require('axios');
 const vueDropzone = require('vue2-dropzone');
@@ -5,12 +6,14 @@ const VueSocketIOExt = require('vue-socket.io-extended');
 const io = require('socket.io-client');
 const socket = io('http://localhost:3000');
 const _ = require('lodash');
+const draggable = require('vuedraggable');
 Vue.use(VueSocketIOExt, socket);
 
 Vue.component('board', {
   template: '#trello-board',
   components: {
-    vueDropzone
+    vueDropzone,
+    draggable
   },
   sockets: {
     listCreated(boardId, message) {
@@ -51,12 +54,15 @@ Vue.component('board', {
     },
     taskDeleted(id, message) {
       // update current list tasks
-      if (message.listId in this.currentLists) {
-        const updatedList = this.currentLists[message.listId].filter( task => {
-          return task.id !== id;
-        });
-        this.currentLists[message.listId] = updatedList;
-      }
+      // if (message.listId in this.currentLists) {
+      const updatedList = this.currentLists[message.listId].filter( task => {
+        return task.id !== id;
+      });
+      this.currentLists[message.listId] = updatedList;
+      // }
+    },
+    boardUpdate(id, message) {
+      this.currentBoard.name = message.name;
     }
   },
   data: function() {
@@ -231,9 +237,9 @@ Vue.component('board', {
       this.newListTitle = '';
       this.newListInputActive = false;
     },
-    tasksList: function(list) {
-      return this.currentBoard.tasks.filter(b => b.listId === list.id);
-    },
+    // tasksList: function(list) {
+    //   return this.currentBoard.tasks.filter(b => b.listId === list.id);
+    // },
     editTask: function(list, task) {
       this.showTaskModule = true;
       this.currentList = list;

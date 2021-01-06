@@ -1,3 +1,4 @@
+const Vue = require('vue');
 const axios = require('axios');
 const VueSocketIOExt = require('vue-socket.io-extended');
 const io = require('socket.io-client');

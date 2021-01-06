@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-Vue = require('vue');
-VueRouter = require('vue-router');
+const Vue = require('vue');
+const VueRouter = require('vue-router');
 Vue.use(VueRouter);
 
 require('vuedraggable');
