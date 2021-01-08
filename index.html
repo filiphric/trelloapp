@@ -259,10 +259,10 @@
 		<div class="background_container" v-cloak>
 			<h1 class="background_title" v-show="starred(boards).length" >My Starred</h1>
 			<div class="board">
-				<router-link tag="div" class="board_item" v-for="board in starred(boards)" :key="board.id" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div" class="board_item" v-for="board in starred(boards)" v-on:mouseover.native="showByIndex = board" v-on:mouseout.native="showByIndex = null" :key="board.id" :to="{ path: '/board/' + board.id }">
           <h1 class="board_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
-             viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
+             viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)" v-show="showByIndex === board">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
 							c-1.141,3.51-0.22,7.363,2.385,9.979l64.272,64.55l-14.056,90.001c-0.569,3.648,0.95,7.306,3.937,9.476
@@ -277,10 +277,10 @@
 			</div>
 			<h1 class="background_title">My Boards</h1>
 			<div class="board">
-				<router-link tag="div" class="board_item" data-cy="board-item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }">
+				<router-link tag="div" class="board_item" data-cy="board-item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }"  v-on:mouseover.native="showByIndex = board" v-on:mouseout.native="showByIndex = null">
 					<h1 class="board_title">{{ board.name }}</h1>
 					<svg version="1.1" class="Star"   x="0px" y="0px"
-						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)">
+						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)" v-show="showByIndex === board">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
 							c-1.141,3.51-0.22,7.363,2.385,9.979l64.272,64.55l-14.056,90.001c-0.569,3.648,0.95,7.306,3.937,9.476

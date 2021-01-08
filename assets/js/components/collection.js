@@ -26,6 +26,7 @@ Vue.component('board-collection', {
   },
   data: function() {
     return {
+      showByIndex: null,
       loading: true,
       boards: [],
       newBoardTitle: '',

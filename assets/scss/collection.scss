@@ -16,11 +16,6 @@
 		background-color: $blue-7;
 		&:hover {
 			background-color: $blue-8;
-			.Star {
-				@extend .transition;
-				right: 13px;
-				visibility: visible;
-			}
 		}
 	}
 	.board_title {
@@ -69,11 +64,11 @@
 	height: 15px;
 	width: 15px;
 	position: absolute;
-	right: -20px;
+	right: 13px;
 	top: 10px;
 	padding: 2px;
 	@extend .transition;
-	visibility: hidden;
+	// visibility: hidden;
 	path {
 		stroke-width: 10;
 		stroke: $white;
