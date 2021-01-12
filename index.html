@@ -261,7 +261,7 @@
 			<div class="board">
 				<router-link tag="div" class="board_item" v-for="board in starred(boards)" v-on:mouseover.native="showByIndex = board" v-on:mouseout.native="showByIndex = null" :key="board.id" :to="{ path: '/board/' + board.id }">
           <h1 class="board_title">{{ board.name }}</h1>
-					<svg version="1.1" class="Star"   x="0px" y="0px"
+					<svg version="1.1" class="Star" data-cy="star"  x="0px" y="0px"
              viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)" v-show="showByIndex === board">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
@@ -279,7 +279,7 @@
 			<div class="board">
 				<router-link tag="div" class="board_item" data-cy="board-item" :data-id="'board_' + board.id" v-for="board in boards" :key="board.id" :to="{ path: '/board/' + board.id }"  v-on:mouseover.native="showByIndex = board" v-on:mouseout.native="showByIndex = null">
 					<h1 class="board_title">{{ board.name }}</h1>
-					<svg version="1.1" class="Star"   x="0px" y="0px"
+					<svg version="1.1" class="Star" data-cy="star"  x="0px" y="0px"
 						 viewBox="0 0 297 297" v-on:click.stop="updateBoardStarred(board)" v-show="showByIndex === board">
 						<path d="M296.519,114.329c-1.142-3.512-4.15-6.088-7.795-6.674l-89.94-14.441l-41.528-81.074c-1.684-3.287-5.064-5.352-8.755-5.352
 							c-3.691,0-7.071,2.064-8.755,5.352L98.217,93.214l-89.94,14.441c-3.645,0.586-6.653,3.162-7.795,6.674
