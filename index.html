@@ -310,7 +310,7 @@
 </template>
 
 <body>
-	<div id="trello-app">
+	<div id="trello-app" v-shortkey="['f2']" @shortkey="toggleTools()">
 		<nav class="Nav" v-cloak>
       <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
         My Boards
@@ -388,6 +388,13 @@
     </div>
     <div id="errorMessage" v-show="errorMessage.show" v-cloak>{{ errorMessage.text }}</div>
     <div id="loginMessage" v-show="loggedIn.active" v-cloak>User is logged in</div>
+    <div id="tools" v-show="tools">Reset application:
+      <button @click="resetAll()">All</button>
+      <button @click="resetBoards()">Boards</button>
+      <button @click="resetLists()">Lists</button>
+      <button @click="resetTasks()">Tasks</button>
+      <button @click="resetUsers()">Users</button>
+    </div>
 		<router-view :key="$route.fullPath"></router-view>
 	</div>
 

@@ -3,6 +3,7 @@ const axios = require('axios');
 const Vue = require('vue');
 const VueRouter = require('vue-router');
 Vue.use(VueRouter);
+Vue.use(require('vue-shortkey'));
 
 require('vuedraggable');
 require('./../directives/vue-focus.js');
@@ -38,7 +39,8 @@ const app = new Vue({
       loggedIn: {
         active: false,
         email: '',
-      }
+      },
+      tools: false
     };
   },
   created () {
@@ -63,6 +65,34 @@ const app = new Vue({
     }
   },
   methods: {
+    resetAll: function() {
+      axios
+        .post('/api/reset');
+      this.$router.push('/');
+    },
+    resetBoards: function() {
+      axios
+        .delete('/api/boards');
+      this.$router.push('/');
+    },
+    resetLists: function() {
+      axios
+        .delete('/api/lists');
+      this.$router.go(this.$router.currentRoute);
+    },
+    resetTasks: function() {
+      axios
+        .delete('/api/tasks');
+      this.$router.go(this.$router.currentRoute);
+    },
+    resetUsers: function() {
+      axios
+        .delete('/api/users');
+      this.$router.go(this.$router.currentRoute);
+    },
+    toggleTools: function() {
+      this.tools = !this.tools;
+    },
     openLogin: function() {
       this.showLoginModule = true;
       this.loginCardActive = true;
