@@ -195,7 +195,7 @@
               v-on:click.self="editTask(list, task)" :class="overdue(task)">
               <div class="container">
                 <input type="checkbox" data-cy="task-done" class="checkmark" v-model="task.completed" v-on:change="completeTask(task)">
-                <label class="Task_title" :class="{ completed: task.completed }">{{task.title}}</label>
+                <label class="Task_title" data-cy="task-title" :class="{ completed: task.completed }">{{task.title}}</label>
               </div>
             </div>
 					</draggable>
@@ -388,7 +388,7 @@
     </div>
     <div id="errorMessage" v-show="errorMessage.show" v-cloak>{{ errorMessage.text }}</div>
     <div id="loginMessage" v-show="loggedIn.active" v-cloak>User is logged in</div>
-    <div id="tools" v-show="tools">Reset application:
+    <div id="tools" v-show="tools" v-cloak>Reset application:
       <button @click="resetAll()">All</button>
       <button @click="resetBoards()">Boards</button>
       <button @click="resetLists()">Lists</button>
