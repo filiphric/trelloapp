@@ -68,27 +68,22 @@ const app = new Vue({
     resetAll: function() {
       axios
         .post('/api/reset');
-      this.$router.push('/');
     },
     resetBoards: function() {
       axios
         .delete('/api/boards');
-      this.$router.push('/');
     },
     resetLists: function() {
       axios
         .delete('/api/lists');
-      this.$router.go(this.$router.currentRoute);
     },
     resetTasks: function() {
       axios
         .delete('/api/tasks');
-      this.$router.go(this.$router.currentRoute);
     },
     resetUsers: function() {
       axios
         .delete('/api/users');
-      this.$router.go(this.$router.currentRoute);
     },
     toggleTools: function() {
       this.tools = !this.tools;
@@ -176,6 +171,4 @@ const app = new Vue({
   router
 }).$mount('#trello-app');
 
-if (window.Cypress) {
-  window.app = app;
-}
+window.app = app;
