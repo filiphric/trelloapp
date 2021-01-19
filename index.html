@@ -56,6 +56,7 @@
               <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
               <div id="myDropdown" data-cy="task-dropdown" class="dropdown-content" :class="{ show: taskDropdown }">
                 <span v-on:click="showTaskModule = false; closeTask()">Close task</span>
+                <span @click.self="copyProperties(currentTask)">Copy properties</span>
                 <span class="delete" @click="deleteTask(currentTask)">Delete task</span>
               </div>
             </div>
@@ -164,6 +165,7 @@
           <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
           <div id="myDropdown" class="dropdown-content" v-show="boardDropdown">
             <span class="delete" @click.self="deleteBoard(currentBoard)">Delete board</span>
+            <span @click.self="copyProperties(currentBoard)">Copy properties</span>
           </div>
         </div>
         <div
@@ -181,6 +183,7 @@
             <svg class="options" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,7a2,2,0,1,0-2-2A2,2,0,0,0,12,7Zm0,10a2,2,0,1,0,2,2A2,2,0,0,0,12,17Zm0-7a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z"/></svg>
             <div id="myDropdown" class="dropdown-content" v-show="listDropdown === index">
               <span class="delete" @click.self="deleteList(list); listDropdown = false">Delete list</span>
+              <span @click.self="copyProperties(list)">Copy properties</span>
             </div>
           </div>
           <div
