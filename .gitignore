@@ -3,6 +3,7 @@
 coverage
 cypress/videos
 cypress/screenshots
-/public/uploaded/*
+/public/uploaded/*.png
+/public/uploaded/*.jpg
 public/css
 public/js
