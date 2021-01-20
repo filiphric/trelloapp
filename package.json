@@ -22,6 +22,7 @@
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "chai-moment-string": "^1.0.0",
+    "clipboardy": "^2.3.0",
     "connect-busboy": "0.0.2",
     "connect-history-api-fallback": "^1.6.0",
     "cypress": "^6.2.1",

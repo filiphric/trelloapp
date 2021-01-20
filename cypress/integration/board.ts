@@ -81,6 +81,15 @@ it('adds a new list', () => {
     .click();
 
   cy
+    .get('[data-cy="copy-list-properties"]')
+    .realClick()
+    .task('getClipboard')
+    .should('contain', 'title')
+    .should('contain', 'id')
+    .should('contain', 'created')
+    .should('contain', 'boardId');
+
+  cy
     .contains('span', 'Delete list')
     .click();
 

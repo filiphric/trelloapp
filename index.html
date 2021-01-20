@@ -312,20 +312,19 @@
 	</div>
 </template>
 
-<body>
-	<div id="trello-app" v-shortkey="['f2']" @shortkey="toggleTools()">
-		<nav class="Nav" v-cloak>
-      <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
-        My Boards
-      </router-link>
-			<img class="Nav_logo" src="./public/images/trello-logo.png">
-			<div class="Nav_user Nav_button" data-cy="login-menu" v-show="!loggedIn.active" @click="openLogin()" v-cloak>
+<template id="navbar">
+  <nav class="Nav" v-cloak>
+    <router-link tag="div" class="Nav_boards Nav_button" to="/" v-show="$route.path !== '/'" v-cloak>
+      My Boards
+    </router-link>
+    <img class="Nav_logo" src="./public/images/trello-logo.png">
+      <div class="Nav_user Nav_button" data-cy="login-menu" v-show="!this.$root.loggedIn.active" @click="openLogin()" v-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" data-name="Layer 1" viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a10,10,0,0,0,14.7,0h0A10,10,0,0,0,12,2Zm0,18a8,8,0,0,1-5.55-2.25,6,6,0,0,1,11.1,0A8,8,0,0,1,12,20ZM10,10a2,2,0,1,1,2,2A2,2,0,0,1,10,10Zm8.91,6A8,8,0,0,0,15,12.62a4,4,0,1,0-6,0A8,8,0,0,0,5.09,16,7.92,7.92,0,0,1,4,12a8,8,0,0,1,16,0A7.92,7.92,0,0,1,18.91,16Z"/></svg>
         Log in
       </div>
-      <div class="Nav_user Nav_button" data-cy="logged-user" v-show="loggedIn.active" @click="loginDropdown = !loginDropdown" v-cloak>
+      <div class="Nav_user Nav_button" data-cy="logged-user" v-show="this.$root.loggedIn.active" @click="loginDropdown = !loginDropdown" v-cloak>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="#5aac44"/></svg>
-        {{ loggedIn.email }}
+        {{ this.$root.loggedIn.email }}
         <div id="myDropdown" class="dropdown-content" :class="{ show: loginDropdown }">
           <span @click="logout()">Log out</span>
         </div>
@@ -337,58 +336,67 @@
       v-cloak
       >
       </div>
-    </nav>
-    <div
-				class="Overlay"
-				v-on:click.self="closeLogin()"
-        v-show="showLoginModule"
-        v-cloak
-			>
-				<div class="LoginModule" data-cy="login-module">
-					<div class="LoginModule_exit">
-						<svg
-              class="Cancel"
-              data-cy="close-login"
-							v-on:click="closeLogin()"
-						>
-							<line x1="0" y1="0" x2="15" y2="15"/>
-							<line x1="0" y1="15" x2="15" y2="0"/>
-						</svg>
-					</div>
-          <div v-show="loginCardActive">
-            <h2 class="LoginModule_title">Log in to your account</h2>
-              <div class="credentials">
-                <p class="LoginModule_description">Enter your email and password to log in</p>
-                <input type="email" placeholder="Email address" data-cy="login-email" id="loginEmail" v-model="loginEmail" autocomplete="off">
-                <input type="password" placeholder="Password" data-cy="login-password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">
-                <div class="LoginModule_buttons">
-                  <button class="Button" data-cy="login" @click="login">
-                    Log in</button>
-                </div>
-              </div>
-              <p class="LoginModule_logSignSwitch">Don’t have an account? <a @click="logSignSwitch">Sign up here</a></p>
-          </div>
-          <div v-show="signupCardActive">
-            <h2 class="LoginModule_title">Sign up to create a free account</h2>
-              <div class="credentials">
-                <p class="LoginModule_description">Enter your email and password to sign up</p>
-                <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail" data-cy="signup-email" autocomplete="off">
-                <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword" data-cy="signup-password" v-on:keyup.enter="signup">
-                <div class="welcomeEmail">
-                  <label class="emails_title">
-                    <input type="checkbox" class="checkmark" data-cy="welcome-email-checkbox" v-model="sendEmails">
-                    Send me a welcome email
-                  </label>
-                </div>
-                <div class="LoginModule_buttons">
-                  <button class="Button" data-cy="signup" @click="signup">
-                    Sign up</button>
-                </div>
-              </div>
-              <p class="LoginModule_logSignSwitch">Already have an account? <a @click="logSignSwitch">Go to log in</a></p>
-          </div>
+  </nav>
+</template>
+
+<template id="login">
+  <div
+      class="Overlay"
+      v-on:click.self="closeLogin()"
+      v-show="this.$root.showLoginModule"
+      v-cloak
+    >
+      <div class="LoginModule" data-cy="login-module">
+        <div class="LoginModule_exit">
+          <svg
+            class="Cancel"
+            data-cy="close-login"
+            v-on:click="closeLogin()"
+          >
+            <line x1="0" y1="0" x2="15" y2="15"/>
+            <line x1="0" y1="15" x2="15" y2="0"/>
+          </svg>
         </div>
-    </div>
+        <div v-show="loginCardActive">
+          <h2 class="LoginModule_title">Log in to your account</h2>
+            <div class="credentials">
+              <p class="LoginModule_description">Enter your email and password to log in</p>
+              <input type="email" placeholder="Email address" data-cy="login-email" id="loginEmail" v-model="loginEmail" autocomplete="off">
+              <input type="password" placeholder="Password" data-cy="login-password" id="loginPassword" v-model="loginPassword" v-on:keyup.enter="login">
+              <div class="LoginModule_buttons">
+                <button class="Button" data-cy="login" @click="login">
+                  Log in</button>
+              </div>
+            </div>
+            <p class="LoginModule_logSignSwitch">Don’t have an account? <a @click="logSignSwitch">Sign up here</a></p>
+        </div>
+        <div v-show="signupCardActive">
+          <h2 class="LoginModule_title">Sign up to create a free account</h2>
+            <div class="credentials">
+              <p class="LoginModule_description">Enter your email and password to sign up</p>
+              <input type="email" placeholder="Email address" id="signupEmail" v-model="signupEmail" data-cy="signup-email" autocomplete="off">
+              <input type="password" placeholder="Password" id="signupPassword" v-model="signupPassword" data-cy="signup-password" v-on:keyup.enter="signup">
+              <div class="welcomeEmail">
+                <label class="emails_title">
+                  <input type="checkbox" class="checkmark" data-cy="welcome-email-checkbox" v-model="sendEmails">
+                  Send me a welcome email
+                </label>
+              </div>
+              <div class="LoginModule_buttons">
+                <button class="Button" data-cy="signup" @click="signup">
+                  Sign up</button>
+              </div>
+            </div>
+            <p class="LoginModule_logSignSwitch">Already have an account? <a @click="logSignSwitch">Go to log in</a></p>
+        </div>
+      </div>
+  </div>
+</template>
+
+<body>
+	<div id="trello-app" v-shortkey="['f2']" @shortkey="toggleTools()">
+    <Navbar></Navbar>
+    <Login></Login>
     <div id="errorMessage" v-show="errorMessage.show" v-cloak>{{ errorMessage.text }}</div>
     <div id="loginMessage" v-show="loggedIn.active" v-cloak>User is logged in</div>
     <div id="tools" v-show="tools" v-cloak>Reset application:
