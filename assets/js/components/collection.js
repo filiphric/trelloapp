@@ -50,13 +50,14 @@ Vue.component('board-collection', {
       if (!this.newBoardTitle) {
         return;
       }
+      // send api request to create a board
       axios.post('/api/boards', { name: this.newBoardTitle }).then((r) => {
         this.boards.push(r.data);
         this.$router.push(`/board/${r.data.id}`);
-      }).catch( () => {
+      }).catch( () => { // handle error, show error message
         this.$root.errorMessage.show = true;
         this.$root.errorMessage.text = 'There was an error creating board';
-        setTimeout(() => {
+        setTimeout(() => { // hide error message after 4 seconds
           this.$root.errorMessage.show = false;
         }, 4000);
       });

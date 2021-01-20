@@ -225,15 +225,15 @@ Vue.component('board', {
         listId: list.id,
         title: this.newTaskTitle
       };
-      axios
+      axios // send api request to create a task
         .post('/api/tasks', task)
         .then(() => {
           this.newTaskTitle = '';
           this.newTaskInputActive = false;
-        }).catch( () => {
+        }).catch( () => { // handle error, show error message
           this.$root.errorMessage.show = true;
           this.$root.errorMessage.text = 'There was an error creating task';
-          setTimeout(() => {
+          setTimeout(() => { // hide error message after 4 seconds
             this.$root.errorMessage.show = false;
           }, 4000);
         });
@@ -247,15 +247,15 @@ Vue.component('board', {
         boardId: this.currentBoard.id,
         title: this.newListTitle
       };
-      axios
+      axios // send api request to create a list
         .post('/api/lists', list)
         .then(() => {
           this.newListTitle = '';
           this.newListInputActive = false;
-        }).catch( () => {
+        }).catch( () => { // handle error, show error message
           this.$root.errorMessage.show = true;
           this.$root.errorMessage.text = 'There was an error creating list';
-          setTimeout(() => {
+          setTimeout(() => { // hide error message after 4 seconds
             this.$root.errorMessage.show = false;
           }, 4000);
         });
