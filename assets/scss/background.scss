@@ -10,7 +10,9 @@
 	.background_container {
 		margin: 10px auto;
 		width: 90%;
-		max-width: 1300px;
+    max-width: 1300px;
+    overflow: scroll;
+    max-height: 100vh;
 	}
 	.background_title {
 		@include openSans($large, $black);
@@ -52,7 +54,7 @@
   left: 0;
   line-height: 1.4em;
   font-size: 18px;
-  overflow: hidden; 
+  overflow: hidden;
   position: absolute;
   right: 0;
   text-align: center;

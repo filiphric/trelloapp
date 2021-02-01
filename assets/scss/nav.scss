@@ -5,7 +5,8 @@ nav.Nav {
 	width: 100vw;
 	height: $nav-height;
 	background-color: $blue-7;
-	display: block;
+  display: block;
+  z-index: 999;
 	.Nav_boards {
 		position: absolute;
 		left: 10px;
