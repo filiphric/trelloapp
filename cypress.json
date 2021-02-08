@@ -1,7 +1,11 @@
 {
   "baseUrl": "http://localhost:3000",
   "pluginsFile": "cypress/plugins/index.ts",
+  "projectId": "7vknyb",
+  "retries": {
+    "openMode": 0,
+    "runMode": 2
+  },
   "supportFile": "cypress/support/index.ts",
-  "video": false,
-  "projectId": "7vknyb"
+  "video": false
 }
