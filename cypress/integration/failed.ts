@@ -5,7 +5,7 @@ beforeEach(() => {
 
 });
 
-it('opens board', () => {
+it.skip('opens board', () => {
 
   cy
     .visit('/');
