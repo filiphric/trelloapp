@@ -19,7 +19,7 @@ it('board id must be even', () => {
     .wait('@board')
     .then(({ response }) => {
 
-      expect(response.body.id % 2 == 0).to.be.true;
+      expect(response.body.id % 5 == 0).to.be.true;
 
     });
 
