@@ -4,7 +4,7 @@
   "projectId": "7vknyb",
   "retries": {
     "openMode": 0,
-    "runMode": 2
+    "runMode": 10
   },
   "supportFile": "cypress/support/index.ts",
   "video": false
