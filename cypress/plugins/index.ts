@@ -1,18 +1,14 @@
 const clipboardy = require('clipboardy');
+const { setupDb } = require('./setupDb.js')
 
-module.exports = (on, config) => {
+module.exports = (on: Cypress.PluginEvents, config: Cypress.ConfigOptions) => {
   on('task', {
+    setupDb: setupDb,
     getClipboard: () => {
       const clipboard: string = clipboardy.readSync();
       return clipboard;
     },
   })
-  require('@cypress/code-coverage/task')(on, config);
 
-  // add other tasks to be registered here
-
-
-  // IMPORTANT to return the config object
-  // with the any changed environment variables
   return config;
 };

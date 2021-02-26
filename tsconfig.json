@@ -4,6 +4,7 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "cypress-real-events", "node"],
     "allowJs": true,
+    "resolveJsonModule": true,
     "baseUrl": "./"
   },
   "include": [
