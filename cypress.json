@@ -1,5 +1,8 @@
 {
   "baseUrl": "http://localhost:3000",
+  "env": {
+    "coverage": false
+  },
   "pluginsFile": "cypress/plugins/index.ts",
   "projectId": "7vknyb",
   "retries": {
@@ -7,5 +10,7 @@
     "runMode": 10
   },
   "supportFile": "cypress/support/index.ts",
-  "video": false
+  "video": false,
+  "viewportHeight": 550,
+  "viewportWidth": 700
 }

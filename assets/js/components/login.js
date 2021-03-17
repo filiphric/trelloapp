@@ -56,7 +56,6 @@ Vue.component('Login', {
         .then( r => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${r.data.accessToken}`;
           document.cookie = `trello_token=${r.data.accessToken}`;
-          this.$root.loggedIn.active = true;
           this.$root.loggedIn.email = this.loginEmail;
           this.$root.showLoginModule = false;
           this.loginCardActive = false;
@@ -92,7 +91,6 @@ Vue.component('Login', {
 
           }
 
-          this.$root.loggedIn.active = true;
           this.$root.loggedIn.email = this.signupEmail;
           this.$root.showLoginModule = false;
           this.loginCardActive = false;
