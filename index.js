@@ -1,5 +1,6 @@
 const jsonServer = require('json-server');
 const auth = require('json-server-auth');
+const nocache = require('nocache')
 
 const server = jsonServer.create();
 
@@ -13,6 +14,7 @@ const router = jsonServer.router('./public/data/data.json');
 server.db = router.db;
 server.use(history());
 server.use(defaults);
+server.use(nocache());
 server.use(busboy());
 server.use(jsonServer.rewriter({
   '/api/*': '/$1',
