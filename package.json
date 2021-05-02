@@ -45,7 +45,7 @@
     "require-uncached": "^2.0.0",
     "sass": "^1.26.8",
     "sendmail": "^1.6.1",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "typescript": "^4.0.2",
     "vue": "^2.6.11",
     "vue-focus": "^0.1.1",
